@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC=gcc 
-CPPFLAGS=-Wall -Wextra -Werror
+CPPFLAGS=-g -Wall -Wextra -Werror
 NAME=push_swap
 FILES=main.c\
 sa.c\
@@ -32,15 +32,15 @@ OBJSDIR=$(addprefix src/, $(OBJECTS))
 all: $(NAME)
 
 $(NAME): $(OBJSDIR)
-	make -C libft/ fclean && make -C libft/
-	$(CC) $(CPPFLAGS) $(OBJSDIR) -L libft/ -lft -o $(NAME)
+	make -C ../libft/ fclean && make -C ../libft/
+	$(CC) $(CPPFLAGS) $(OBJSDIR) -L ../libft/ -lft -o $(NAME)
 
 clean:
-	make -C libft/ clean
+	make -C ../libft/ clean
 	rm -f $(OBJSDIR)
 
 fclean:clean
-	make -C libft/ fclean
+	make -C ../libft/ fclean
 	rm -f $(NAME)
 
 re: fclean all

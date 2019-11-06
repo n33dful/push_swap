@@ -33,9 +33,24 @@ static void	print_stack(t_stack *a, t_stack *b)
 			ft_putchar(' ');
 		ft_putchar('\n');
 	}
-	ft_putchar('\n');
 	ft_putstr("- -\n");
 	ft_putstr("a b\n");
+}
+
+int			is_sorted(t_stack *a, t_stack *b)
+{
+	t_stack *tmp;
+
+	tmp = a;
+	if (b != NULL)
+		return (0);
+	while (tmp->next)
+	{
+		if (tmp->num > tmp->next->num)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
 }
 
 int			main(int argc, char **argv)
@@ -47,6 +62,18 @@ int			main(int argc, char **argv)
 		exit(-1);
 	a = create_stack(argc, argv);
 	b = NULL;
+	while (!is_sorted(a, b))
+	{
+		if (!a->next)
+		{
+			while (b)
+				pa(&a, &b);
+		}
+		else if (a->next && a->num <= a->next->num)
+			pb(&a, &b);
+		else
+			ra(&a);
+	}
 	print_stack(a, b);
 	return (0);
 }
