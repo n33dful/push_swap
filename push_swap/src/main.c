@@ -57,7 +57,9 @@ int			main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
+	int		i;
 
+	i = 0;
 	if (argc < 2)
 		exit(-1);
 	a = create_stack(argc, argv);
@@ -67,13 +69,29 @@ int			main(int argc, char **argv)
 		if (!a->next)
 		{
 			while (b)
+			{
 				pa(&a, &b);
+				ft_putstr("pa\n");
+				i++;
+			}
 		}
 		else if (a->next && a->num <= a->next->num)
+		{
 			pb(&a, &b);
+			ft_putstr("pb\n");
+			i++;
+		}
 		else
+		{
 			ra(&a);
+			ft_putstr("ra\n");
+			i++;
+		}
 	}
+	ft_putstr("Total commands: ");
+	ft_putnbr(i);
+	ft_putchar('\n');
 	print_stack(a, b);
+	delete_stack(&a);
 	return (0);
 }

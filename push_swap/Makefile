@@ -25,7 +25,8 @@ rr.c\
 rra.c\
 rrb.c\
 rrr.c\
-create_stack.c
+create_stack.c\
+delete_stack.c
 OBJECTS=$(FILES:.c=.o)
 OBJSDIR=$(addprefix src/, $(OBJECTS))
 
