@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:16:20 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/05 20:59:45 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/07 23:40:44 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,43 +53,84 @@ int			is_sorted(t_stack *a, t_stack *b)
 	return (1);
 }
 
+int			stack_len(t_stack *stack)
+{
+	int	len;
+
+	len = 0;
+	while (stack)
+	{
+		stack = stack->next;
+		len++;
+	}
+	return (len);
+}
+
+void		bubble_sort_high(t_stack **stack)
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	len = stack_len((*stack)) - 1;
+	while (i < len)
+	{
+		if ((*stack)->num > (*stack)->next->num)
+		{
+			sa(stack);
+		}
+		ra(stack);
+		i++;
+	}
+	ra(stack); //ошибка
+}
+
+void		bubble_sort_low(t_stack **stack)
+{
+	int	current;
+	int	len;
+	int	i;
+
+	i = 0;
+	len = stack_len((*stack)) - 1;
+	while (i < len)
+	{
+		ra(stack);
+		current = (*stack)->num;
+		rra(stack);
+		if ((*stack)->num < current)
+		{
+			sa(stack);
+			ra(stack);
+		}
+		ra(stack);
+		i++;
+	}
+	ra(stack);
+}
+
 int			main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
 	int		i;
+	int		len;
 
 	i = 0;
 	if (argc < 2)
 		exit(-1);
 	a = create_stack(argc, argv);
 	b = NULL;
-	while (!is_sorted(a, b))
+	len = stack_len(a);
+	while (i < len / 2)
 	{
-		if (!a->next)
-		{
-			while (b)
-			{
-				pa(&a, &b);
-				ft_putstr("pa\n");
-				i++;
-			}
-		}
-		else if (a->next && a->num <= a->next->num)
-		{
-			pb(&a, &b);
-			ft_putstr("pb\n");
-			i++;
-		}
-		else
-		{
-			ra(&a);
-			ft_putstr("ra\n");
-			i++;
-		}
+		pb(&a, &b);
+		i++;
 	}
-	ft_putstr("Total commands: ");
-	ft_putnbr(i);
+	
+	bubble_sort_high(&a);
+	bubble_sort_low(&b);
+	
 	ft_putchar('\n');
 	print_stack(a, b);
 	delete_stack(&a);
