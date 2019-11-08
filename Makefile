@@ -6,7 +6,7 @@
 #    By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/05 18:11:23 by cdarci            #+#    #+#              #
-#    Updated: 2019/11/05 20:50:13 by cdarci           ###   ########.fr        #
+#    Updated: 2019/11/08 16:54:25 by cdarci           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ rra.c\
 rrb.c\
 rrr.c\
 create_stack.c\
-delete_stack.c
+delete_stack.c\
+print_stack.c
 CHFILES=chmain.c\
 is_sorted.c\
 print_stack.c\

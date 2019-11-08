@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:59:38 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/05 20:49:47 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/08 16:55:09 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void				rrr(t_stack **a, t_stack **b);
 
 t_stack				*create_stack(int argc, char **argv);
 void				delete_stack(t_stack **stack);
+void				print_stack(t_stack *a, t_stack *b);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   psmain.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:16:20 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/07 23:40:44 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/08 19:30:39 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,79 +25,130 @@ int			stack_len(t_stack *stack)
 	return (len);
 }
 
-void		bubble_sort_high(t_stack **stack)
+void		bubble_sorta(t_stack **a)
 {
-	int	len;
+	int	curra;
+	int	lena;
 	int	i;
 
 	i = 0;
-	len = stack_len((*stack));
-	while (i < len)
+	lena = stack_len((*a));
+	while (i < lena)
 	{
-		if (i == 0 || (*stack)->num < (*stack)->next->num)
+		ra(a);
+		curra = (*a)->num;
+		rra(a);
+		ft_putstr("ra\nrra\n");
+		if (i == 0 || (*a)->num < curra)
 		{
-			ra(stack);
+			ra(a);
+			ft_putstr("ra\n");
 			i++;
 		}
 		else
 		{
-			sa(stack);
-			rra(stack);
+			sa(a);
+			rra(a);
+			ft_putstr("sa\nrra\n");
 			i--;
 		}
 	}
-	ra(stack);
+	ra(a);
+	ft_putstr("ra\n");
 }
 
-void		bubble_sort_low(t_stack **stack)
+void		bubble_sortb(t_stack **b)
 {
-	int	current;
+	int	curra;
+	int	lenb;
+	int	i;
+
+	i = 0;
+	lenb = stack_len((*b));
+	while (i < lenb)
+	{
+		rb(b);
+		curra = (*b)->num;
+		rrb(b);
+		ft_putstr("rb\nrrb\n");
+		if (i == 0 || (*b)->num < curra)
+		{
+			rb(b);
+			ft_putstr("rb\n");
+			i++;
+		}
+		else
+		{
+			sb(b);
+			rrb(b);
+			ft_putstr("sb\nrrb\n");
+			i--;
+		}
+	}
+	rb(b);
+	ft_putstr("rb\n");
+}
+
+void	insert(t_stack **a, t_stack **b)
+{
 	int	len;
 	int	i;
 
 	i = 0;
-	len = stack_len((*stack)) - 1;
-	while (i < len)
+	len = stack_len((*a));
+	while ((*b))
 	{
-		ra(stack);
-		current = (*stack)->num;
-		rra(stack);
-		if ((*stack)->num < current)
+		if (i == len - 1 && (*b)->num > (*a)->num)
 		{
-			sa(stack);
-			ra(stack);
+			pa(a, b);
+			ft_putstr("pa\n");
+			len = stack_len((*a));
 		}
-		ra(stack);
-		i++;
+		else if ((*b)->num < (*a)->num)
+		{
+			pa(a, b);
+			ft_putstr("pa\n");
+			len = stack_len((*a));
+		}
+		else
+		{
+			ra(a);
+			ft_putstr("ra\n");
+			i++;
+		}
+		if (i == len)
+			i = 0;
 	}
-	ra(stack);
+	while (i > 0)
+	{
+		rra(a);
+		ft_putstr("rra\n");
+		i--;
+	}
 }
 
 int			main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
+	int		len;
+	int		i;
 
+	i = 0;
 	if (argc < 2)
 		exit(-1);
 	a = create_stack(argc, argv);
 	b = NULL;
-	
-	pb(&a, &b);
-	ra(&a);
-	pa(&a, &b);
-	ra(&a);
-	ra(&a);
-	ra(&a);
-	pb(&a, &b);
-	sa(&a);
-	rra(&a);
-	pa(&a, &b);
-	ra(&a);
-	ft_putstr("pb\nra\npa\nra\nra\nra\npb\nsa\nrra\npa\nra\n");
-	/*
-	** 6 4 8 1 9 3 2
-	*/
+	len = stack_len(a);
+	while (i < len / 2)
+	{
+		pb(&a, &b);
+		ft_putstr("pb\n");
+		i++;
+	}
+	bubble_sorta(&a);
+	bubble_sortb(&b);
+	insert(&a, &b);
 	delete_stack(&a);
 	return (0);
 }

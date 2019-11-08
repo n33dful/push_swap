@@ -76,6 +76,7 @@ int			main(int argc, char **argv)
 		ft_putstr("OK\n");
 	else
 		ft_putstr("KO\n");
+	print_stack(a, b);
 	delete_stack(&a);
 	ft_strdel(&commands);
 	return (0);
