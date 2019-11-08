@@ -12,47 +12,6 @@
 
 #include "push_swap.h"
 
-//static void	print_stack(t_stack *a, t_stack *b)
-//{
-//	while (a || b)
-//	{
-//		if (a)
-//		{
-//			ft_putnbr(a->num);
-//			a = a->next;
-//		}
-//		else
-//			ft_putchar(' ');
-//		ft_putchar(' ');
-//		if (b)
-//		{
-//			ft_putnbr(b->num);
-//			b = b->next;
-//		}
-//		else
-//			ft_putchar(' ');
-//		ft_putchar('\n');
-//	}
-//	ft_putstr("- -\n");
-//	ft_putstr("a b\n");
-//}
-
-int			is_sorted(t_stack *a, t_stack *b)
-{
-	t_stack *tmp;
-
-	tmp = a;
-	if (b != NULL)
-		return (0);
-	while (tmp->next)
-	{
-		if (tmp->num > tmp->next->num)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
-}
-
 int			stack_len(t_stack *stack)
 {
 	int	len;
@@ -139,7 +98,6 @@ int			main(int argc, char **argv)
 	/*
 	** 6 4 8 1 9 3 2
 	*/
-	//print_stack(a, b);
 	delete_stack(&a);
 	return (0);
 }

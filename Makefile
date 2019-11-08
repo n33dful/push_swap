@@ -29,7 +29,22 @@ rrb.c\
 rrr.c\
 create_stack.c\
 delete_stack.c
-CHFILES=chmain.c
+CHFILES=chmain.c\
+is_sorted.c\
+print_stack.c\
+create_stack.c\
+delete_stack.c\
+sa.c\
+sb.c\
+ss.c\
+pa.c\
+pb.c\
+ra.c\
+rb.c\
+rr.c\
+rra.c\
+rrb.c\
+rrr.c
 PSOBJECTS=$(PSFILES:.c=.o)
 CHOBJECTS=$(CHFILES:.c=.o)
 PSOBJSDIR=$(addprefix src/, $(PSOBJECTS))

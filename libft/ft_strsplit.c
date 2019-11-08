@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../incl/libft.h"
 
 static int		ft_nbw(const char *str, char c)
 {

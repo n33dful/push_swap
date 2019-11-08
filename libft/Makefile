@@ -77,7 +77,7 @@ FILES = ft_isprint.c\
 
 OBJ			= $(patsubst %.c, %.o, $(FILES))
 FLAGS		= -g -Wall -Werror -Wextra
-HEADER		= libft.h
+HEADER		= ../incl/libft.h
 
 all: $(NAME)
 
@@ -87,7 +87,7 @@ $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
 %.o: %.c $(HEADER)
-	gcc -I . $(FLAGS) $< -c -o $@
+	gcc -Iincl $(FLAGS) $< -c -o $@
 
 clean:
 	rm -f $(OBJ)
