@@ -12,30 +12,30 @@
 
 #include "push_swap.h"
 
-static void	print_stack(t_stack *a, t_stack *b)
-{
-	while (a || b)
-	{
-		if (a)
-		{
-			ft_putnbr(a->num);
-			a = a->next;
-		}
-		else
-			ft_putchar(' ');
-		ft_putchar(' ');
-		if (b)
-		{
-			ft_putnbr(b->num);
-			b = b->next;
-		}
-		else
-			ft_putchar(' ');
-		ft_putchar('\n');
-	}
-	ft_putstr("- -\n");
-	ft_putstr("a b\n");
-}
+//static void	print_stack(t_stack *a, t_stack *b)
+//{
+//	while (a || b)
+//	{
+//		if (a)
+//		{
+//			ft_putnbr(a->num);
+//			a = a->next;
+//		}
+//		else
+//			ft_putchar(' ');
+//		ft_putchar(' ');
+//		if (b)
+//		{
+//			ft_putnbr(b->num);
+//			b = b->next;
+//		}
+//		else
+//			ft_putchar(' ');
+//		ft_putchar('\n');
+//	}
+//	ft_putstr("- -\n");
+//	ft_putstr("a b\n");
+//}
 
 int			is_sorted(t_stack *a, t_stack *b)
 {
@@ -72,17 +72,22 @@ void		bubble_sort_high(t_stack **stack)
 	int	i;
 
 	i = 0;
-	len = stack_len((*stack)) - 1;
+	len = stack_len((*stack));
 	while (i < len)
 	{
-		if ((*stack)->num > (*stack)->next->num)
+		if (i == 0 || (*stack)->num < (*stack)->next->num)
+		{
+			ra(stack);
+			i++;
+		}
+		else
 		{
 			sa(stack);
+			rra(stack);
+			i--;
 		}
-		ra(stack);
-		i++;
 	}
-	ra(stack); //ошибка
+	ra(stack);
 }
 
 void		bubble_sort_low(t_stack **stack)
@@ -113,26 +118,28 @@ int			main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
-	int		i;
-	int		len;
 
-	i = 0;
 	if (argc < 2)
 		exit(-1);
 	a = create_stack(argc, argv);
 	b = NULL;
-	len = stack_len(a);
-	while (i < len / 2)
-	{
-		pb(&a, &b);
-		i++;
-	}
 	
-	bubble_sort_high(&a);
-	bubble_sort_low(&b);
-	
-	ft_putchar('\n');
-	print_stack(a, b);
+	pb(&a, &b);
+	ra(&a);
+	pa(&a, &b);
+	ra(&a);
+	ra(&a);
+	ra(&a);
+	pb(&a, &b);
+	sa(&a);
+	rra(&a);
+	pa(&a, &b);
+	ra(&a);
+	ft_putstr("pb\nra\npa\nra\nra\nra\npb\nsa\nrra\npa\nra\n");
+	/*
+	** 6 4 8 1 9 3 2
+	*/
+	//print_stack(a, b);
 	delete_stack(&a);
 	return (0);
 }

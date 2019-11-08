@@ -11,9 +11,11 @@
 # **************************************************************************** #
 
 CC=gcc 
-CPPFLAGS=-g -Wall -Wextra -Werror
-NAME=push_swap
-FILES=main.c\
+CPPFLAGS=-g -Wall -Wextra -Werror -Iincl
+PSNAME=push_swap
+CHNAME=checker
+LIBNAME=libft/libft.a
+PSFILES=psmain.c\
 sa.c\
 sb.c\
 ss.c\
@@ -27,22 +29,32 @@ rrb.c\
 rrr.c\
 create_stack.c\
 delete_stack.c
-OBJECTS=$(FILES:.c=.o)
-OBJSDIR=$(addprefix src/, $(OBJECTS))
+CHFILES=chmain.c
+PSOBJECTS=$(PSFILES:.c=.o)
+CHOBJECTS=$(CHFILES:.c=.o)
+PSOBJSDIR=$(addprefix src/, $(PSOBJECTS))
+CHOBJSDIR=$(addprefix src/, $(CHOBJECTS))
 
-all: $(NAME)
+all: $(PSNAME) $(CHNAME) $(LIBNAME)
 
-$(NAME): $(OBJSDIR)
-	make -C ../libft/ fclean && make -C ../libft/
-	$(CC) $(CPPFLAGS) $(OBJSDIR) -L ../libft/ -lft -o $(NAME)
+$(PSNAME): $(PSOBJSDIR) $(LIBNAME)
+	$(CC) $(CPPFLAGS) $(PSOBJSDIR) -Llibft -lft -o $(PSNAME)
+
+$(CHNAME): $(CHOBJSDIR) $(LIBNAME)
+	$(CC) $(CPPFLAGS) $(CHOBJSDIR) -Llibft -lft -o $(CHNAME)
+
+$(LIBNAME):
+	make -C libft/
 
 clean:
-	make -C ../libft/ clean
-	rm -f $(OBJSDIR)
+	make -C libft/ clean
+	rm -f $(PSOBJSDIR)
+	rm -f $(CHOBJSDIR)
 
 fclean:clean
-	make -C ../libft/ fclean
-	rm -f $(NAME)
+	make -C libft/ fclean
+	rm -f $(PSNAME)
+	rm -f $(CHNAME)
 
 re: fclean all
 
