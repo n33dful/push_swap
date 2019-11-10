@@ -6,11 +6,11 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:38:44 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/05 19:29:40 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/10 19:12:08 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../incl/push_swap.h"
 
 static t_stack	*stacknew(char *num)
 {

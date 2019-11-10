@@ -6,11 +6,11 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:16:20 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/08 19:30:39 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/10 20:24:38 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../incl/push_swap.h"
 
 int			stack_len(t_stack *stack)
 {
@@ -25,68 +25,63 @@ int			stack_len(t_stack *stack)
 	return (len);
 }
 
-void		bubble_sorta(t_stack **a)
+void		bubble_sort(t_stack **a, t_stack **b)
 {
-	int	curra;
 	int	lena;
+	int	lenb;
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	lena = stack_len((*a));
-	while (i < lena)
+	lenb = stack_len((*b));
+	while (i < lena || j < lenb)
 	{
-		ra(a);
-		curra = (*a)->num;
-		rra(a);
-		ft_putstr("ra\nrra\n");
-		if (i == 0 || (*a)->num < curra)
+		if ((i == 0 && j == 0) || ((*a)->next && (*a)->num < (*a)->next->num && (*b)->next && (*b)->num < (*b)->next->num))
+		{
+			rr(a, b);
+			ft_putstr("rr\n");
+			i++;
+			j++;
+		}
+		else if (i == 0 || ((*a)->next && (*a)->num < (*a)->next->num))
 		{
 			ra(a);
 			ft_putstr("ra\n");
 			i++;
 		}
-		else
+		else if (j == 0 || ((*b)->next && (*b)->num < (*b)->next->num))
+		{
+			rb(b);
+			ft_putstr("rb\n");
+			j++;
+		}
+		else if (i >= lena)
+		{
+			sb(b);
+			rrb(b);
+			ft_putstr("sb\nrrb\n");
+			j--;
+		}
+		else if (j >= lenb)
 		{
 			sa(a);
 			rra(a);
 			ft_putstr("sa\nrra\n");
 			i--;
 		}
-	}
-	ra(a);
-	ft_putstr("ra\n");
-}
-
-void		bubble_sortb(t_stack **b)
-{
-	int	curra;
-	int	lenb;
-	int	i;
-
-	i = 0;
-	lenb = stack_len((*b));
-	while (i < lenb)
-	{
-		rb(b);
-		curra = (*b)->num;
-		rrb(b);
-		ft_putstr("rb\nrrb\n");
-		if (i == 0 || (*b)->num < curra)
-		{
-			rb(b);
-			ft_putstr("rb\n");
-			i++;
-		}
 		else
 		{
-			sb(b);
-			rrb(b);
-			ft_putstr("sb\nrrb\n");
+			ss(a, b);
+			rrr(a, b);
+			ft_putstr("ss\nrrr\n");
 			i--;
+			j--;
 		}
 	}
-	rb(b);
-	ft_putstr("rb\n");
+	rr(a, b);
+	ft_putstr("rr\n");
 }
 
 void	insert(t_stack **a, t_stack **b)
@@ -98,10 +93,11 @@ void	insert(t_stack **a, t_stack **b)
 	len = stack_len((*a));
 	while ((*b))
 	{
-		if (i == len - 1 && (*b)->num > (*a)->num)
+		if (i == len && (*b)->num > (*a)->num)
 		{
+			ra(a);
 			pa(a, b);
-			ft_putstr("pa\n");
+			ft_putstr("ra\npa\n");
 			len = stack_len((*a));
 		}
 		else if ((*b)->num < (*a)->num)
@@ -116,14 +112,12 @@ void	insert(t_stack **a, t_stack **b)
 			ft_putstr("ra\n");
 			i++;
 		}
-		if (i == len)
-			i = 0;
 	}
-	while (i > 0)
+	while (i < len)
 	{
-		rra(a);
-		ft_putstr("rra\n");
-		i--;
+		ra(a);
+		ft_putstr("ra\n");
+		i++;
 	}
 }
 
@@ -146,8 +140,7 @@ int			main(int argc, char **argv)
 		ft_putstr("pb\n");
 		i++;
 	}
-	bubble_sorta(&a);
-	bubble_sortb(&b);
+	bubble_sort(&a, &b);
 	insert(&a, &b);
 	delete_stack(&a);
 	return (0);
