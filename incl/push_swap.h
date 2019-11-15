@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:59:38 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/08 16:55:09 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/15 15:58:59 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef struct		s_stack
 {
 	int				num;
+	int				index;
 	struct s_stack	*next;
 }					t_stack;
 

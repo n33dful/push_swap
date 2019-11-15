@@ -6,24 +6,40 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:38:44 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/10 19:12:08 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/15 15:59:12 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/push_swap.h"
 
-static t_stack	*stacknew(char *num)
+static void		delarr(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
+
+static t_stack	*stacknew(char **arr)
 {
 	t_stack *new;
+	int		i;
 
+	i = 0;
+	new = NULL;
+	if (!(*arr))
+		return (NULL);
 	if (!(new = (t_stack *)malloc(sizeof(t_stack))))
 		exit(-1);
-	new->num = ft_atoi(num);
-	new->next = NULL;
+	new->num = ft_atoi(arr[i]);
+	new->index = 0;
+	new->next = stacknew(arr + 1);
 	return (new);
 }
 
-static void		stack_add(t_stack **a, t_stack *b)
+static void		add(t_stack **a, t_stack *b)
 {
 	t_stack	*tmp;
 
@@ -39,14 +55,18 @@ static void		stack_add(t_stack **a, t_stack *b)
 t_stack			*create_stack(int argc, char **argv)
 {
 	t_stack	*stack;
+	char	**arr;
 	int		i;
 
-	i = 1;
-	stack = stacknew(argv[i]);
-	i++;
+	i = 2;
+	arr = ft_strsplit(argv[1], ' ');
+	stack = stacknew(arr);
+	delarr(arr);
 	while (i < argc)
 	{
-		stack_add(&stack, stacknew(argv[i]));
+		arr = ft_strsplit(argv[i], ' ');
+		add(&stack, stacknew(arr));
+		delarr(arr);
 		i++;
 	}
 	return (stack);
