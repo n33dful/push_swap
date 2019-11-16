@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:38:44 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/15 15:59:12 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/16 16:28:06 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static t_stack	*stacknew(char **arr)
 		exit(-1);
 	new->num = ft_atoi(arr[i]);
 	new->index = 0;
+	new->markup = 1;
 	new->next = stacknew(arr + 1);
 	return (new);
 }
