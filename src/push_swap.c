@@ -180,6 +180,7 @@ void		indexation(t_stack **stack, int *arr)
 		a->index = i;
 		a = a->next;
 	}
+	a = NULL;
 	free(arr);
 }
 
@@ -187,15 +188,20 @@ int			main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
-	int		i;
 
-	i = 0;
 	if (argc < 2)
 		exit(-1);
 	a = create_stack(argc, argv);
 	b = NULL;
 	indexation(&a, nums(a));
-	print_stack(a, b);
+	b = a;
+	while (b)
+	{
+		printf("elem = %d, index = %d\n", b->num, b->index);
+		b = b->next;
+	}
+	b = NULL;
+	//print_stack(a, b);
 	delete_stack(&a);
 	return (0);
 }

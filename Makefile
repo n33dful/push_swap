@@ -15,7 +15,7 @@ CPPFLAGS=-g -Wall -Wextra -Werror -Iincl
 PSNAME=push_swap
 CHNAME=checker
 LIBNAME=libft/libft.a
-PSFILES=psmain.c\
+PSFILES=push_swap.c\
 sa.c\
 sb.c\
 ss.c\
@@ -30,7 +30,7 @@ rrr.c\
 create_stack.c\
 delete_stack.c\
 print_stack.c
-CHFILES=chmain.c\
+CHFILES=checker.c\
 is_sorted.c\
 print_stack.c\
 create_stack.c\

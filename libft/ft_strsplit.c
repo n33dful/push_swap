@@ -12,67 +12,72 @@
 
 #include "../incl/libft.h"
 
-static int		ft_nbw(const char *str, char c)
+static int ft_wordscount(char *s, char c)
 {
-	int word;
-
-	word = 0;
-	if (*str != c && *str)
-	{
-		str++;
-		word++;
-	}
-	while (*str)
-	{
-		while (*str == c)
-		{
-			str++;
-			if (*str != c && *str)
-				word++;
-		}
-		str++;
-	}
-	return (word);
-}
-
-static int		ft_ln(const char *str, char c)
-{
-	int count;
+	int	count;
 
 	count = 0;
-	while (*str != c && *str)
+	while (*s != '\0')
 	{
-		count++;
-		str++;
+		if (*s != c && *s != '\0')
+		{
+			while (*s != c && *s != '\0')
+				s++;
+			count++;
+		}
+		else
+			s++;
 	}
 	return (count);
 }
 
-char			**ft_strsplit(char const *s, char c)
+static int	ft_wordlen(char *s, char c)
 {
-	int		j;
-	int		i;
-	char	**spt;
+	int	len;
 
-	j = 0;
+	len = 0;
+	while (s[len] != c && s[len] != '\0')
+		len++;
+	return (len);
+}
+
+static char	*ft_copyandmove(char **str, int len)
+{
+	char	*new;
+	int		i;
+
 	i = 0;
-	if (!s || (!(spt = (char **)malloc(sizeof(char *) * (ft_nbw(s, c) + 1)))))
-		return (NULL);
-	while (*s)
+	new = (char *)malloc(sizeof(char) * (len + 1));
+	while (i < len)
+		new[i++] = *((*str)++);
+	new[i] = '\0';
+	return (new);
+}
+
+char		**ft_strsplit(char const *s, char c)
+{
+	char	**arr;
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = (char *)s;
+	arr = NULL;
+	if (str)
 	{
-		while (*s == c && *s)
-			s++;
-		if (*s != c && *s)
+		arr = (char **)malloc(sizeof(char *) * (ft_wordscount(str, c) + 1));
+		while ((*str) != '\0')
 		{
-			if (!(spt[j] = (char *)malloc(sizeof(char) * (ft_ln(s, c) + 1))))
-				return (NULL);
-			while (*s && *s != c)
-				spt[j][i++] = (char)*s++;
-			spt[j][i] = '\0';
-			j++;
-			i = 0;
+			if ((*str) == c && (*str) != '\0')
+				str++;
+			else
+			{
+				arr[i] = ft_copyandmove(&str, ft_wordlen(str, c));
+				i++;
+			}
 		}
+		str = NULL;
+		arr[i] = NULL;
 	}
-	spt[j] = NULL;
-	return (spt);
+	return (arr);
 }
