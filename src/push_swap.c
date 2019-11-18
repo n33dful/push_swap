@@ -145,6 +145,22 @@ int			swap_need(t_stack **stack)
 	return (0);
 }
 
+int			find_min_turn(t_stack *stack)
+{
+	t_stack	*tmp;
+	int		min;
+
+	min = stack->turns;
+	tmp = stack;
+	if (tmp)
+	{
+		if (tmp->turns < min)
+			min = tmp->turns;
+		tmp = tmp->next;
+	}
+	return (min);
+}
+
 void		wedding(t_stack **a, t_stack **b)
 {
 	int	tmp;
@@ -258,9 +274,7 @@ int			main(int argc, char **argv)
 	t_stack *a;
 	t_stack *b;
 
-	if (argc < 2)
-		exit(-1);
-	if (!(a = create_stack(argc, argv)))
+	if (argc < 2 || !(a = create_stack(argc, argv)))
 	{
 		ft_putstr("Error\n");
 		exit(-1);
@@ -288,7 +302,6 @@ int			main(int argc, char **argv)
 		}
 	}
 	fix(&a);
-	//ft_putnbr(ft_opercount(&a, &b));
 	wedding(&a, &b);
 	delete_stack(&a);
 	delete_stack(&b);

@@ -20,6 +20,7 @@ typedef struct		s_stack
 	int				num;
 	int				index;
 	int				markup;
+	int				turns;
 	struct s_stack	*next;
 }					t_stack;
 
@@ -33,6 +34,6 @@ void				delete_stack(t_stack **stack);
 void				print_stack(t_stack *a, t_stack *b);
 int					ft_stacklen(t_stack *stack);
 t_stack				*ft_stackcpy(t_stack *stack);
-int					ft_opercount(t_stack **stacka, t_stack **stackb);
+void				ft_turnsindex(t_stack **stacka, t_stack **stackb);
 
 #endif

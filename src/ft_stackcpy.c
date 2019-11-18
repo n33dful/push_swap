@@ -9,6 +9,7 @@ static t_stack	*stacknew(t_stack *stack)
 	new->num = stack->num;
 	new->index = stack->index;
 	new->markup = stack->markup;
+	new->turns = stack->turns;
 	new->next = NULL;
 	return (new);
 }

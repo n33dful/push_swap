@@ -41,6 +41,7 @@ static t_stack	*stacknew(char **arr)
 	new->num = ft_atoi(arr[i]);
 	new->index = 0;
 	new->markup = 1;
+	new->turns = 0;
 	new->next = stacknew(arr + 1);
 	return (new);
 }

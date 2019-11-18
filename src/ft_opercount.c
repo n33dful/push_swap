@@ -1,6 +1,55 @@
 #include "../include/push_swap.h"
 
-int	ft_opercount(t_stack **stacka, t_stack **stackb)
+static int	ft_opercount(t_stack **stacka, t_stack **stackb);
+
+void		ft_turnsindex(t_stack **stacka, t_stack **stackb)
+{
+	t_stack	*tmp;
+	t_stack *a;
+	t_stack	*b;
+	int		i;
+	int		len;
+
+	i = 0;
+	a = ft_stackcpy(*stacka);
+	b = ft_stackcpy(*stackb);
+	len = ft_stacklen(b);
+	while (i < len / 2)
+	{
+		b->turns = ft_opercount(&a, &b) + i;
+		rotate(&b);
+		i++;
+	}
+	while (i > 0)
+	{
+		reverse_rotate(&b);
+		i--;
+	}
+	i = 0;
+	while (i < len / 2)
+	{
+		reverse_rotate(&b);
+		b->turns = -1 * (ft_opercount(&a, &b) + i % len + 1);
+		i++;
+	}
+	while (i > 0)
+	{
+		rotate(&b);
+		i--;
+	}
+	tmp = (*stackb);
+	while (b)
+	{
+		tmp->turns = b->turns;
+		b = b->next;
+		tmp = tmp->next;
+	}
+	tmp = NULL;
+	delete_stack(&a);
+	delete_stack(&b);
+}
+
+static int	ft_opercount(t_stack **stacka, t_stack **stackb)
 {
 	int		count;
 	int		finish;
@@ -26,7 +75,6 @@ int	ft_opercount(t_stack **stacka, t_stack **stackb)
 			if (b->index > tmp)
 			{
 				push(&b, &a);
-				ft_putstr("pa\n");
 				len = ft_stacklen(a);
                 count++;
 				finish = 1;
@@ -34,7 +82,6 @@ int	ft_opercount(t_stack **stacka, t_stack **stackb)
 			else if (i == 0)
 			{
 				push(&b, &a);
-				ft_putstr("pa\n");
 				len = ft_stacklen(a);
                 count++;
 				finish = 1;
@@ -42,7 +89,6 @@ int	ft_opercount(t_stack **stacka, t_stack **stackb)
 			else
 			{
 				reverse_rotate(&a);
-				ft_putstr("rra\n");
                 count++;
 				i--;
 			}
@@ -51,7 +97,6 @@ int	ft_opercount(t_stack **stacka, t_stack **stackb)
 		{
 			rotate(&a);
 			push(&b, &a);
-			ft_putstr("ra\npa\n");
 			len = ft_stacklen(a);
             count += 2;
 			finish = 1;
@@ -65,14 +110,12 @@ int	ft_opercount(t_stack **stacka, t_stack **stackb)
 			if (b->index > a->index)
 			{
 				rotate(&a);
-				ft_putstr("ra\n");
                 count++;
 				i++;
 			}
 			else if (i - 1 != 0 && b->index > tmp)
 			{
 				push(&b, &a);
-				ft_putstr("pa\n");
 				len = ft_stacklen(a);
 				finish = 1;
                 count++;
