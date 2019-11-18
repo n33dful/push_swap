@@ -12,21 +12,21 @@
 
 #include "../incl/push_swap.h"
 
-void	ra(t_stack **a)
+void	rotate(t_stack **stack)
 {
 	t_stack	*tmp;
 	size_t	adr;
 	
 	tmp = NULL;
-	adr = (size_t)(*a);
-	if ((*a))
+	adr = (size_t)(*stack);
+	if ((*stack))
 	{
-		while ((*a)->next)
-			(*a) = (*a)->next;
-		(*a)->next = (t_stack *)adr;
-		(*a) = (*a)->next;
-		tmp = (*a)->next;
-		(*a)->next = NULL;
-		(*a) = tmp;
+		while ((*stack)->next)
+			(*stack) = (*stack)->next;
+		(*stack)->next = (t_stack *)adr;
+		(*stack) = (*stack)->next;
+		tmp = (*stack)->next;
+		(*stack)->next = NULL;
+		(*stack) = tmp;
 	}
 }

@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pb.c                                               :+:      :+:    :+:   */
+/*   rra.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 20:09:31 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/16 16:18:02 by cdarci           ###   ########.fr       */
+/*   Created: 2019/11/05 20:32:23 by cdarci            #+#    #+#             */
+/*   Updated: 2019/11/10 19:12:08 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/push_swap.h"
 
-void	pb(t_stack **a, t_stack **b)
+void	reverse_rotate(t_stack **stack)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
+	size_t	adr;
 
-	if ((*a))
+	adr = (size_t)(*stack);
+	if ((*stack))
 	{
-		tmp = (*a);
-		(*a) = (*a)->next;
-		tmp->next = (*b);
-		(*b) = tmp;
+		while ((*stack)->next)
+			(*stack) = (*stack)->next;
+		(*stack)->next = (t_stack *)adr;
+		adr = (size_t)(*stack);
+		while ((*stack)->next != (t_stack *)(adr))
+			(*stack) = (*stack)->next;
+		tmp = (*stack)->next;
+		(*stack)->next = NULL;
+		(*stack) = tmp;
 	}
 }

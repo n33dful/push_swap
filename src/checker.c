@@ -18,33 +18,70 @@ static char	*program_output(void)
 	return (line);
 }
 
-static void	what_to_do(char *comm, t_stack **a, t_stack **b)
+static void	flagv(t_stack *a, t_stack *b, int v, char *command)
 {
-	if (ft_strcmp(comm, "sa") == 0)
-		sa(a);
-	else if (ft_strcmp(comm, "sb") == 0)
-		sb(b);
-	else if (ft_strcmp(comm, "ss") == 0)
-		ss(a, b);
-	else if (ft_strcmp(comm, "pa") == 0)
-		pa(a, b);
-	else if (ft_strcmp(comm, "pb") == 0)
-		pb(a, b);
-	else if (ft_strcmp(comm, "ra") == 0)
-		ra(a);
-	else if (ft_strcmp(comm, "rb") == 0)
-		rb(b);
-	else if (ft_strcmp(comm, "rr") == 0)
-		rr(a, b);
-	else if (ft_strcmp(comm, "rra") == 0)
-		rra(a);
-	else if (ft_strcmp(comm, "rrb") == 0)
-		rrb(b);
-	else if (ft_strcmp(comm, "rrr") == 0)
-		rrr(a, b);
+	if (v)
+	{
+		ft_putstr("> ------- ");
+		ft_putendl(command);
+		print_stack(a, b);
+		ft_putchar('\n');
+	}
 }
 
-static void	mirror(char *commands, t_stack **a, t_stack **b)
+static void	what_to_do(char *comm, t_stack **a, t_stack **b, int v)
+{
+	if (ft_strcmp(comm, "sa") == 0)
+	{
+		swap(a);
+	}
+	else if (ft_strcmp(comm, "sb") == 0)
+	{
+		swap(b);
+	}
+	else if (ft_strcmp(comm, "ss") == 0)
+	{
+		swap(a);
+		swap(b);
+	}
+	else if (ft_strcmp(comm, "pa") == 0)
+	{
+		push(b, a);
+	}
+	else if (ft_strcmp(comm, "pb") == 0)
+	{
+		push(a, b);
+	}
+	else if (ft_strcmp(comm, "ra") == 0)
+	{
+		rotate(a);
+	}
+	else if (ft_strcmp(comm, "rb") == 0)
+	{
+		rotate(b);
+	}
+	else if (ft_strcmp(comm, "rr") == 0)
+	{
+		rotate(a);
+		rotate(b);
+	}
+	else if (ft_strcmp(comm, "rra") == 0)
+	{
+		reverse_rotate(a);
+	}
+	else if (ft_strcmp(comm, "rrb") == 0)
+	{
+		reverse_rotate(b);
+	}
+	else if (ft_strcmp(comm, "rrr") == 0)
+	{
+		reverse_rotate(a);
+		reverse_rotate(b);
+	}
+	flagv((*a), (*b), v, comm);
+}
+
+static void	mirror(char *commands, t_stack **a, t_stack **b, int v)
 {
 	char	**comm;
 	int		i;
@@ -53,7 +90,7 @@ static void	mirror(char *commands, t_stack **a, t_stack **b)
 	comm = ft_strsplit(commands, '\n');
 	while (comm[i])
 	{
-		what_to_do(comm[i], a, b);
+		what_to_do(comm[i], a, b, v);
 		i++;
 	}
 	i = 0;
@@ -69,15 +106,33 @@ int			main(int argc, char **argv)
 	t_stack *b;
 
 	commands = program_output();
-	a = create_stack(argc, argv);
 	b = NULL;
-	mirror(commands, &a, &b);
-	if (is_sorted(a, b))
-		ft_putstr("OK\n");
+	if (ft_strcmp(argv[1], "-v") == 0)
+	{
+		if (!(a = create_stack(argc - 1, &argv[1])))
+		{
+			ft_strdel(&commands);
+			ft_putstr("Error\n");
+			exit(-1);
+		}
+		mirror(commands, &a, &b, 1);
+	}
 	else
-		ft_putstr("KO\n");
-	print_stack(a, b);
+	{
+		if (!(a = create_stack(argc, &argv[0])))
+		{
+			ft_strdel(&commands);
+			ft_putstr("Error\n");
+			exit(-1);
+		}
+		mirror(commands, &a, &b, 0);
+	}
+	if (is_sorted(a, b))
+		ft_putstr("\033[1;32mOK\n\033[0m");
+	else
+		ft_putstr("\033[1;31mKO\n\033[0m");
 	delete_stack(&a);
+	delete_stack(&b);
 	ft_strdel(&commands);
 	return (0);
 }

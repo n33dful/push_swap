@@ -172,7 +172,7 @@ int			swap_need(t_stack **stack)
 	a = (*stack);
 	keep = howmanykeep(a);
 	cpy = stackcpy(a);
-	sa(&cpy);
+	swap(&cpy);
 	markup_head(&cpy);
 	if (howmanykeep(cpy) > keep)
 	{
@@ -195,38 +195,39 @@ void		wedding(t_stack **a, t_stack **b)
 	{
 		if ((*b)->index < (*a)->index)
 		{
-			rra(a);
+			reverse_rotate(a);
 			tmp = (*a)->index;
-			ra(a);
+			rotate(a);
 			if ((*b)->index > tmp)
 			{
-				pa(a, b);
+				push(b, a);
 				ft_putstr("pa\n");
 				len = stack_len((*a));
 			}
 			else if (i == 0)
 			{
-				pa(a, b);
+				push(b, a);
 				ft_putstr("pa\n");
+				len = stack_len((*a));
 			}
 			else
 			{
-				rra(a);
+				reverse_rotate(a);
 				ft_putstr("rra\n");
 				i--;
 			}
 		}
 		else if (i + 1 == len)
 		{
-			ra(a);
-			pa(a, b);
+			rotate(a);
+			push(b, a);
 			ft_putstr("ra\npa\n");
 			len = stack_len((*a));
 			i++;
 		}
 		else
 		{
-			ra(a);
+			rotate(a);
 			ft_putstr("ra\n");
 			i++;
 		}
@@ -235,7 +236,7 @@ void		wedding(t_stack **a, t_stack **b)
 	}
 	while ((*a)->index != 0)
 	{
-		ra(a);
+		rotate(a);
 		ft_putstr("ra\n");
 	}
 }
@@ -261,7 +262,7 @@ void		fix(t_stack **stack)
 	ind = minind((*stack));
 	while ((*stack)->index != ind)
 	{
-		rra(stack);
+		reverse_rotate(stack);
 		ft_putstr("rra\n");	
 	}
 }
@@ -273,7 +274,11 @@ int			main(int argc, char **argv)
 
 	if (argc < 2)
 		exit(-1);
-	a = create_stack(argc, argv);
+	if (!(a = create_stack(argc, argv)))
+	{
+		ft_putstr("Error\n");
+		exit(-1);
+	}
 	b = NULL;
 	indexation(&a, nums(a));
 	markup_head(&a);
@@ -281,25 +286,23 @@ int			main(int argc, char **argv)
 	{
 		if (swap_need(&a))
 		{
-			sa(&a);
+			swap(&a);
 			markup_head(&a);
 			ft_putstr("sa\n");
 		}
 		else if (a->markup == 0)
 		{
-			pb(&a, &b);
+			push(&a, &b);
 			ft_putstr("pb\n");
 		}
 		else
 		{
-			ra(&a);
+			rotate(&a);
 			ft_putstr("ra\n");
 		}
 	}
 	fix(&a);
-	//print_stack(a, b);
 	wedding(&a, &b);
-	//print_stack(a, b);
 	delete_stack(&a);
 	delete_stack(&b);
 	return (0);

@@ -8,6 +8,8 @@ void	delete_stack(t_stack **stack)
 	{
 		tmp = (*stack)->next;
 		free((*stack));
+		(*stack) = NULL;
 		(*stack) = tmp;
 	}
+	tmp = NULL;
 }

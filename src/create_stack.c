@@ -18,8 +18,13 @@ static void		delarr(char **arr)
 
 	i = 0;
 	while (arr[i])
-		free(arr[i++]);
+	{
+		free(arr[i]);
+		arr[i] = NULL;
+		i++;
+	}
 	free(arr);
+	arr = NULL;
 }
 
 static t_stack	*stacknew(char **arr)
@@ -53,6 +58,32 @@ static void		add(t_stack **a, t_stack *b)
 	}
 }
 
+static int		check_repeats(t_stack *stack)
+{
+	t_stack	*start;
+	t_stack	*tmp;
+	int		num;
+	int		count;
+
+	start = stack;
+	while (start)
+	{
+		count = 0;
+		tmp = stack;
+		num = start->num;
+		while (tmp)
+		{
+			if (tmp->num == num)
+				count++;
+			tmp = tmp->next;
+		}
+		start = start->next;
+		if (count != 1)
+			return (0);
+	}
+	return (1);
+}
+
 t_stack			*create_stack(int argc, char **argv)
 {
 	t_stack	*stack;
@@ -70,5 +101,7 @@ t_stack			*create_stack(int argc, char **argv)
 		delarr(arr);
 		i++;
 	}
+	if (!check_repeats(stack))
+		delete_stack(&stack);
 	return (stack);
 }
