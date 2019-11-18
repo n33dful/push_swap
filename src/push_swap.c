@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/push_swap.h"
+#include "../include/push_swap.h"
 #include <stdio.h>
 
 int			stack_len(t_stack *stack)

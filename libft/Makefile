@@ -77,7 +77,7 @@ FILES = ft_isprint.c\
 
 OBJ			= $(patsubst %.c, %.o, $(FILES))
 FLAGS		= -g -Wall -Werror -Wextra
-HEADER		= ../incl/libft.h
+HEADER		= ../include/libft.h
 
 all: $(NAME)
 

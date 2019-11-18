@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/libft.h"
+#include "../include/libft.h"
 
 void	ft_striter(char *s, void (*f)(char *))
 {

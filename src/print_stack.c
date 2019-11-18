@@ -1,4 +1,4 @@
-#include "../incl/checker.h"
+#include "../include/checker.h"
 
 void	print_stack(t_stack *a, t_stack *b)
 {

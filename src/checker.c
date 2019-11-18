@@ -1,4 +1,4 @@
-#include "../incl/checker.h"
+#include "../include/checker.h"
 
 static char	*program_output(void)
 {
