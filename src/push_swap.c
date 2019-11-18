@@ -13,19 +13,6 @@
 #include "../include/push_swap.h"
 #include <stdio.h>
 
-int			stack_len(t_stack *stack)
-{
-	int	len;
-
-	len = 0;
-	while (stack)
-	{
-		stack = stack->next;
-		len++;
-	}
-	return (len);
-}
-
 void	sortnums(int **arr, int size)
 {
 	int	tmp;
@@ -57,7 +44,7 @@ int *nums(t_stack *stack)
 	int	i;
 
 	i = 0;
-	len = stack_len(stack);	
+	len = ft_stacklen(stack);	
 	if (!(arr = (int *)malloc(sizeof(int) * len)))
 		exit(-1);
 	while (i < len)
@@ -190,7 +177,7 @@ void		wedding(t_stack **a, t_stack **b)
 	int	i;
 
 	i = 0;
-	len = stack_len((*a));
+	len = ft_stacklen((*a));
 	while (*b)
 	{
 		if ((*b)->index < (*a)->index)
@@ -202,13 +189,13 @@ void		wedding(t_stack **a, t_stack **b)
 			{
 				push(b, a);
 				ft_putstr("pa\n");
-				len = stack_len((*a));
+				len = ft_stacklen((*a));
 			}
 			else if (i == 0)
 			{
 				push(b, a);
 				ft_putstr("pa\n");
-				len = stack_len((*a));
+				len = ft_stacklen((*a));
 			}
 			else
 			{
@@ -222,22 +209,46 @@ void		wedding(t_stack **a, t_stack **b)
 			rotate(a);
 			push(b, a);
 			ft_putstr("ra\npa\n");
-			len = stack_len((*a));
+			len = ft_stacklen((*a));
 			i++;
 		}
 		else
 		{
+			reverse_rotate(a);
+			tmp = (*a)->index;
 			rotate(a);
-			ft_putstr("ra\n");
-			i++;
+			if ((*b)->index > (*a)->index)
+			{
+				rotate(a);
+				ft_putstr("ra\n");
+				i++;
+			}
+			else if (i - 1 != 0 && (*b)->index > tmp)
+			{
+				push(b, a);
+				ft_putstr("pa\n");
+				len = ft_stacklen((*a));
+				i = len - 1;
+			}
 		}
 		if (i == len)
 			i = 0;
 	}
-	while ((*a)->index != 0)
+	if (i > len / 2)
 	{
-		rotate(a);
-		ft_putstr("ra\n");
+		while ((*a)->index != 0)
+		{
+			rotate(a);
+			ft_putstr("ra\n");
+		}
+	}
+	else
+	{
+		while ((*a)->index != 0)
+		{
+			reverse_rotate(a);
+			ft_putstr("rra\n");
+		}
 	}
 }
 
