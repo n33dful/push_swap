@@ -53,7 +53,6 @@ int				ft_opercount(t_stack **stacka, t_stack **stackb)
 				push(&b, &a);
 				ft_putstr("pa\n");
 				len = ft_stacklen(a);
-				count++;
 				finish = 1;
 			}
 			else if (i == 0)
@@ -61,14 +60,12 @@ int				ft_opercount(t_stack **stacka, t_stack **stackb)
 				push(&b, &a);
 				ft_putstr("pa\n");
 				len = ft_stacklen(a);
-				count++;
 				finish = 1;
 			}
 			else
 			{
 				reverse_rotate(&a);
 				ft_putstr("rra\n");
-				count++;
 				i--;
 			}
 		}
@@ -79,15 +76,27 @@ int				ft_opercount(t_stack **stacka, t_stack **stackb)
 			ft_putstr("ra\npa\n");
 			len = ft_stacklen(a);
 			finish = 1;
-			count += 2;
 			i++;
 		}
 		else
 		{
+			reverse_rotate(&a);
+			tmp = a->index;
 			rotate(&a);
-			ft_putstr("ra\n");
-			count++;
-			i++;
+			if (b->index > a->index)
+			{
+				rotate(&a);
+				ft_putstr("ra\n");
+				i++;
+			}
+			else if (i - 1 != 0 && b->index > tmp)
+			{
+				push(&b, &a);
+				ft_putstr("pa\n");
+				len = ft_stacklen(a);
+				finish = 1;
+				i = len - 1;
+			}
 		}
 		if (i == len)
 			i = 0;
