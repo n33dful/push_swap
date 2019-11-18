@@ -1,31 +1,6 @@
 #include "../include/push_swap.h"
 
-static t_stack	*stacknew(t_stack *stack)
-{
-	t_stack *new;
-
-	if (!(new = (t_stack *)malloc(sizeof(t_stack))))
-		exit(-1);
-	new->num = stack->num;
-	new->index = stack->index;
-	new->markup = stack->markup;
-	new->next = NULL;
-	return (new);
-}
-
-static t_stack	*ft_stackcpy(t_stack *stack)
-{
-	t_stack	*new;
-
-	if (!stack)
-		return (NULL);
-	new = stacknew(stack);
-	if (stack)
-		new->next = ft_stackcpy(stack->next);
-	return (new);
-}
-
-int				ft_opercount(t_stack **stacka, t_stack **stackb)
+int	ft_opercount(t_stack **stacka, t_stack **stackb)
 {
 	int		count;
 	int		finish;
@@ -53,6 +28,7 @@ int				ft_opercount(t_stack **stacka, t_stack **stackb)
 				push(&b, &a);
 				ft_putstr("pa\n");
 				len = ft_stacklen(a);
+                count++;
 				finish = 1;
 			}
 			else if (i == 0)
@@ -60,12 +36,14 @@ int				ft_opercount(t_stack **stacka, t_stack **stackb)
 				push(&b, &a);
 				ft_putstr("pa\n");
 				len = ft_stacklen(a);
+                count++;
 				finish = 1;
 			}
 			else
 			{
 				reverse_rotate(&a);
 				ft_putstr("rra\n");
+                count++;
 				i--;
 			}
 		}
@@ -75,6 +53,7 @@ int				ft_opercount(t_stack **stacka, t_stack **stackb)
 			push(&b, &a);
 			ft_putstr("ra\npa\n");
 			len = ft_stacklen(a);
+            count += 2;
 			finish = 1;
 			i++;
 		}
@@ -87,6 +66,7 @@ int				ft_opercount(t_stack **stacka, t_stack **stackb)
 			{
 				rotate(&a);
 				ft_putstr("ra\n");
+                count++;
 				i++;
 			}
 			else if (i - 1 != 0 && b->index > tmp)
@@ -95,6 +75,7 @@ int				ft_opercount(t_stack **stacka, t_stack **stackb)
 				ft_putstr("pa\n");
 				len = ft_stacklen(a);
 				finish = 1;
+                count++;
 				i = len - 1;
 			}
 		}

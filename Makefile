@@ -87,7 +87,8 @@ create_stack.c\
 delete_stack.c\
 print_stack.c\
 ft_opercount.c\
-ft_stacklen.c
+ft_stacklen.c\
+ft_stackcpy.c
 CHFILES=checker.c\
 is_sorted.c\
 print_stack.c\

@@ -125,31 +125,6 @@ int			howmanykeep(t_stack *stack)
 	return (count);
 }
 
-static t_stack	*stacknew(t_stack *stack)
-{
-	t_stack *new;
-
-	if (!(new = (t_stack *)malloc(sizeof(t_stack))))
-		exit(-1);
-	new->num = stack->num;
-	new->index = stack->index;
-	new->markup = stack->markup;
-	new->next = NULL;
-	return (new);
-}
-
-t_stack		*stackcpy(t_stack *stack)
-{
-	t_stack	*new;
-
-	if (!stack)
-		return (NULL);
-	new = stacknew(stack);
-	if (stack)
-		new->next = stackcpy(stack->next);
-	return (new);
-}
-
 int			swap_need(t_stack **stack)
 {
 	t_stack	*a;
@@ -158,7 +133,7 @@ int			swap_need(t_stack **stack)
 
 	a = (*stack);
 	keep = howmanykeep(a);
-	cpy = stackcpy(a);
+	cpy = ft_stackcpy(a);
 	swap(&cpy);
 	markup_head(&cpy);
 	if (howmanykeep(cpy) > keep)
@@ -313,6 +288,7 @@ int			main(int argc, char **argv)
 		}
 	}
 	fix(&a);
+	//ft_putnbr(ft_opercount(&a, &b));
 	wedding(&a, &b);
 	delete_stack(&a);
 	delete_stack(&b);

@@ -31,7 +31,8 @@ void				reverse_rotate(t_stack **stack);
 t_stack				*create_stack(int argc, char **argv);
 void				delete_stack(t_stack **stack);
 void				print_stack(t_stack *a, t_stack *b);
-int					ft_opercount(t_stack **stacka, t_stack **stackb);
 int					ft_stacklen(t_stack *stack);
+t_stack				*ft_stackcpy(t_stack *stack);
+int					ft_opercount(t_stack **stacka, t_stack **stackb);
 
 #endif
