@@ -1,52 +1,93 @@
 #include "../include/push_swap.h"
 
 static int	ft_opercount(t_stack **stacka, t_stack **stackb);
+static void	from_head(t_stack **stacka, t_stack **stackb);
+static void	from_tail(t_stack **stacka, t_stack **stackb);
 
 void		ft_turnsindex(t_stack **stacka, t_stack **stackb)
+{
+	from_head(stacka, stackb);
+	from_tail(stacka, stackb);
+}
+
+static void		from_head(t_stack **stacka, t_stack **stackb)
 {
 	t_stack	*tmp;
 	t_stack *a;
 	t_stack	*b;
-	int		i;
 	int		len;
+	int		i;
 
 	i = 0;
-	a = ft_stackcpy(*stacka);
-	b = ft_stackcpy(*stackb);
+	a = ft_stackcpy((*stacka));
+	b = ft_stackcpy((*stackb));
+	tmp = (*stackb);
 	len = ft_stacklen(b);
 	while (i < len / 2)
 	{
-		b->turns = ft_opercount(&a, &b) + i;
-		rotate(&b);
+		tmp->turns = ft_opercount(&a, &b) + i;
+		tmp = tmp->next;
 		i++;
 	}
-	while (i > 0)
-	{
-		reverse_rotate(&b);
-		i--;
-	}
+	delete_stack(&a);
+	delete_stack(&b);
+}
+
+static void		from_tail(t_stack **stacka, t_stack **stackb)
+{
+	t_stack	*tmp;
+	t_stack *a;
+	t_stack	*b;
+	int		len;
+	int		i;
+
+	a = ft_stackcpy(*stacka);
+	b = ft_stackcpy(*stackb);
+	tmp = (*stackb);
+	len = ft_stacklen(b);
 	i = 0;
 	while (i < len / 2)
 	{
+		tmp = tmp->next;
 		reverse_rotate(&b);
-		b->turns = -1 * (ft_opercount(&a, &b) + i % len + 1);
 		i++;
 	}
 	while (i > 0)
 	{
-		rotate(&b);
+		tmp->turns = -1 * (ft_opercount(&a, &b) + i);
+		tmp = tmp->next;
 		i--;
 	}
-	tmp = (*stackb);
-	while (b)
-	{
-		tmp->turns = b->turns;
-		b = b->next;
-		tmp = tmp->next;
-	}
-	tmp = NULL;
 	delete_stack(&a);
 	delete_stack(&b);
+}
+
+static int	maxind(t_stack *stack)
+{
+	int	ind;
+
+	ind = stack->index;
+	while (stack)
+	{
+		if (stack->index > ind)
+			ind = stack->index;
+		stack = stack->next;
+	}
+	return (ind);
+}
+
+static int	minind(t_stack *stack)
+{
+	int	ind;
+
+	ind = stack->index;
+	while (stack)
+	{
+		if (stack->index < ind)
+			ind = stack->index;
+		stack = stack->next;
+	}
+	return (ind);
 }
 
 static int	ft_opercount(t_stack **stacka, t_stack **stackb)
@@ -54,78 +95,49 @@ static int	ft_opercount(t_stack **stacka, t_stack **stackb)
 	int		count;
 	int		finish;
 	int		tmp;
-	t_stack	*a;
-	t_stack	*b;
-	int		i;
-	int		len;
 
 	count = 0;
 	finish = 0;
-	a = ft_stackcpy((*stacka));
-	b = ft_stackcpy((*stackb));
-	i = 0;
-	len = ft_stacklen(a);
-	while (!finish)
+	while (!finish && (*stackb))
 	{
-		if (b->index < a->index)
+		tmp = (*stacka)->index;
+		if ((*stacka)->index == minind((*stacka)) && ((*stackb))->index < (*stacka)->index)
 		{
-			reverse_rotate(&a);
-			tmp = a->index;
-			rotate(&a);
-			if (b->index > tmp)
-			{
-				push(&b, &a);
-				len = ft_stacklen(a);
-                count++;
-				finish = 1;
-			}
-			else if (i == 0)
-			{
-				push(&b, &a);
-				len = ft_stacklen(a);
-                count++;
-				finish = 1;
-			}
-			else
-			{
-				reverse_rotate(&a);
-                count++;
-				i--;
-			}
-		}
-		else if (i + 1 == len)
-		{
-			rotate(&a);
-			push(&b, &a);
-			len = ft_stacklen(a);
-            count += 2;
+			push(stackb, stacka);
+			count++;
 			finish = 1;
-			i++;
+		}
+		else if ((*stacka)->index == maxind((*stacka)) && ((*stackb))->index > (*stacka)->index)
+		{
+			rotate(stacka);
+			push(stackb, stacka);
+			count += 2;
+			finish = 1;
+		}
+		else if ((*stackb)->index - (*stacka)->index > 0)
+		{
+			rotate(stacka);
+			count++;
+			if ((*stacka)->index > ((*stackb))->index && ((*stackb))->index > tmp)
+			{
+				push(stackb, stacka);
+				count ++;
+				finish = 1;
+			}
 		}
 		else
 		{
-			reverse_rotate(&a);
-			tmp = a->index;
-			rotate(&a);
-			if (b->index > a->index)
+			reverse_rotate(stacka);
+			if ((*stacka)->index < ((*stackb))->index && ((*stackb))->index < tmp)
 			{
-				rotate(&a);
-                count++;
-				i++;
-			}
-			else if (i - 1 != 0 && b->index > tmp)
-			{
-				push(&b, &a);
-				len = ft_stacklen(a);
+				rotate(stacka);
+				push(stackb, stacka);
+				count++;
 				finish = 1;
-                count++;
-				i = len - 1;
 			}
+			else
+				count++;
 		}
-		if (i == len)
-			i = 0;
 	}
-	delete_stack(&a);
-	delete_stack(&b);
 	return (count);
 }

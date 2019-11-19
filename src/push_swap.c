@@ -152,80 +152,46 @@ int			find_min_turn(t_stack *stack)
 
 	min = stack->turns;
 	tmp = stack;
-	if (tmp)
+	while (tmp)
 	{
-		if (tmp->turns < min)
+		if ((tmp->turns < 0 ? -1 * tmp->turns : tmp->turns) < min)
 			min = tmp->turns;
 		tmp = tmp->next;
 	}
 	return (min);
 }
 
-void		wedding(t_stack **a, t_stack **b)
+int			maxind(t_stack *stack)
 {
-	int	tmp;
-	int len;
-	int	i;
+	int	ind;
 
-	i = 0;
-	len = ft_stacklen((*a));
-	while (*b)
+	ind = stack->index;
+	while (stack)
 	{
-		if ((*b)->index < (*a)->index)
-		{
-			reverse_rotate(a);
-			tmp = (*a)->index;
-			rotate(a);
-			if ((*b)->index > tmp)
-			{
-				push(b, a);
-				ft_putstr("pa\n");
-				len = ft_stacklen((*a));
-			}
-			else if (i == 0)
-			{
-				push(b, a);
-				ft_putstr("pa\n");
-				len = ft_stacklen((*a));
-			}
-			else
-			{
-				reverse_rotate(a);
-				ft_putstr("rra\n");
-				i--;
-			}
-		}
-		else if (i + 1 == len)
-		{
-			rotate(a);
-			push(b, a);
-			ft_putstr("ra\npa\n");
-			len = ft_stacklen((*a));
-			i++;
-		}
-		else
-		{
-			reverse_rotate(a);
-			tmp = (*a)->index;
-			rotate(a);
-			if ((*b)->index > (*a)->index)
-			{
-				rotate(a);
-				ft_putstr("ra\n");
-				i++;
-			}
-			else if (i - 1 != 0 && (*b)->index > tmp)
-			{
-				push(b, a);
-				ft_putstr("pa\n");
-				len = ft_stacklen((*a));
-				i = len - 1;
-			}
-		}
-		if (i == len)
-			i = 0;
+		if (stack->index > ind)
+			ind = stack->index;
+		stack = stack->next;
 	}
-	if (i > len / 2)
+	return (ind);
+}
+
+int			minind(t_stack *stack)
+{
+	int	ind;
+
+	ind = stack->index;
+	while (stack)
+	{
+		if (stack->index < ind)
+			ind = stack->index;
+		stack = stack->next;
+	}
+	return (ind);
+}
+
+void		final(t_stack **a, int len)
+{
+	if ((*a)->index > len / 2)
 	{
 		while ((*a)->index != 0)
 		{
@@ -243,30 +209,50 @@ void		wedding(t_stack **a, t_stack **b)
 	}
 }
 
-int			minind(t_stack *stack)
+void		wedding(t_stack **a, t_stack **b)
 {
-	int	ind;
+	int	tmp;
+	int len;
 
-	ind = stack->index;
-	while (stack)
+	while (*b)
 	{
-		if (stack->index < ind)
-			ind = stack->index;
-		stack = stack->next;
+		tmp = (*a)->index;
+		len = ft_stacklen((*a)) + ft_stacklen((*b));
+		if ((*a)->index == minind((*a)) && (*b)->index < (*a)->index)
+		{
+			push(b, a);
+			ft_putstr("pa\n");
+		}
+		else if ((*a)->index == maxind((*a)) && (*b)->index > (*a)->index)
+		{
+			rotate(a);
+			push(b, a);
+			ft_putstr("ra\npa\n");
+		}
+		else if ((*b)->index - (*a)->index > 0)
+		{
+			rotate(a);
+			ft_putstr("ra\n");
+			if ((*a)->index > (*b)->index && (*b)->index > tmp)
+			{
+				push(b, a);
+				ft_putstr("pa\n");
+			}
+		}
+		else
+		{
+			reverse_rotate(a);
+			if ((*a)->index < (*b)->index && (*b)->index < tmp)
+			{
+				rotate(a);
+				push(b, a);
+				ft_putstr("pa\n");
+			}
+			else
+				ft_putstr("rra\n");
+		}
 	}
-	return (ind);
-}
-
-void		fix(t_stack **stack)
-{
-	int		ind;
-	
-	ind = minind((*stack));
-	while ((*stack)->index != ind)
-	{
-		reverse_rotate(stack);
-		ft_putstr("rra\n");	
-	}
+	final(a, len);
 }
 
 int			main(int argc, char **argv)
@@ -301,7 +287,6 @@ int			main(int argc, char **argv)
 			ft_putstr("ra\n");
 		}
 	}
-	fix(&a);
 	wedding(&a, &b);
 	delete_stack(&a);
 	delete_stack(&b);
