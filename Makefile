@@ -89,7 +89,8 @@ ft_stackprint.c\
 ft_opercount.c\
 ft_stacklen.c\
 ft_stackcpy.c\
-ft_divorce.c
+ft_divorce.c\
+ft_wedding.c
 CHFILES=checker.c\
 ft_stackprint.c\
 ft_stacknew.c\

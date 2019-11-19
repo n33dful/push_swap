@@ -36,5 +36,6 @@ int					ft_stacklen(t_stack *stack);
 t_stack				*ft_stackcpy(t_stack *stack);
 void				ft_turnsindex(t_stack **stacka, t_stack **stackb);
 void				ft_divorce(t_stack **a, t_stack **b);
+void				ft_wedding(t_stack **a, t_stack **b);
 
 #endif

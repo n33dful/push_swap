@@ -28,7 +28,7 @@ int			main(int argc, char **argv)
 	b = NULL;
 	ft_indexation(&a, ft_arrofnums(a));
 	ft_divorce(&a, &b);
-	ft_stackprint(a, b);
+	ft_wedding(&a, &b);
 	ft_stackdel(&a);
 	ft_stackdel(&b);
 	return (0);

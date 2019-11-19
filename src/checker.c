@@ -130,10 +130,10 @@ int			main(int argc, char **argv)
 		mirror(commands, &a, &b, 0);
 	}
 	if (is_sorted(a, b))
-		ft_putstr("OK");	
+		ft_putstr("OK\n");
 	//ft_putstr("\033[1;32mOK\n\033[0m");
 	else
-		ft_putstr("KO");
+		ft_putstr("KO\n");
 	//ft_putstr("\033[1;31mKO\n\033[0m");
 	ft_stackdel(&a);
 	ft_stackdel(&b);
