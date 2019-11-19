@@ -189,9 +189,9 @@ int			minind(t_stack *stack)
 	return (ind);
 }
 
-void		final(t_stack **a, int len)
+void		final(t_stack **a)
 {
-	if ((*a)->index > len / 2)
+	if ((*a)->index > ft_stacklen((*a)) / 2)
 	{
 		while ((*a)->index != 0)
 		{
@@ -212,12 +212,10 @@ void		final(t_stack **a, int len)
 void		wedding(t_stack **a, t_stack **b)
 {
 	int	tmp;
-	int len;
 
 	while (*b)
 	{
 		tmp = (*a)->index;
-		len = ft_stacklen((*a)) + ft_stacklen((*b));
 		if ((*a)->index == minind((*a)) && (*b)->index < (*a)->index)
 		{
 			push(b, a);
@@ -229,7 +227,7 @@ void		wedding(t_stack **a, t_stack **b)
 			push(b, a);
 			ft_putstr("ra\npa\n");
 		}
-		else if ((*b)->index - (*a)->index > 0 || ((*b)->index - (*a)->index < 0 && (*a)->index > len / 2))
+		else if ((*b)->index - (*a)->index > 0)
 		{
 			rotate(a);
 			ft_putstr("ra\n");
@@ -252,13 +250,14 @@ void		wedding(t_stack **a, t_stack **b)
 				ft_putstr("rra\n");
 		}
 	}
-	final(a, len);
+	final(a);
 }
 
 int			main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
+	int		tmp;
 
 	if (argc < 2 || !(a = create_stack(argc, argv)))
 	{
@@ -274,7 +273,14 @@ int			main(int argc, char **argv)
 		{
 			swap(&a);
 			markup_head(&a);
-			ft_putstr("sa\n");
+			if (b && swap_need(&b))
+			{
+				swap(&b);
+				markup_head(&b);
+				ft_putstr("ss\n");
+			}
+			else
+				ft_putstr("sa\n");
 		}
 		else if (a->markup == 0)
 		{
@@ -284,7 +290,20 @@ int			main(int argc, char **argv)
 		else
 		{
 			rotate(&a);
-			ft_putstr("ra\n");
+			if (b)
+			{
+				tmp = b->index;
+				rotate(&b);
+				if (b->index > tmp)
+					ft_putstr("rr\n");
+				else
+				{
+					reverse_rotate(&b);
+					ft_putstr("ra\n");
+				}
+			}
+			else
+				ft_putstr("ra\n");
 		}
 	}
 	wedding(&a, &b);
