@@ -229,7 +229,7 @@ void		wedding(t_stack **a, t_stack **b)
 			push(b, a);
 			ft_putstr("ra\npa\n");
 		}
-		else if ((*b)->index - (*a)->index > 0)
+		else if ((*b)->index - (*a)->index > 0 || ((*b)->index - (*a)->index < 0 && (*a)->index > len / 2))
 		{
 			rotate(a);
 			ft_putstr("ra\n");
