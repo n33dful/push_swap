@@ -12,7 +12,7 @@
 
 #include "../include/push_swap.h"
 
-void swap(t_stack **stack)
+void	swap(t_stack **stack)
 {
 	t_stack *tmp;
 

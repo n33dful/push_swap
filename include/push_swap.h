@@ -31,7 +31,7 @@ void				reverse_rotate(t_stack **stack);
 
 t_stack				*ft_stacknew(int argc, char **argv);
 void				ft_stackdel(t_stack **stack);
-void				ft_stackprint(t_stack *a, t_stack *b, char *operation);
+void				ft_stackprint(t_stack *a, t_stack *b);
 int					ft_stacklen(t_stack *stack);
 t_stack				*ft_stackcpy(t_stack *stack);
 void				ft_turnsindex(t_stack **stacka, t_stack **stackb);

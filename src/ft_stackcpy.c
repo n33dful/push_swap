@@ -1,6 +1,19 @@
 #include "../include/push_swap.h"
 
-static t_stack	*stacknew(t_stack *stack)
+static t_stack	*ft_elemcpy(t_stack *stack);
+
+t_stack			*ft_stackcpy(t_stack *stack)
+{
+	t_stack	*new;
+
+	if (!stack)
+		return (NULL);
+	new = ft_elemcpy(stack);
+	new->next = ft_stackcpy(stack->next);
+	return (new);
+}
+
+static t_stack	*ft_elemcpy(t_stack *stack)
 {
 	t_stack *new;
 
@@ -11,16 +24,5 @@ static t_stack	*stacknew(t_stack *stack)
 	new->markup = stack->markup;
 	new->turns = stack->turns;
 	new->next = NULL;
-	return (new);
-}
-
-t_stack			*ft_stackcpy(t_stack *stack)
-{
-	t_stack	*new;
-
-	if (!stack)
-		return (NULL);
-	new = stacknew(stack);
-	new->next = ft_stackcpy(stack->next);
 	return (new);
 }

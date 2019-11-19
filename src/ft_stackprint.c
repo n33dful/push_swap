@@ -4,15 +4,13 @@ static void	ft_putstacknum(t_stack *stack);
 static int	ft_numlen(int num);
 static void	ft_putstacks(t_stack *a, t_stack *b);
 
-void		ft_stackprint(t_stack *a, t_stack *b, char *operation)
+void		ft_stackprint(t_stack *a, t_stack *b)
 {
 	ft_putstr("+-------------+-------------+\n");
 	ft_putstacks(a, b);
 	ft_putstr("+-------------+-------------+\n");
 	ft_putstr("|      a      |      b      |\n");
 	ft_putstr("+-------------+-------------+\n");
-	if (operation == NULL)
-		ft_putstr("\n");
 }
 
 static int	ft_numlen(int num)
