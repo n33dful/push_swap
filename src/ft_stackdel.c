@@ -1,6 +1,6 @@
 #include "../include/push_swap.h"
 
-void	delete_stack(t_stack **stack)
+void	ft_stackdel(t_stack **stack)
 {
 	t_stack	*tmp;
 

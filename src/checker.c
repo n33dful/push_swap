@@ -24,7 +24,7 @@ static void	flagv(t_stack *a, t_stack *b, int v, char *command)
 	{
 		ft_putstr("> ------- ");
 		ft_putendl(command);
-		print_stack(a, b);
+		ft_stackprint(a, b);
 		ft_putchar('\n');
 	}
 }
@@ -99,6 +99,8 @@ static void	mirror(char *commands, t_stack **a, t_stack **b, int v)
 	free(comm);
 }
 
+static int	is_sorted(t_stack *a, t_stack *b);
+
 int			main(int argc, char **argv)
 {
 	char	*commands;
@@ -109,7 +111,7 @@ int			main(int argc, char **argv)
 	b = NULL;
 	if (ft_strcmp(argv[1], "-v") == 0)
 	{
-		if (!(a = create_stack(argc - 1, &argv[1])))
+		if (!(a = ft_stacknew(argc - 1, &argv[1])))
 		{
 			ft_strdel(&commands);
 			ft_putstr("Error\n");
@@ -119,7 +121,7 @@ int			main(int argc, char **argv)
 	}
 	else
 	{
-		if (!(a = create_stack(argc, &argv[0])))
+		if (!(a = ft_stacknew(argc, &argv[0])))
 		{
 			ft_strdel(&commands);
 			ft_putstr("Error\n");
@@ -133,8 +135,24 @@ int			main(int argc, char **argv)
 	else
 		ft_putstr("KO");
 	//ft_putstr("\033[1;31mKO\n\033[0m");
-	delete_stack(&a);
-	delete_stack(&b);
+	ft_stackdel(&a);
+	ft_stackdel(&b);
 	ft_strdel(&commands);
 	return (0);
+}
+
+static int	is_sorted(t_stack *a, t_stack *b)
+{
+	t_stack *tmp;
+
+	tmp = a;
+	if (b != NULL)
+		return (0);
+	while (tmp->next)
+	{
+		if (tmp->num > tmp->next->num)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
 }

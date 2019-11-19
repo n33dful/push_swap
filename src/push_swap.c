@@ -13,7 +13,34 @@
 #include "../include/push_swap.h"
 #include <stdio.h>
 
-void	sortnums(int **arr, int size)
+static void	ft_indexation(t_stack **stack, int *arr);
+static void	ft_sortnums(int **arr, int size);
+static void	ft_showerror();
+static int	*ft_arrofnums(t_stack *stack);
+
+int			main(int argc, char **argv)
+{
+	t_stack *a;
+	t_stack *b;
+
+	if (argc < 2 || !(a = ft_stacknew(argc, argv)))
+		ft_showerror();
+	b = NULL;
+	ft_indexation(&a, ft_arrofnums(a));
+	ft_divorce(&a, &b);
+	ft_stackprint(a, b, NULL);
+	ft_stackdel(&a);
+	ft_stackdel(&b);
+	return (0);
+}
+
+static void	ft_showerror()
+{
+	ft_putstr("Error\n");
+	exit(-1);
+}
+
+static void	ft_sortnums(int **arr, int size)
 {
 	int	tmp;
 	int	i;
@@ -37,7 +64,7 @@ void	sortnums(int **arr, int size)
 	}
 }
 
-int *nums(t_stack *stack)
+static int	*ft_arrofnums(t_stack *stack)
 {
 	int	*arr;
 	int	len;
@@ -53,11 +80,11 @@ int *nums(t_stack *stack)
 		stack = stack->next;
 		i++;
 	}
-	sortnums(&arr, len);
+	ft_sortnums(&arr, len);
 	return (arr);
 }
 
-void		indexation(t_stack **stack, int *arr)
+static void	ft_indexation(t_stack **stack, int *arr)
 {
 	t_stack *a;
 	int		i;
@@ -73,241 +100,4 @@ void		indexation(t_stack **stack, int *arr)
 	}
 	a = NULL;
 	free(arr);
-}
-
-void		markup_head(t_stack **stack)
-{
-	int		index;
-	t_stack	*a;
-
-	a = (*stack);
-	index = a->index;
-	a->markup = 1;
-	a = a->next;
-	while (a)
-	{
-		if (a->index == index + 1)
-		{
-			index = a->index;
-			a->markup = 1;
-		}
-		else
-			a->markup = 0;
-		a = a->next;
-	}
-}
-
-int			check_false(t_stack *stack)
-{
-	t_stack *a;
-
-	a = stack;
-	while (a)
-	{
-		if (a->markup == 0)
-			return (1);
-		a = a->next;
-	}
-	return (0);
-}
-
-int			howmanykeep(t_stack *stack)
-{
-	int	count;
-
-	count = 0;
-	while (stack)
-	{
-		if (stack->markup == 1)
-			count++;
-		stack = stack->next;
-	}
-	return (count);
-}
-
-int			swap_need(t_stack **stack)
-{
-	t_stack	*a;
-	t_stack	*cpy;
-	int		keep;
-
-	a = (*stack);
-	keep = howmanykeep(a);
-	cpy = ft_stackcpy(a);
-	swap(&cpy);
-	markup_head(&cpy);
-	if (howmanykeep(cpy) > keep)
-	{
-		delete_stack(&cpy);
-		return (1);
-	}
-	delete_stack(&cpy);
-	return (0);
-}
-
-int			find_min_turn(t_stack *stack)
-{
-	t_stack	*tmp;
-	int		min;
-
-	min = stack->turns;
-	tmp = stack;
-	while (tmp)
-	{
-		if ((tmp->turns < 0 ? -1 * tmp->turns : tmp->turns) < min)
-			min = tmp->turns;
-		tmp = tmp->next;
-	}
-	return (min);
-}
-
-int			maxind(t_stack *stack)
-{
-	int	ind;
-
-	ind = stack->index;
-	while (stack)
-	{
-		if (stack->index > ind)
-			ind = stack->index;
-		stack = stack->next;
-	}
-	return (ind);
-}
-
-int			minind(t_stack *stack)
-{
-	int	ind;
-
-	ind = stack->index;
-	while (stack)
-	{
-		if (stack->index < ind)
-			ind = stack->index;
-		stack = stack->next;
-	}
-	return (ind);
-}
-
-void		final(t_stack **a)
-{
-	if ((*a)->index > ft_stacklen((*a)) / 2)
-	{
-		while ((*a)->index != 0)
-		{
-			rotate(a);
-			ft_putstr("ra\n");
-		}
-	}
-	else
-	{
-		while ((*a)->index != 0)
-		{
-			reverse_rotate(a);
-			ft_putstr("rra\n");
-		}
-	}
-}
-
-void		wedding(t_stack **a, t_stack **b)
-{
-	int	tmp;
-
-	while (*b)
-	{
-		tmp = (*a)->index;
-		if ((*a)->index == minind((*a)) && (*b)->index < (*a)->index)
-		{
-			push(b, a);
-			ft_putstr("pa\n");
-		}
-		else if ((*a)->index == maxind((*a)) && (*b)->index > (*a)->index)
-		{
-			rotate(a);
-			push(b, a);
-			ft_putstr("ra\npa\n");
-		}
-		else if ((*b)->index - (*a)->index > 0)
-		{
-			rotate(a);
-			ft_putstr("ra\n");
-			if ((*a)->index > (*b)->index && (*b)->index > tmp)
-			{
-				push(b, a);
-				ft_putstr("pa\n");
-			}
-		}
-		else
-		{
-			reverse_rotate(a);
-			if ((*a)->index < (*b)->index && (*b)->index < tmp)
-			{
-				rotate(a);
-				push(b, a);
-				ft_putstr("pa\n");
-			}
-			else
-				ft_putstr("rra\n");
-		}
-	}
-	final(a);
-}
-
-int			main(int argc, char **argv)
-{
-	t_stack *a;
-	t_stack *b;
-	int		tmp;
-
-	if (argc < 2 || !(a = create_stack(argc, argv)))
-	{
-		ft_putstr("Error\n");
-		exit(-1);
-	}
-	b = NULL;
-	indexation(&a, nums(a));
-	markup_head(&a);
-	while (check_false(a))
-	{
-		if (swap_need(&a))
-		{
-			swap(&a);
-			markup_head(&a);
-			if (b && swap_need(&b))
-			{
-				swap(&b);
-				markup_head(&b);
-				ft_putstr("ss\n");
-			}
-			else
-				ft_putstr("sa\n");
-		}
-		else if (a->markup == 0)
-		{
-			push(&a, &b);
-			ft_putstr("pb\n");
-		}
-		else
-		{
-			rotate(&a);
-			if (b)
-			{
-				tmp = b->index;
-				rotate(&b);
-				if (b->index > tmp)
-					ft_putstr("rr\n");
-				else
-				{
-					reverse_rotate(&b);
-					ft_putstr("ra\n");
-				}
-			}
-			else
-				ft_putstr("ra\n");
-		}
-	}
-	wedding(&a, &b);
-	delete_stack(&a);
-	delete_stack(&b);
-	return (0);
 }

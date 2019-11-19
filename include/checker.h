@@ -5,7 +5,6 @@
 # include	"libft.h"
 # include	"push_swap.h"
 
-void		print_stack(t_stack *a, t_stack *b);
-int			is_sorted(t_stack *a, t_stack *b);
+void		ft_stackprint(t_stack *a, t_stack *b, char *operation);
 
 #endif

@@ -2,13 +2,16 @@
 
 int	ft_stacklen(t_stack *stack)
 {
-	int	len;
+	t_stack	*tmp;
+	int		len;
 
 	len = 0;
-	while (stack)
+	tmp = stack;
+	while (tmp)
 	{
-		stack = stack->next;
+		tmp = tmp->next;
 		len++;
 	}
+	tmp = NULL;
 	return (len);
 }

@@ -29,11 +29,12 @@ void				push(t_stack **stack1, t_stack **stack2);
 void				rotate(t_stack **stack);
 void				reverse_rotate(t_stack **stack);
 
-t_stack				*create_stack(int argc, char **argv);
-void				delete_stack(t_stack **stack);
-void				print_stack(t_stack *a, t_stack *b);
+t_stack				*ft_stacknew(int argc, char **argv);
+void				ft_stackdel(t_stack **stack);
+void				ft_stackprint(t_stack *a, t_stack *b, char *operation);
 int					ft_stacklen(t_stack *stack);
 t_stack				*ft_stackcpy(t_stack *stack);
 void				ft_turnsindex(t_stack **stacka, t_stack **stackb);
+void				ft_divorce(t_stack **a, t_stack **b);
 
 #endif

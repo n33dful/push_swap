@@ -29,8 +29,8 @@ static void		from_head(t_stack **stacka, t_stack **stackb)
 		tmp = tmp->next;
 		i++;
 	}
-	delete_stack(&a);
-	delete_stack(&b);
+	ft_stackdel(&a);
+	ft_stackdel(&b);
 }
 
 static void		from_tail(t_stack **stacka, t_stack **stackb)
@@ -58,8 +58,8 @@ static void		from_tail(t_stack **stacka, t_stack **stackb)
 		tmp = tmp->next;
 		i--;
 	}
-	delete_stack(&a);
-	delete_stack(&b);
+	ft_stackdel(&a);
+	ft_stackdel(&b);
 }
 
 static int	maxind(t_stack *stack)

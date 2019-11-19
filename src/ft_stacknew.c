@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_stack.c                                     :+:      :+:    :+:   */
+/*   ft_stacknew.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,34 @@
 
 #include "../include/push_swap.h"
 
-static void		delarr(char **arr)
+static t_stack	*ft_newstackelem(char **arr);
+static int		ft_checkrepeats(t_stack *stack);
+static void		ft_arrdel(char **arr);
+static void		ft_addtoend(t_stack **a, t_stack *b);
+
+t_stack			*ft_stacknew(int argc, char **argv)
+{
+	t_stack	*stack;
+	char	**arr;
+	int		i;
+
+	i = 2;
+	arr = ft_strsplit(argv[1], ' ');
+	stack = ft_newstackelem(arr);
+	ft_arrdel(arr);
+	while (i < argc)
+	{
+		arr = ft_strsplit(argv[i], ' ');
+		ft_addtoend(&stack, ft_newstackelem(arr));
+		ft_arrdel(arr);
+		i++;
+	}
+	if (!ft_checkrepeats(stack))
+		ft_stackdel(&stack);
+	return (stack);
+}
+
+static void		ft_arrdel(char **arr)
 {
 	int	i;
 
@@ -27,7 +54,7 @@ static void		delarr(char **arr)
 	arr = NULL;
 }
 
-static t_stack	*stacknew(char **arr)
+static t_stack	*ft_newstackelem(char **arr)
 {
 	t_stack *new;
 	int		i;
@@ -42,11 +69,11 @@ static t_stack	*stacknew(char **arr)
 	new->index = 0;
 	new->markup = 1;
 	new->turns = 0;
-	new->next = stacknew(arr + 1);
+	new->next = ft_newstackelem(arr + 1);
 	return (new);
 }
 
-static void		add(t_stack **a, t_stack *b)
+static void		ft_addtoend(t_stack **a, t_stack *b)
 {
 	t_stack	*tmp;
 
@@ -59,7 +86,7 @@ static void		add(t_stack **a, t_stack *b)
 	}
 }
 
-static int		check_repeats(t_stack *stack)
+static int		ft_checkrepeats(t_stack *stack)
 {
 	t_stack	*start;
 	t_stack	*tmp;
@@ -82,27 +109,7 @@ static int		check_repeats(t_stack *stack)
 		if (count != 1)
 			return (0);
 	}
+	tmp = NULL;
+	start = NULL;
 	return (1);
-}
-
-t_stack			*create_stack(int argc, char **argv)
-{
-	t_stack	*stack;
-	char	**arr;
-	int		i;
-
-	i = 2;
-	arr = ft_strsplit(argv[1], ' ');
-	stack = stacknew(arr);
-	delarr(arr);
-	while (i < argc)
-	{
-		arr = ft_strsplit(argv[i], ' ');
-		add(&stack, stacknew(arr));
-		delarr(arr);
-		i++;
-	}
-	if (!check_repeats(stack))
-		delete_stack(&stack);
-	return (stack);
 }
