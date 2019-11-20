@@ -38,8 +38,8 @@ int			main(int argc, char **argv)
 		ft_countturns(&a, &b);
 		ft_putstr(ft_findcomm(b));
 		mirror(ft_findcomm(b), &a, &b);
-		push(&b, &a);
-		ft_putstr("pa\n");
+		//push(&b, &a);
+		//write(1, "pa\n", 3);
 	}
 	//ft_wedding(&a, &b);
 	ft_finalrotate(&a);
@@ -171,6 +171,14 @@ static void	what_to_do(char *comm, t_stack **a, t_stack **b)
 	{
 		swap(a);
 		swap(b);
+	}
+	else if (ft_strcmp(comm, "pa") == 0)
+	{
+		push(b, a);
+	}
+	else if (ft_strcmp(comm, "pb") == 0)
+	{
+		push(a, b);
 	}
 	else if (ft_strcmp(comm, "ra") == 0)
 	{

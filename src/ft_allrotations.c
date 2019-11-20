@@ -32,6 +32,12 @@ void		ft_countturns(t_stack **stacka, t_stack **stackb)
 		ft_stackdel(&b);
 		i++;
 	}
+	if (len % 2 && len != 1)
+	{
+		if ((*stackb)->str)
+			ft_strdel(&((*stackb)->str));
+		(*stackb)->turns = 0;
+	}
 	while (i > 0)
 	{
 		reverse_rotate(stackb);
@@ -140,6 +146,7 @@ static char	*ft_commoptimize(char *comma, char *commb)
 			}
 		}
 	}
+	res = ft_unitcommands(res, "pa\n");
 	ft_arrdel(arr_of_a);
 	ft_arrdel(arr_of_b);
 	ft_strdel(&comma);
