@@ -36,6 +36,10 @@ static t_stack	*ft_elemcpy(t_stack *stack)
 	new->markup = stack->markup;
 	new->turns = stack->turns;
 	new->keep = stack->keep;
+	if (stack->str)
+		new->str = ft_strdup(stack->str);
+	else
+		new->str = NULL;
 	new->next = NULL;
 	return (new);
 }

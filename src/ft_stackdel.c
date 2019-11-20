@@ -7,6 +7,7 @@ void	ft_stackdel(t_stack **stack)
 	while ((*stack))
 	{
 		tmp = (*stack)->next;
+		ft_strdel(&((*stack)->str));
 		free((*stack));
 		(*stack) = NULL;
 		(*stack) = tmp;

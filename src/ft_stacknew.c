@@ -77,6 +77,7 @@ static t_stack	*ft_newstackelem(char **arr)
 		new->markup = 1;
 		new->turns = 0;
 		new->keep = 0;
+		new->str = NULL;
 		new->next = ft_newstackelem(arr + 1);
 	}
 	return (new);
