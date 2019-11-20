@@ -54,7 +54,7 @@ char		*ft_itoa(int n)
 
 	size = n_l(n);
 	if (!(str = (char *)malloc(sizeof(char) * size + 1 + (n < 0 ? 1 : 0))))
-		return (NULL);
+		exit(-1);
 	if (n < 0)
 	{
 		str[0] = '-';

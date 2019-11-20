@@ -20,7 +20,7 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 	if (lst && f)
 	{
 		if (!(new = (t_list *)malloc(sizeof(t_list))))
-			return (NULL);
+			exit(-1);
 		new = f(lst);
 		new->next = ft_lstmap(lst->next, f);
 	}

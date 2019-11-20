@@ -63,13 +63,21 @@ static t_stack	*ft_newstackelem(char **arr)
 	new = NULL;
 	if (!(*arr))
 		return (NULL);
-	if (!(new = (t_stack *)malloc(sizeof(t_stack))))
+	else if ((arr[i][0] == '-' ? !ft_isdigit(arr[i][1]) : !ft_isdigit(arr[i][0])))
+	{
+		ft_putstr("Error\n");
 		exit(-1);
-	new->num = ft_atoi(arr[i]);
-	new->index = 0;
-	new->markup = 1;
-	new->turns = 0;
-	new->next = ft_newstackelem(arr + 1);
+	}
+	else if (!(new = (t_stack *)malloc(sizeof(t_stack))))
+		exit(-1);
+	else
+	{
+		new->num = ft_atoi(arr[i]);
+		new->index = 0;
+		new->markup = 1;
+		new->turns = 0;
+		new->next = ft_newstackelem(arr + 1);
+	}
 	return (new);
 }
 

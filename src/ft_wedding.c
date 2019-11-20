@@ -22,6 +22,28 @@ void		ft_wedding(t_stack **a, t_stack **b)
 			push(b, a);
 			ft_putstr("ra\npa\n");
 		}
+		else if (((*b)->index > (ft_stacklen((*a)) / 4)) && ((*a)->index < (ft_stacklen((*a)) / 4)))
+		{
+			reverse_rotate(a);
+			if ((*a)->index < (*b)->index && (*b)->index < tmp)
+			{
+				rotate(a);
+				push(b, a);
+				ft_putstr("pa\n");
+			}
+			else
+				ft_putstr("rra\n");
+		}
+		else if (((*b)->index < (ft_stacklen((*a)) / 4)) && ((*a)->index > (ft_stacklen((*a)) / 4)))
+		{
+			rotate(a);
+			ft_putstr("ra\n");
+			if ((*a)->index > (*b)->index && (*b)->index > tmp)
+			{
+				push(b, a);
+				ft_putstr("pa\n");
+			}
+		}
 		else if ((*b)->index - (*a)->index > 0)
 		{
 			rotate(a);

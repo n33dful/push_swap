@@ -47,7 +47,8 @@ static char	*ft_copyandmove(char **str, int len)
 	int		i;
 
 	i = 0;
-	new = (char *)malloc(sizeof(char) * (len + 1));
+	if (!(new = (char *)malloc(sizeof(char) * (len + 1))))
+		exit(-1);
 	while (i < len)
 		new[i++] = *((*str)++);
 	new[i] = '\0';
@@ -65,7 +66,8 @@ char		**ft_strsplit(char const *s, char c)
 	arr = NULL;
 	if (str)
 	{
-		arr = (char **)malloc(sizeof(char *) * (ft_wordscount(str, c) + 1));
+		if (!(arr = (char **)malloc(sizeof(char *) * (ft_wordscount(str, c) + 1))))
+			exit(-1);
 		while ((*str) != '\0')
 		{
 			if ((*str) == c && (*str) != '\0')
