@@ -21,6 +21,7 @@ typedef struct		s_stack
 	int				index;
 	int				markup;
 	int				turns;
+	int				keep;
 	struct s_stack	*next;
 }					t_stack;
 
@@ -37,5 +38,8 @@ t_stack				*ft_stackcpy(t_stack *stack);
 void				ft_turnsindex(t_stack **stacka, t_stack **stackb);
 void				ft_divorce(t_stack **a, t_stack **b);
 void				ft_wedding(t_stack **a, t_stack **b);
+void				ft_markuphead(t_stack **stack);
+void				ft_putmaxkeepontop(t_stack **stack);
+char				*ft_rotationsfora(t_stack **stacka, t_stack **stackb);
 
 #endif

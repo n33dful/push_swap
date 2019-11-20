@@ -90,7 +90,10 @@ ft_opercount.c\
 ft_stacklen.c\
 ft_stackcpy.c\
 ft_divorce.c\
-ft_wedding.c
+ft_wedding.c\
+ft_markuphead.c\
+ft_putmaxkeepontop.c\
+ft_rotationsfora.c
 CHFILES=checker.c\
 ft_stackprint.c\
 ft_stacknew.c\

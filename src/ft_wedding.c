@@ -1,7 +1,7 @@
 #include "../include/push_swap.h"
 
 void		ft_finalrotate(t_stack **a);
-int			ft_findminindex(t_stack *stack);
+int			ft_findminind(t_stack *stack);
 int			ft_findmaxind(t_stack *stack);
 
 void		ft_wedding(t_stack **a, t_stack **b)
@@ -11,7 +11,9 @@ void		ft_wedding(t_stack **a, t_stack **b)
 	while (*b)
 	{
 		tmp = (*a)->index;
-		if ((*a)->index == ft_findminindex((*a)) && (*b)->index < (*a)->index)
+		char *str = ft_rotationsfora(a, b);
+		ft_strdel(&str);
+		if ((*a)->index == ft_findminind((*a)) && (*b)->index < (*a)->index)
 		{
 			push(b, a);
 			ft_putstr("pa\n");
@@ -62,7 +64,7 @@ int			ft_findmaxind(t_stack *stack)
 	return (ind);
 }
 
-int			ft_findminindex(t_stack *stack)
+int			ft_findminind(t_stack *stack)
 {
 	int	ind;
 

@@ -8,6 +8,8 @@ static int	ft_swapneed(t_stack **stack);
 
 void		ft_divorce(t_stack **a, t_stack **b)
 {
+	ft_markuphead(a);
+	ft_putmaxkeepontop(a);
 	ft_markup(a);
 	while (ft_checkfalse((*a)))
 	{
