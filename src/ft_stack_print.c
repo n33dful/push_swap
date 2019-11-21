@@ -4,7 +4,7 @@ static void	ft_putstacknum(t_stack *stack);
 static int	ft_numlen(int num);
 static void	ft_putstacks(t_stack *a, t_stack *b);
 
-void		ft_stackprint(t_stack *a, t_stack *b)
+void		ft_stack_print(t_stack *a, t_stack *b)
 {
 	ft_putstr("+-------------+-------------+\n");
 	ft_putstacks(a, b);

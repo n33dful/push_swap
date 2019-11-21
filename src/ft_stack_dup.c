@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stacknew.c                                     :+:      :+:    :+:    */
+/*   ft_stack_new.c                                     :+:      :+:    :+:    */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,14 +14,14 @@
 
 static t_stack	*ft_elemcpy(t_stack *stack);
 
-t_stack			*ft_stackcpy(t_stack *stack)
+t_stack			*ft_stack_dup(t_stack *stack)
 {
 	t_stack	*new;
 
 	if (!stack)
 		return (NULL);
 	new = ft_elemcpy(stack);
-	new->next = ft_stackcpy(stack->next);
+	new->next = ft_stack_dup(stack->next);
 	return (new);
 }
 

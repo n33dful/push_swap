@@ -1,8 +1,6 @@
 #include "../include/push_swap.h"
 
-static char	*ft_rotationsforb(/*t_stack **b, */int count);
-static char	*ft_unitcommands(char *comm1, char *comm2);
-static void	ft_arrdel(char **arr);
+static char	*ft_rotationsforb(int count);
 static char	*ft_commoptimize(char *comma, char *commb);
 static int	ft_commcount(char *comm);
 
@@ -14,22 +12,22 @@ void		ft_countturns(t_stack **stacka, t_stack **stackb)
 	t_stack *b;
 
 	i = 0;
-	a = ft_stackcpy((*stacka));
-	b = ft_stackcpy((*stackb));
-	len = ft_stacklen(b);
-	ft_stackdel(&a);
-	ft_stackdel(&b);
+	a = ft_stack_dup((*stacka));
+	b = ft_stack_dup((*stackb));
+	len = ft_stack_len(b);
+	ft_stack_del(&a);
+	ft_stack_del(&b);
 	while (i < (len == 1 ? len : len / 2))
 	{
-		a = ft_stackcpy((*stacka));
-		b = ft_stackcpy((*stackb));
+		a = ft_stack_dup((*stacka));
+		b = ft_stack_dup((*stackb));
 		if ((*stackb)->str)
 			ft_strdel(&((*stackb)->str));
-		(*stackb)->str = ft_commoptimize(ft_rotationsfora(&a, &b), ft_rotationsforb(/*&b, */i));
+		(*stackb)->str = ft_commoptimize(ft_stack_a_instructions(&a, &b), ft_rotationsforb(i));
 		(*stackb)->turns = ft_commcount((*stackb)->str);
-		rotate(stackb);
-		ft_stackdel(&a);
-		ft_stackdel(&b);
+		ft_stack_rotate(stackb);
+		ft_stack_del(&a);
+		ft_stack_del(&b);
 		i++;
 	}
 	if (len % 2 && len != 1)
@@ -40,33 +38,33 @@ void		ft_countturns(t_stack **stacka, t_stack **stackb)
 	}
 	while (i > 0)
 	{
-		reverse_rotate(stackb);
+		ft_stack_reverse_rotate(stackb);
 		i--;
 	}
 	i = -1;
 	while (i >= -1 * (len / 2))
 	{
-		reverse_rotate(stackb);
-		a = ft_stackcpy((*stacka));
-		b = ft_stackcpy((*stackb));
+		ft_stack_reverse_rotate(stackb);
+		a = ft_stack_dup((*stacka));
+		b = ft_stack_dup((*stackb));
 		if ((*stackb)->str)
 			ft_strdel(&((*stackb)->str));
-		(*stackb)->str = ft_commoptimize(ft_rotationsfora(&a, &b), ft_rotationsforb(/*&b, */i));
+		(*stackb)->str = ft_commoptimize(ft_stack_a_instructions(&a, &b), ft_rotationsforb(i));
 		(*stackb)->turns = -1 * ft_commcount((*stackb)->str);
-		ft_stackdel(&a);
-		ft_stackdel(&b);
+		ft_stack_del(&a);
+		ft_stack_del(&b);
 		i--;
 	}
 	while (i < -1)
 	{
-		rotate(stackb);
+		ft_stack_rotate(stackb);
 		i++;
 	}
-	ft_stackdel(&a);
-	ft_stackdel(&b);
+	ft_stack_del(&a);
+	ft_stack_del(&b);
 }
 
-static char	*ft_rotationsforb(/*t_stack **b, */int count)
+static char	*ft_rotationsforb(int count)
 {
 	char	*comm;
 	int		i;
@@ -75,32 +73,11 @@ static char	*ft_rotationsforb(/*t_stack **b, */int count)
 	comm = ft_strnew(0);
 	while (i < (count < 0 ? -1 * count : count))
 	{
-		//(count < 0 ? reverse_rotate(b) : rotate(b));
-		comm = (count < 0 ? ft_unitcommands(comm, "rrb\n") : \
-ft_unitcommands(comm, "rb\n"));
+		comm = (count < 0 ? ft_combine_instructions(comm, "rrb\n") : \
+ft_combine_instructions(comm, "rb\n"));
 		i++;
 	}
 	return (comm);
-}
-
-static char	*ft_unitcommands(char *comm1, char *comm2)
-{
-	char	*res;
-
-	res = ft_strjoin(comm1, comm2);
-	ft_strdel(&comm1);
-	return (res);
-}
-
-static void	ft_arrdel(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-		ft_strdel(&arr[i++]);
-	free(arr);
-	arr = NULL;
 }
 
 static char	*ft_commoptimize(char *comma, char *commb)
@@ -120,13 +97,13 @@ static char	*ft_commoptimize(char *comma, char *commb)
 	{
 		if (arr_of_a[i] && arr_of_b[j] && ft_strcmp(arr_of_a[i], "ra") == 0 && ft_strcmp(arr_of_b[j], "rb") == 0)
 		{
-			res = ft_unitcommands(res, "rr\n");
+			res = ft_combine_instructions(res, "rr\n");
 			i++;
 			j++;
 		}
 		else if (arr_of_a[i] && arr_of_b[j] && ft_strcmp(arr_of_a[i], "rra") == 0 && ft_strcmp(arr_of_b[j], "rrb") == 0)
 		{
-			res = ft_unitcommands(res, "rrr\n");
+			res = ft_combine_instructions(res, "rrr\n");
 			i++;
 			j++;
 		}
@@ -134,21 +111,21 @@ static char	*ft_commoptimize(char *comma, char *commb)
 		{
 			if (arr_of_a[i])
 			{
-				res = ft_unitcommands(res, arr_of_a[i]);
-				res = ft_unitcommands(res, "\n");
+				res = ft_combine_instructions(res, arr_of_a[i]);
+				res = ft_combine_instructions(res, "\n");
 				i++;
 			}
 			if (arr_of_b[j])
 			{
-				res = ft_unitcommands(res, arr_of_b[j]);
-				res = ft_unitcommands(res, "\n");
+				res = ft_combine_instructions(res, arr_of_b[j]);
+				res = ft_combine_instructions(res, "\n");
 				j++;
 			}
 		}
 	}
-	res = ft_unitcommands(res, "pa\n");
-	ft_arrdel(arr_of_a);
-	ft_arrdel(arr_of_b);
+	res = ft_combine_instructions(res, "pa\n");
+	ft_delete_array(arr_of_a);
+	ft_delete_array(arr_of_b);
 	ft_strdel(&comma);
 	ft_strdel(&commb);
 	return (res);

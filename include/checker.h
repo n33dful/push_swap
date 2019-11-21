@@ -5,6 +5,6 @@
 # include	"libft.h"
 # include	"push_swap.h"
 
-void		ft_stackprint(t_stack *a, t_stack *b);
+void		ft_stack_print(t_stack *a, t_stack *b);
 
 #endif

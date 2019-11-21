@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pa.c                                               :+:      :+:    :+:   */
+/*   sa.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 19:51:28 by cdarci            #+#    #+#             */
+/*   Created: 2019/11/05 17:59:28 by cdarci            #+#    #+#             */
 /*   Updated: 2019/11/10 19:12:08 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	push(t_stack **stack1, t_stack **stack2)
+void	ft_stack_swap(t_stack **stack)
 {
 	t_stack *tmp;
 
-	if ((*stack1))
+	if ((*stack) && (*stack)->next)
 	{
-		tmp = (*stack1);
-		(*stack1) = (*stack1)->next;
-		tmp->next = (*stack2);
-		(*stack2) = tmp;
+		tmp = (*stack)->next;
+		(*stack)->next = (*stack)->next->next;
+		tmp->next = (*stack);
+		(*stack) = tmp;
 	}
 }

@@ -26,22 +26,26 @@ typedef struct		s_stack
 	struct s_stack	*next;
 }					t_stack;
 
-void				swap(t_stack **stack);
-void				push(t_stack **stack1, t_stack **stack2);
-void				rotate(t_stack **stack);
-void				reverse_rotate(t_stack **stack);
+void				ft_stack_swap(t_stack **stack);
+void				ft_stack_push(t_stack **stack1, t_stack **stack2);
+void				ft_stack_rotate(t_stack **stack);
+void				ft_stack_reverse_rotate(t_stack **stack);
 
-t_stack				*ft_stacknew(int argc, char **argv);
-void				ft_stackdel(t_stack **stack);
-void				ft_stackprint(t_stack *a, t_stack *b);
-int					ft_stacklen(t_stack *stack);
-t_stack				*ft_stackcpy(t_stack *stack);
-void				ft_turnsindex(t_stack **stacka, t_stack **stackb);
-void				ft_divorce(t_stack **a, t_stack **b);
-void				ft_wedding(t_stack **a, t_stack **b);
-void				ft_markuphead(t_stack **stack);
-void				ft_putmaxkeepontop(t_stack **stack);
-char				*ft_rotationsfora(t_stack **stacka, t_stack **stackb);
+char				*ft_combine_instructions(char *first_inctrustion, \
+	char *second_inctrustion);
+void				ft_delete_array(char **arr);
+void				ft_stack_indexind(t_stack **stack);
+
+t_stack				*ft_stack_new(int argc, char **argv);
+void				ft_stack_del(t_stack **stack);
+int					ft_stack_len(t_stack *stack);
+t_stack				*ft_stack_dup(t_stack *stack);
+void				ft_stack_divorce(t_stack **a, t_stack **b);
+void				ft_markup_head(t_stack **stack);
+int					ft_markup_count(t_stack *stack);
+void				ft_markup(t_stack **stack);
+char				*ft_stack_a_instructions(t_stack **stacka, t_stack **stackb);
 void				ft_countturns(t_stack **stacka, t_stack **stackb);
+void				ft_instruction_execution(char *commands, t_stack **a, t_stack **b);
 
 #endif

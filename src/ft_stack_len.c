@@ -1,6 +1,6 @@
 #include "../include/push_swap.h"
 
-int	ft_stacklen(t_stack *stack)
+int	ft_stack_len(t_stack *stack)
 {
 	t_stack	*tmp;
 	int		len;
