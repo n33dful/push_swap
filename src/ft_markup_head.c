@@ -1,8 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_markup_head.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/21 19:55:07 by cdarci            #+#    #+#             */
+/*   Updated: 2019/11/21 19:55:34 by cdarci           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/push_swap.h"
-
-int			ft_markup_count(t_stack *stack);
-void		ft_markup(t_stack **stack);
 
 void		ft_markup_head(t_stack **stack)
 {

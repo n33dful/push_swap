@@ -1,6 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_allrotations.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/21 19:52:58 by cdarci            #+#    #+#             */
+/*   Updated: 2019/11/21 20:20:37 by cdarci           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/push_swap.h"
 
-static int	ft_commcount(char *comm);
+static int	ft_commcount(char *comm)
+{
+	int	count;
+
+	count = 0;
+	while (*comm)
+	{
+		if (*comm == '\n')
+			count++;
+		comm++;
+	}
+	return (count);
+}
 
 void		ft_countturns(t_stack **stacka, t_stack **stackb)
 {
@@ -64,18 +88,4 @@ ft_stack_b_instructions(i));
 	}
 	ft_stack_del(&a);
 	ft_stack_del(&b);
-}
-
-static int	ft_commcount(char *comm)
-{
-	int	count;
-
-	count = 0;
-	while (*comm)
-	{
-		if (*comm == '\n')
-			count++;
-		comm++;
-	}
-	return (count);
 }

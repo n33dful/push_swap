@@ -6,37 +6,11 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:38:44 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/16 16:28:06 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/21 21:15:43 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-
-static t_stack	*ft_newstackelem(char **arr);
-static int		ft_checkrepeats(t_stack *stack);
-static void		ft_addtoend(t_stack **a, t_stack *b);
-
-t_stack			*ft_stack_new(int argc, char **argv)
-{
-	t_stack	*stack;
-	char	**arr;
-	int		i;
-
-	i = 2;
-	arr = ft_strsplit(argv[1], ' ');
-	stack = ft_newstackelem(arr);
-	ft_delete_array(arr);
-	while (i < argc)
-	{
-		arr = ft_strsplit(argv[i], ' ');
-		ft_addtoend(&stack, ft_newstackelem(arr));
-		ft_delete_array(arr);
-		i++;
-	}
-	if (!ft_checkrepeats(stack))
-		ft_stack_del(&stack);
-	return (stack);
-}
 
 static void		ft_addtoend(t_stack **a, t_stack *b)
 {
@@ -88,7 +62,7 @@ static t_stack	*ft_newstackelem(char **arr)
 	new = NULL;
 	if (!(*arr))
 		return (NULL);
-	else if ((arr[i][0] == '-' ? !ft_isdigit(arr[i][1]) : !ft_isdigit(arr[i][0])))
+	if ((arr[i][0] == '-' ? !ft_isdigit(arr[i][1]) : !ft_isdigit(arr[i][0])))
 	{
 		ft_putstr("Error\n");
 		exit(-1);
@@ -106,4 +80,26 @@ static t_stack	*ft_newstackelem(char **arr)
 		new->next = ft_newstackelem(arr + 1);
 	}
 	return (new);
+}
+
+t_stack			*ft_stack_new(int argc, char **argv)
+{
+	t_stack	*stack;
+	char	**arr;
+	int		i;
+
+	i = 2;
+	arr = ft_strsplit(argv[1], ' ');
+	stack = ft_newstackelem(arr);
+	ft_delete_array(arr);
+	while (i < argc)
+	{
+		arr = ft_strsplit(argv[i], ' ');
+		ft_addtoend(&stack, ft_newstackelem(arr));
+		ft_delete_array(arr);
+		i++;
+	}
+	if (!ft_checkrepeats(stack))
+		ft_stack_del(&stack);
+	return (stack);
 }

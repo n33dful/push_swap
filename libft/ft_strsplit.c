@@ -6,13 +6,13 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 14:46:56 by cdarci            #+#    #+#             */
-/*   Updated: 2019/09/07 16:44:02 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/21 21:25:44 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-static int ft_wordscount(char *s, char c)
+static int	ft_wordscount(char *s, char c)
 {
 	int	count;
 
@@ -66,7 +66,8 @@ char		**ft_strsplit(char const *s, char c)
 	arr = NULL;
 	if (str)
 	{
-		if (!(arr = (char **)malloc(sizeof(char *) * (ft_wordscount(str, c) + 1))))
+		if (!(arr = (char **)malloc(sizeof(char *) * \
+(ft_wordscount(str, c) + 1))))
 			exit(-1);
 		while ((*str) != '\0')
 		{
@@ -78,7 +79,6 @@ char		**ft_strsplit(char const *s, char c)
 				i++;
 			}
 		}
-		str = NULL;
 		arr[i] = NULL;
 	}
 	return (arr);

@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:59:38 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/16 11:11:48 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/21 21:21:31 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void				ft_stack_rotate(t_stack **stack);
 void				ft_stack_reverse_rotate(t_stack **stack);
 
 char				*ft_combine_instructions(char *first_inctrustion, \
-	char *second_inctrustion);
+					char *second_inctrustion);
 void				ft_delete_array(char **arr);
 void				ft_stack_indexind(t_stack **stack);
 
@@ -44,10 +44,12 @@ void				ft_stack_divorce(t_stack **a, t_stack **b);
 void				ft_markup_head(t_stack **stack);
 int					ft_markup_count(t_stack *stack);
 void				ft_markup(t_stack **stack);
-char				*ft_stack_a_instructions(t_stack **stacka, t_stack **stackb);
+char				*ft_stack_a_instructions(t_stack **stacka, \
+					t_stack **stackb);
 char				*ft_stack_b_instructions(int count);
 void				ft_countturns(t_stack **stacka, t_stack **stackb);
-void				ft_instruction_execution(char *commands, t_stack **a, t_stack **b);
+void				ft_instruction_execution(char *commands, \
+					t_stack **a, t_stack **b);
 char				*ft_inctruction_optimization(char *comma, char *commb);
 
 #endif

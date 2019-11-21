@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stack_new.c                                     :+:      :+:    :+:    */
+/*   ft_stack_dup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/18 12:41:19 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/20 16:28:06 by cdarci           ###   ########.fr       */
+/*   Created: 2019/11/21 20:16:58 by cdarci            #+#    #+#             */
+/*   Updated: 2019/11/21 20:17:05 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-
-static t_stack	*ft_elemcpy(t_stack *stack);
-
-t_stack			*ft_stack_dup(t_stack *stack)
-{
-	t_stack	*new;
-
-	if (!stack)
-		return (NULL);
-	new = ft_elemcpy(stack);
-	new->next = ft_stack_dup(stack->next);
-	return (new);
-}
 
 static t_stack	*ft_elemcpy(t_stack *stack)
 {
@@ -41,5 +28,16 @@ static t_stack	*ft_elemcpy(t_stack *stack)
 	else
 		new->str = NULL;
 	new->next = NULL;
+	return (new);
+}
+
+t_stack			*ft_stack_dup(t_stack *stack)
+{
+	t_stack	*new;
+
+	if (!stack)
+		return (NULL);
+	new = ft_elemcpy(stack);
+	new->next = ft_stack_dup(stack->next);
 	return (new);
 }

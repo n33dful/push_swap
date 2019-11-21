@@ -1,24 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_instruction_execution.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/21 19:55:00 by cdarci            #+#    #+#             */
+/*   Updated: 2019/11/21 20:38:26 by cdarci           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/push_swap.h"
-
-static void	ft_what_to_do(char *comm, t_stack **a, t_stack **b);
-
-void		ft_instruction_execution(char *commands, t_stack **a, t_stack **b)
-{
-	char	**comm;
-	int		i;
-
-	i = 0;
-	comm = ft_strsplit(commands, '\n');
-	while (comm[i])
-	{
-		ft_what_to_do(comm[i], a, b);
-		i++;
-	}
-	i = 0;
-	while (comm[i])
-		free(comm[i++]);
-	free(comm);
-}
 
 static void	ft_what_to_do(char *comm, t_stack **a, t_stack **b)
 {
@@ -38,4 +30,19 @@ static void	ft_what_to_do(char *comm, t_stack **a, t_stack **b)
 		ft_stack_reverse_rotate(a);
 	if (!ft_strcmp(comm, "rrb") || !ft_strcmp(comm, "rrr"))
 		ft_stack_reverse_rotate(b);
+}
+
+void		ft_instruction_execution(char *commands, t_stack **a, t_stack **b)
+{
+	char	**comm;
+	int		i;
+
+	i = 0;
+	comm = ft_strsplit(commands, '\n');
+	while (comm[i])
+	{
+		ft_what_to_do(comm[i], a, b);
+		i++;
+	}
+	ft_delete_array(comm);
 }

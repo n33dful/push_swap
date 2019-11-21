@@ -1,17 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_stack_print.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/21 20:18:52 by cdarci            #+#    #+#             */
+/*   Updated: 2019/11/21 20:19:04 by cdarci           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/checker.h"
-
-static void	ft_putstacknum(t_stack *stack);
-static int	ft_numlen(int num);
-static void	ft_putstacks(t_stack *a, t_stack *b);
-
-void		ft_stack_print(t_stack *a, t_stack *b)
-{
-	ft_putstr("+-------------+-------------+\n");
-	ft_putstacks(a, b);
-	ft_putstr("+-------------+-------------+\n");
-	ft_putstr("|      a      |      b      |\n");
-	ft_putstr("+-------------+-------------+\n");
-}
 
 static int	ft_numlen(int num)
 {
@@ -70,4 +69,13 @@ static void	ft_putstacks(t_stack *a, t_stack *b)
 			ft_putstr("             ");
 		ft_putstr("|\n");
 	}
+}
+
+void		ft_stack_print(t_stack *a, t_stack *b)
+{
+	ft_putstr("+-------------+-------------+\n");
+	ft_putstacks(a, b);
+	ft_putstr("+-------------+-------------+\n");
+	ft_putstr("|      a      |      b      |\n");
+	ft_putstr("+-------------+-------------+\n");
 }

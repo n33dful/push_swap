@@ -6,7 +6,7 @@
 #    By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/05 18:11:23 by cdarci            #+#    #+#              #
-#    Updated: 2019/11/08 16:54:25 by cdarci           ###   ########.fr        #
+#    Updated: 2019/11/21 20:38:51 by cdarci           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,7 +106,7 @@ ft_stack_reverse_rotate.c\
 ft_stack_rotate.c\
 ft_stack_swap.c\
 ft_delete_array.c\
-ft_instruction_execution.c
+ft_checker_stack_print.c
 PSOBJECTS=$(PSFILES:.c=.o)
 CHOBJECTS=$(CHFILES:.c=.o)
 LIBOBJECTS=$(LIBFILES:.c=.o)

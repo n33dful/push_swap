@@ -6,38 +6,30 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:16:20 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/16 20:22:35 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/21 21:28:10 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-static char	*ft_findcomm(t_stack *stack);
-static void	ft_final_stack_rotation(t_stack **a);
-
-int			main(int argc, char **argv)
+static void	ft_final_stack_rotation(t_stack **a)
 {
-	t_stack *a;
-	t_stack *b;
-
-	if (argc < 2 || !(a = ft_stack_new(argc, argv)))
+	if ((*a)->index > ft_stack_len((*a)) / 2)
 	{
-		ft_putstr("Error\n");
-		exit(-1);
+		while ((*a)->index != 0)
+		{
+			ft_stack_rotate(a);
+			ft_putstr("ra\n");
+		}
 	}
-	b = NULL;
-	ft_stack_indexind(&a);
-	ft_stack_divorce(&a, &b);
-	while (b)
+	else
 	{
-		ft_countturns(&a, &b);
-		ft_putstr(ft_findcomm(b));
-		ft_instruction_execution(ft_findcomm(b), &a, &b);
+		while ((*a)->index != 0)
+		{
+			ft_stack_reverse_rotate(a);
+			ft_putstr("rra\n");
+		}
 	}
-	ft_final_stack_rotation(&a);
-	ft_stack_del(&a);
-	ft_stack_del(&b);
-	return (0);
 }
 
 static char	*ft_findcomm(t_stack *stack)
@@ -61,25 +53,32 @@ static char	*ft_findcomm(t_stack *stack)
 			stack = stack->next;
 		}
 	}
-	return(res);
+	return (res);
 }
 
-static void	ft_final_stack_rotation(t_stack **a)
+int			main(int argc, char **argv)
 {
-	if ((*a)->index > ft_stack_len((*a)) / 2)
+	t_stack *a;
+	t_stack *b;
+
+	if (argc < 2 || !(a = ft_stack_new(argc, argv)))
 	{
-		while ((*a)->index != 0)
-		{
-			ft_stack_rotate(a);
-			ft_putstr("ra\n");
-		}
+		if (argc < 2)
+			return (0);
+		ft_putstr("Error\n");
+		exit(-1);
 	}
-	else
+	b = NULL;
+	ft_stack_indexind(&a);
+	ft_stack_divorce(&a, &b);
+	while (b)
 	{
-		while ((*a)->index != 0)
-		{
-			ft_stack_reverse_rotate(a);
-			ft_putstr("rra\n");
-		}
+		ft_countturns(&a, &b);
+		ft_putstr(ft_findcomm(b));
+		ft_instruction_execution(ft_findcomm(b), &a, &b);
 	}
+	ft_final_stack_rotation(&a);
+	ft_stack_del(&a);
+	ft_stack_del(&b);
+	return (0);
 }

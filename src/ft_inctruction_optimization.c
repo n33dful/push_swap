@@ -1,25 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_inctruction_optimization.c                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/21 19:53:26 by cdarci            #+#    #+#             */
+/*   Updated: 2019/11/21 19:54:40 by cdarci           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/push_swap.h"
-
-static void	ft_increase_the_variable_i_and_j(int *i, int *j);
-static void	ft_conversion(char **res, char **arr_of_a, char **arr_of_b);
-
-char		*ft_inctruction_optimization(char *comma, char *commb)
-{
-	char	**arr_of_a;
-	char	**arr_of_b;
-	char	*res;
-
-	arr_of_a = ft_strsplit(comma, '\n');
-	arr_of_b = ft_strsplit(commb, '\n');
-	res = ft_strnew(0);
-	ft_conversion(&res, arr_of_a, arr_of_b);
-	res = ft_combine_instructions(res, "pa");
-	ft_delete_array(arr_of_a);
-	ft_delete_array(arr_of_b);
-	ft_strdel(&comma);
-	ft_strdel(&commb);
-	return (res);
-}
 
 static void	ft_increase_the_variable_i_and_j(int *i, int *j)
 {
@@ -53,4 +44,22 @@ static void	ft_conversion(char **res, char **arr_of_a, char **arr_of_b)
 		else if (arr_of_b[j])
 			(*res) = ft_combine_instructions((*res), arr_of_b[j++]);
 	}
+}
+
+char		*ft_inctruction_optimization(char *comma, char *commb)
+{
+	char	**arr_of_a;
+	char	**arr_of_b;
+	char	*res;
+
+	arr_of_a = ft_strsplit(comma, '\n');
+	arr_of_b = ft_strsplit(commb, '\n');
+	res = ft_strnew(0);
+	ft_conversion(&res, arr_of_a, arr_of_b);
+	res = ft_combine_instructions(res, "pa");
+	ft_delete_array(arr_of_a);
+	ft_delete_array(arr_of_b);
+	ft_strdel(&comma);
+	ft_strdel(&commb);
+	return (res);
 }

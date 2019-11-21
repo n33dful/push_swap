@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/21 21:26:55 by cdarci            #+#    #+#             */
+/*   Updated: 2019/11/21 21:28:48 by cdarci           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/checker.h"
 
 static char	*program_output(void)
@@ -18,95 +30,7 @@ static char	*program_output(void)
 	return (line);
 }
 
-static void	flagv(t_stack *a, t_stack *b, int v, char *command)
-{
-	if (v)
-	{
-		ft_putstr("\033[1;33m>------[ ");
-		ft_putstr(command);
-		ft_stack_print(a, b);
-		ft_putendl(" ]\033[0m");
-	}
-}
-
-static void	ft_what_to_dos(char *comm, t_stack **a, t_stack **b, int v)
-{
-	if (!ft_strcmp(comm, "sa") || !ft_strcmp(comm, "ss"))
-		ft_stack_swap(a);
-	if (!ft_strcmp(comm, "sb") || !ft_strcmp(comm, "ss"))
-		ft_stack_swap(b);
-	if (!ft_strcmp(comm, "pa"))
-		ft_stack_push(b, a);
-	if (!ft_strcmp(comm, "pb"))
-		ft_stack_push(a, b);
-	if (!ft_strcmp(comm, "ra") || !ft_strcmp(comm, "rr"))
-		ft_stack_rotate(a);
-	if (!ft_strcmp(comm, "rb") || !ft_strcmp(comm, "rr"))
-		ft_stack_rotate(b);
-	if (!ft_strcmp(comm, "rra") || !ft_strcmp(comm, "rrr"))
-		ft_stack_reverse_rotate(a);
-	if (!ft_strcmp(comm, "rrb") || !ft_strcmp(comm, "rrr"))
-		ft_stack_reverse_rotate(b);
-	flagv((*a), (*b), v, comm);
-}
-
-static void	ft_instruction_executions(char *commands, t_stack **a, t_stack **b, int v)
-{
-	char	**comm;
-	int		i;
-
-	i = 0;
-	comm = ft_strsplit(commands, '\n');
-	while (comm[i])
-	{
-		ft_what_to_dos(comm[i], a, b, v);
-		i++;
-	}
-	i = 0;
-	ft_delete_array(comm);
-}
-
-static int	is_sorted(t_stack *a, t_stack *b);
-
-int			main(int argc, char **argv)
-{
-	char	*commands;
-	t_stack *a;
-	t_stack *b;
-
-	commands = program_output();
-	b = NULL;
-	if (ft_strcmp(argv[1], "-v") == 0)
-	{
-		if (!(a = ft_stack_new(argc - 1, &argv[1])))
-		{
-			ft_strdel(&commands);
-			ft_putstr("Error\n");
-			exit(-1);
-		}
-		ft_instruction_executions(commands, &a, &b, 1);
-	}
-	else
-	{
-		if (!(a = ft_stack_new(argc, &argv[0])))
-		{
-			ft_strdel(&commands);
-			ft_putstr("Error\n");
-			exit(-1);
-		}
-		ft_instruction_executions(commands, &a, &b, 0);
-	}
-	if (is_sorted(a, b))
-		ft_putstr("\033[1;32mOK\n\033[0m");
-	else
-		ft_putstr("\033[1;31mKO\n\033[0m");
-	ft_stack_del(&a);
-	ft_stack_del(&b);
-	ft_strdel(&commands);
-	return (0);
-}
-
-static int	is_sorted(t_stack *a, t_stack *b)
+static int	ft_is_the_stack_sorted(t_stack *a, t_stack *b)
 {
 	t_stack *tmp;
 
@@ -120,4 +44,51 @@ static int	is_sorted(t_stack *a, t_stack *b)
 		tmp = tmp->next;
 	}
 	return (1);
+}
+
+static void	ft_error_messgage(char **commands)
+{
+	ft_strdel(commands);
+	ft_putstr("Error\n");
+	exit(-1);
+}
+
+static void	ft_mirror_instructions(t_stack **a, t_stack **b, \
+int argc, char **argv)
+{
+	char	*commands;
+
+	commands = program_output();
+	if (ft_strcmp(argv[1], "-v") == 0)
+	{
+		if (!((*a) = ft_stack_new(argc - 1, &argv[1])))
+			ft_error_messgage(&commands);
+		ft_checker_stack_print(commands, a, b, 1);
+	}
+	else
+	{
+		if (!((*a) = ft_stack_new(argc, &argv[0])))
+			ft_error_messgage(&commands);
+		ft_checker_stack_print(commands, a, b, 0);
+	}
+	ft_strdel(&commands);
+}
+
+int			main(int argc, char **argv)
+{
+	t_stack *a;
+	t_stack *b;
+
+	a = NULL;
+	b = NULL;
+	if (argc < 2)
+		return (0);
+	ft_mirror_instructions(&a, &b, argc, argv);
+	if (ft_is_the_stack_sorted(a, b))
+		ft_putstr("\033[1;32mOK\n\033[0m");
+	else
+		ft_putstr("\033[1;31mKO\n\033[0m");
+	ft_stack_del(&a);
+	ft_stack_del(&b);
+	return (0);
 }
