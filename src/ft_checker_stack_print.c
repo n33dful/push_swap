@@ -6,13 +6,13 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 20:36:59 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/21 21:08:28 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/21 23:22:31 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/checker.h"
 
-static void	ft_error_messgage(void)
+static void	ft_error_message(void)
 {
 	ft_putstr("Error\n");
 	exit(-1);
@@ -43,7 +43,7 @@ static void	ft_what_to_do(char *comm, t_stack **a, t_stack **b)
 			ft_stack_reverse_rotate(b);
 	}
 	else
-		ft_error_messgage();
+		ft_error_message();
 }
 
 void		ft_checker_stack_print(char *commands, \
@@ -61,9 +61,12 @@ t_stack **a, t_stack **b, int v)
 		ft_what_to_do(comm[i], a, b);
 		if (v)
 		{
-			ft_putstr("\033[1;33m>------[ ");
+			ft_putstr("\033[1;33m>----------{ ");
 			ft_putstr(comm[i]);
-			ft_putendl(" ]\033[0m");
+			if (ft_strlen(comm[i]) == 2)
+				ft_putendl("  }----------<\033[0m");
+			else
+				ft_putendl(" }----------<\033[0m");
 			ft_stack_print((*a), (*b));
 		}
 		i++;
