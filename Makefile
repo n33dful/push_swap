@@ -90,11 +90,13 @@ ft_stack_dup.c\
 ft_stack_divorce.c\
 ft_markup_head.c\
 ft_stack_a_instructions.c\
+ft_stack_b_instructions.c\
 ft_allrotations.c\
 ft_combine_instructions.c\
 ft_delete_array.c\
 ft_instruction_execution.c\
-ft_stack_indexing.c
+ft_stack_indexing.c\
+ft_inctruction_optimization.c
 CHFILES=checker.c\
 ft_stack_print.c\
 ft_stack_new.c\

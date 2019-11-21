@@ -45,7 +45,9 @@ void				ft_markup_head(t_stack **stack);
 int					ft_markup_count(t_stack *stack);
 void				ft_markup(t_stack **stack);
 char				*ft_stack_a_instructions(t_stack **stacka, t_stack **stackb);
+char				*ft_stack_b_instructions(int count);
 void				ft_countturns(t_stack **stacka, t_stack **stackb);
 void				ft_instruction_execution(char *commands, t_stack **a, t_stack **b);
+char				*ft_inctruction_optimization(char *comma, char *commb);
 
 #endif

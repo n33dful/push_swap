@@ -9,11 +9,11 @@ void		ft_stack_indexind(t_stack **stack)
 	int		*array_of_numbers;
 	int		i;
 
-	i = 0;
 	array_of_numbers = ft_create_an_array_of_numbers((*stack));
 	stack_pointer = (*stack);
 	while (stack_pointer)
 	{
+		i = 0;
 		while (array_of_numbers[i] != stack_pointer->num)
 			i++;
 		stack_pointer->index = i;

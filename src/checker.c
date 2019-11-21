@@ -22,10 +22,10 @@ static void	flagv(t_stack *a, t_stack *b, int v, char *command)
 {
 	if (v)
 	{
-		ft_putstr("\033[1;33m>------ ");
+		ft_putstr("\033[1;33m>------[ ");
 		ft_putstr(command);
 		ft_stack_print(a, b);
-		ft_putendl("\033[0m");
+		ft_putendl(" ]\033[0m");
 	}
 }
 
