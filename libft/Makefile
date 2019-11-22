@@ -73,7 +73,8 @@ FILES = ft_isprint.c\
 		ft_memalloc.c\
 		ft_putendl_fd.c\
 		ft_strdup.c\
-		ft_strncpy.c 
+		ft_strncpy.c\
+		ft_isint.c
 
 OBJ			= $(patsubst %.c, %.o, $(FILES))
 FLAGS		= -g -Wall -Werror -Wextra

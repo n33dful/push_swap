@@ -85,11 +85,9 @@ int			main(int argc, char **argv)
 		return (0);
 	ft_mirror_instructions(&a, &b, argc, argv);
 	if (ft_is_the_stack_sorted(a, b))
-		ft_putstr("OK\n");
-	//ft_putstr("\033[1;32mOK\n\033[0m");
+		ft_putendl("\\033[1;32mOK\\033[0m");
 	else
-		ft_putstr("KO\n");
-	//ft_putstr("\033[1;31mKO\n\033[0m");
+		ft_putendl("\\033[1;31mKO\\033[0m");
 	ft_stack_del(&a);
 	ft_stack_del(&b);
 	return (0);

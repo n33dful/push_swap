@@ -12,6 +12,23 @@
 
 #include "../include/push_swap.h"
 
+static void		ft_check_stack_len(const t_stack *stack)
+{
+	int	len;
+
+	len = 0;
+	while (stack)
+	{
+		if (len > len + 1)
+		{
+			ft_putstr("Error\n");
+			exit(-1);
+		}
+		stack = stack->next;
+		len++;
+	}
+}
+
 static void		ft_addtoend(t_stack **a, t_stack *b)
 {
 	t_stack	*tmp;
@@ -62,7 +79,7 @@ static t_stack	*ft_newstackelem(char **arr)
 	new = NULL;
 	if (!(*arr))
 		return (NULL);
-	if ((arr[i][0] == '-' ? !ft_isdigit(arr[i][1]) : !ft_isdigit(arr[i][0])))
+	if (!ft_isint((*arr)))
 	{
 		ft_putstr("Error\n");
 		exit(-1);
@@ -101,5 +118,6 @@ t_stack			*ft_stack_new(int argc, char **argv)
 	}
 	if (!ft_checkrepeats(stack))
 		ft_stack_del(&stack);
+	ft_check_stack_len(stack);
 	return (stack);
 }

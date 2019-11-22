@@ -77,7 +77,8 @@ ft_islower.c\
 ft_memalloc.c\
 ft_putendl_fd.c\
 ft_strdup.c\
-ft_strncpy.c
+ft_strncpy.c\
+ft_isint.c
 PSFILES=push_swap.c\
 ft_stack_push.c\
 ft_stack_len.c\
