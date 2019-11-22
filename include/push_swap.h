@@ -31,7 +31,7 @@ void				ft_stack_rotate(t_stack **stack);
 void				ft_stack_reverse_rotate(t_stack **stack);
 
 char				*ft_combine_instructions(char *first_inctrustion, \
-					char *second_inctrustion);
+	char *second_inctrustion);
 void				ft_delete_array(char **arr);
 void				ft_stack_indexind(t_stack **stack);
 
@@ -41,11 +41,11 @@ size_t				ft_stack_len(const t_stack *stack);
 t_stack				*ft_stack_dup(t_stack *stack);
 void				ft_stack_divorce(t_stack **a, t_stack **b);
 char				*ft_stack_a_instructions(t_stack **stacka, \
-					t_stack **stackb);
+	t_stack **stackb);
 char				*ft_stack_b_instructions(int count);
 void				ft_countturns(t_stack **stacka, t_stack **stackb);
 void				ft_instruction_execution(char *commands, \
-					t_stack **a, t_stack **b);
+	t_stack **a, t_stack **b);
 char				*ft_inctruction_optimization(char *comma, char *commb);
 int					ft_number_of_operations(const char *operations);
 
