@@ -21,6 +21,8 @@ int	ft_stack_len(t_stack *stack)
 	tmp = stack;
 	while (tmp)
 	{
+		if (len > len + 1)
+			return (-1);
 		tmp = tmp->next;
 		len++;
 	}

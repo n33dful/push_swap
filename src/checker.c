@@ -49,45 +49,47 @@ static int	ft_is_the_stack_sorted(t_stack *a, t_stack *b)
 static void	ft_error_messgage(char **commands)
 {
 	ft_strdel(commands);
-	ft_putstr("Error\n");
+	ft_putendl("Error");
 	exit(-1);
 }
 
-static void	ft_mirror_instructions(t_stack **a, t_stack **b, \
-int argc, char **argv)
+static int	ft_mirror_instructions(t_stack **a, t_stack **b, \
+int ac, char **av)
 {
 	char	*commands;
+	int		flag_v;
 
+	flag_v = 0;
 	commands = program_output();
-	if (ft_strcmp(argv[1], "-v") == 0)
+	if (ft_strcmp(av[1], "-v") == 0)
 	{
-		if (!((*a) = ft_stack_new(argc - 1, &argv[1])))
-			ft_error_messgage(&commands);
-		ft_checker_stack_print(commands, a, b, 1);
+		if (ac < 3)
+			return (0);
+		av = av + 1;
+		flag_v = 1;
 	}
-	else
-	{
-		if (!((*a) = ft_stack_new(argc, &argv[0])))
-			ft_error_messgage(&commands);
-		ft_checker_stack_print(commands, a, b, 0);
-	}
+	else if (ac < 2)
+		return(0);
+	if (!((*a) = ft_stack_new(ac, av)))
+		ft_error_messgage(&commands);
+	ft_checker_stack_print(commands, a, b, flag_v);
 	ft_strdel(&commands);
+	return (1);
 }
 
-int			main(int argc, char **argv)
+int			main(int ac, char **av)
 {
 	t_stack *a;
 	t_stack *b;
 
 	a = NULL;
 	b = NULL;
-	if (argc < 2)
+	if (!ft_mirror_instructions(&a, &b, ac, av))
 		return (0);
-	ft_mirror_instructions(&a, &b, argc, argv);
 	if (ft_is_the_stack_sorted(a, b))
-		ft_putendl("\\033[1;32mOK\\033[0m");
+		ft_putendl("\033[1;32mOK\033[0m");
 	else
-		ft_putendl("\\033[1;31mKO\\033[0m");
+		ft_putendl("\033[1;31mKO\033[0m");
 	ft_stack_del(&a);
 	ft_stack_del(&b);
 	return (0);

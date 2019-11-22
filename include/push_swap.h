@@ -22,7 +22,6 @@ typedef struct		s_stack
 	int				markup;
 	int				turns;
 	char			*str;
-	int				keep;
 	struct s_stack	*next;
 }					t_stack;
 
@@ -36,14 +35,11 @@ char				*ft_combine_instructions(char *first_inctrustion, \
 void				ft_delete_array(char **arr);
 void				ft_stack_indexind(t_stack **stack);
 
-t_stack				*ft_stack_new(int argc, char **argv);
+t_stack				*ft_stack_new(int ac, char **av);
 void				ft_stack_del(t_stack **stack);
 int					ft_stack_len(t_stack *stack);
 t_stack				*ft_stack_dup(t_stack *stack);
 void				ft_stack_divorce(t_stack **a, t_stack **b);
-void				ft_markup_head(t_stack **stack);
-int					ft_markup_count(t_stack *stack);
-void				ft_markup(t_stack **stack);
 char				*ft_stack_a_instructions(t_stack **stacka, \
 					t_stack **stackb);
 char				*ft_stack_b_instructions(int count);

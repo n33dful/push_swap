@@ -14,9 +14,14 @@
 
 void	ft_putendl(char const *s)
 {
-	if (s != NULL)
+	unsigned int	len;
+
+	len = 0;
+	if (s)
 	{
-		ft_putstr(s);
+		while (s[len])
+			len++;
+		write(1, s, len);
 		ft_putchar('\n');
 	}
 }

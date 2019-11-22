@@ -89,7 +89,6 @@ ft_stack_new.c\
 ft_stack_del.c\
 ft_stack_dup.c\
 ft_stack_divorce.c\
-ft_markup_head.c\
 ft_stack_a_instructions.c\
 ft_stack_b_instructions.c\
 ft_allrotations.c\
@@ -107,6 +106,7 @@ ft_stack_push.c\
 ft_stack_reverse_rotate.c\
 ft_stack_rotate.c\
 ft_stack_swap.c\
+ft_stack_len.c\
 ft_delete_array.c\
 ft_checker_stack_print.c
 PSOBJECTS=$(PSFILES:.c=.o)

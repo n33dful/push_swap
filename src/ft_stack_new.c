@@ -12,21 +12,20 @@
 
 #include "../include/push_swap.h"
 
-static void		ft_check_stack_len(const t_stack *stack)
+static int		ft_check_numbers_in_arr(char **arr)
 {
-	int	len;
+	int	i;
 
-	len = 0;
-	while (stack)
+	i = 0;
+	while (arr[i])
 	{
-		if (len > len + 1)
+		if (!ft_isint(arr[i++]))
 		{
-			ft_putstr("Error\n");
-			exit(-1);
+			ft_delete_array(arr);
+			return (0);
 		}
-		stack = stack->next;
-		len++;
 	}
+	return (1);
 }
 
 static void		ft_addtoend(t_stack **a, t_stack *b)
@@ -79,11 +78,6 @@ static t_stack	*ft_newstackelem(char **arr)
 	new = NULL;
 	if (!(*arr))
 		return (NULL);
-	if (!ft_isint((*arr)))
-	{
-		ft_putstr("Error\n");
-		exit(-1);
-	}
 	else if (!(new = (t_stack *)malloc(sizeof(t_stack))))
 		exit(-1);
 	else
@@ -92,32 +86,36 @@ static t_stack	*ft_newstackelem(char **arr)
 		new->index = 0;
 		new->markup = 0;
 		new->turns = 0;
-		new->keep = 0;
 		new->str = NULL;
 		new->next = ft_newstackelem(arr + 1);
 	}
 	return (new);
 }
 
-t_stack			*ft_stack_new(int argc, char **argv)
+t_stack			*ft_stack_new(int ac, char **av)
 {
 	t_stack	*stack;
 	char	**arr;
 	int		i;
 
-	i = 2;
-	arr = ft_strsplit(argv[1], ' ');
+	i = 1;
+	arr = ft_strsplit(av[i++], ' ');
+	if (!ft_check_numbers_in_arr(arr))
+		return (NULL);
 	stack = ft_newstackelem(arr);
 	ft_delete_array(arr);
-	while (i < argc)
+	while (i < ac)
 	{
-		arr = ft_strsplit(argv[i], ' ');
+		arr = ft_strsplit(av[i++], ' ');
+		if (!ft_check_numbers_in_arr(arr))
+		{
+			ft_stack_del(&stack);
+			return (NULL);
+		}
 		ft_addtoend(&stack, ft_newstackelem(arr));
 		ft_delete_array(arr);
-		i++;
 	}
-	if (!ft_checkrepeats(stack))
+	if (!ft_checkrepeats(stack) || ft_stack_len(stack) < 0)
 		ft_stack_del(&stack);
-	ft_check_stack_len(stack);
 	return (stack);
 }

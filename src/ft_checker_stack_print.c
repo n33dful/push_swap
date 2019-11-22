@@ -14,7 +14,7 @@
 
 static void	ft_error_message(void)
 {
-	ft_putstr("Error\n");
+	ft_putendl("Error");
 	exit(-1);
 }
 

@@ -59,7 +59,7 @@ static void	ft_putstacks(t_stack *a, t_stack *b)
 		}
 		else
 			ft_putstr("             ");
-		ft_putchar('|');
+		ft_putstr("|");
 		if (b)
 		{
 			ft_putstacknum(b);
@@ -67,15 +67,15 @@ static void	ft_putstacks(t_stack *a, t_stack *b)
 		}
 		else
 			ft_putstr("             ");
-		ft_putstr("|\n");
+		ft_putendl("|");
 	}
 }
 
 void		ft_stack_print(t_stack *a, t_stack *b)
 {
-	ft_putstr("+-------------+-------------+\n");
+	ft_putendl("+-------------+-------------+");
 	ft_putstacks(a, b);
-	ft_putstr("+-------------+-------------+\n");
-	ft_putstr("|      a      |      b      |\n");
-	ft_putstr("+-------------+-------------+\n");
+	ft_putendl("+-------------+-------------+");
+	ft_putendl("|      a      |      b      |");
+	ft_putendl("+-------------+-------------+");
 }

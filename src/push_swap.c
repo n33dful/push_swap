@@ -19,7 +19,7 @@ static void	ft_final_stack_rotation(t_stack **a)
 		while ((*a)->index != 0)
 		{
 			ft_stack_rotate(a);
-			ft_putstr("ra\n");
+			ft_putendl("ra");
 		}
 	}
 	else
@@ -27,7 +27,7 @@ static void	ft_final_stack_rotation(t_stack **a)
 		while ((*a)->index != 0)
 		{
 			ft_stack_reverse_rotate(a);
-			ft_putstr("rra\n");
+			ft_putendl("rra");
 		}
 	}
 }
@@ -56,16 +56,16 @@ static char	*ft_findcomm(t_stack *stack)
 	return (res);
 }
 
-int			main(int argc, char **argv)
+int			main(int ac, char **av)
 {
 	t_stack *a;
 	t_stack *b;
 
-	if (argc < 2 || !(a = ft_stack_new(argc, argv)))
+	if (ac < 2 || !(a = ft_stack_new(ac, av)))
 	{
-		if (argc < 2)
+		if (ac < 2)
 			return (0);
-		ft_putstr("Error\n");
+		ft_putendl("Error");
 		exit(-1);
 	}
 	b = NULL;
