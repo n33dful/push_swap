@@ -18,7 +18,7 @@
 typedef struct		s_stack
 {
 	int				num;
-	int				index;
+	size_t			index;
 	int				markup;
 	int				turns;
 	char			*str;
@@ -37,7 +37,7 @@ void				ft_stack_indexind(t_stack **stack);
 
 t_stack				*ft_stack_new(int ac, char **av);
 void				ft_stack_del(t_stack **stack);
-int					ft_stack_len(t_stack *stack);
+size_t				ft_stack_len(const t_stack *stack);
 t_stack				*ft_stack_dup(t_stack *stack);
 void				ft_stack_divorce(t_stack **a, t_stack **b);
 char				*ft_stack_a_instructions(t_stack **stacka, \

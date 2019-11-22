@@ -12,9 +12,9 @@
 
 #include "../include/push_swap.h"
 
-static int	ft_max_i(t_stack *stack)
+static size_t	ft_max_i(t_stack *stack)
 {
-	int	ind;
+	size_t	ind;
 
 	ind = stack->index;
 	while (stack)
@@ -26,9 +26,9 @@ static int	ft_max_i(t_stack *stack)
 	return (ind);
 }
 
-static int	ft_min_i(t_stack *stack)
+static size_t	ft_min_i(t_stack *stack)
 {
-	int	ind;
+	size_t	ind;
 
 	ind = stack->index;
 	while (stack)
@@ -43,8 +43,8 @@ static int	ft_min_i(t_stack *stack)
 static char	*ft_rr_rotate(t_stack **a, t_stack **b)
 {
 	char	*commands;
-	int		index_start;
-	int		tmp;
+	size_t	index_start;
+	size_t	tmp;
 
 	index_start = (*a)->index;
 	commands = ft_strnew(0);
@@ -71,8 +71,8 @@ static char	*ft_rr_rotate(t_stack **a, t_stack **b)
 static char	*ft_r_rotate(t_stack **a, t_stack **b)
 {
 	char	*commands;
-	int		index_start;
-	int		tmp;
+	size_t	index_start;
+	size_t	tmp;
 
 	index_start = (*a)->index;
 	commands = ft_strnew(0);

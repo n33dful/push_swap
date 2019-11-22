@@ -14,7 +14,7 @@
 
 static void	ft_markup(t_stack **stack)
 {
-	int		index;
+	size_t	index;
 	t_stack	*a;
 
 	a = (*stack);

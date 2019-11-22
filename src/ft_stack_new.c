@@ -14,9 +14,14 @@
 
 static int		ft_check_numbers_in_arr(char **arr)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
+	if (!arr || !arr[i])
+	{
+		ft_delete_array(arr);
+		return (0);
+	}
 	while (arr[i])
 	{
 		if (!ft_isint(arr[i++]))
@@ -89,6 +94,7 @@ static t_stack	*ft_newstackelem(char **arr)
 		new->str = NULL;
 		new->next = ft_newstackelem(arr + 1);
 	}
+	ft_delete_array(arr);
 	return (new);
 }
 
@@ -99,23 +105,19 @@ t_stack			*ft_stack_new(int ac, char **av)
 	int		i;
 
 	i = 1;
-	arr = ft_strsplit(av[i++], ' ');
-	if (!ft_check_numbers_in_arr(arr))
+	if (!(arr = ft_strsplit(av[i++], ' ')) || !ft_check_numbers_in_arr(arr))
 		return (NULL);
 	stack = ft_newstackelem(arr);
-	ft_delete_array(arr);
 	while (i < ac)
 	{
-		arr = ft_strsplit(av[i++], ' ');
-		if (!ft_check_numbers_in_arr(arr))
+		if (!(arr = ft_strsplit(av[i++], ' ')) || !ft_check_numbers_in_arr(arr))
 		{
 			ft_stack_del(&stack);
 			return (NULL);
 		}
 		ft_addtoend(&stack, ft_newstackelem(arr));
-		ft_delete_array(arr);
 	}
-	if (!ft_checkrepeats(stack) || ft_stack_len(stack) < 0)
+	if (!ft_checkrepeats(stack))
 		ft_stack_del(&stack);
 	return (stack);
 }

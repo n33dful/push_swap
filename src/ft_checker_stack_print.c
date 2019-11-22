@@ -12,13 +12,18 @@
 
 #include "../include/checker.h"
 
-static void	ft_error_message(void)
+static void	ft_error_message(char *commands, char **comm, \
+t_stack **a, t_stack **b)
 {
 	ft_putendl("Error");
+	ft_strdel(&commands);
+	ft_delete_array(comm);
+	ft_stack_del(a);
+	ft_stack_del(b);
 	exit(-1);
 }
 
-static void	ft_what_to_do(char *comm, t_stack **a, t_stack **b)
+static int	ft_what_to_do(char *comm, t_stack **a, t_stack **b)
 {
 	if (!ft_strcmp(comm, "sa") || !ft_strcmp(comm, "sb") || \
 !ft_strcmp(comm, "ss") || !ft_strcmp(comm, "pa") || !ft_strcmp(comm, "pb") || \
@@ -41,9 +46,9 @@ static void	ft_what_to_do(char *comm, t_stack **a, t_stack **b)
 			ft_stack_reverse_rotate(a);
 		if (!ft_strcmp(comm, "rrb") || !ft_strcmp(comm, "rrr"))
 			ft_stack_reverse_rotate(b);
+		return (1);
 	}
-	else
-		ft_error_message();
+	return (0);
 }
 
 void		ft_checker_stack_print(char *commands, \
@@ -58,7 +63,8 @@ t_stack **a, t_stack **b, int v)
 		ft_stack_print((*a), (*b));
 	while (comm[i])
 	{
-		ft_what_to_do(comm[i], a, b);
+		if (!(ft_what_to_do(comm[i], a, b)))
+			ft_error_message(commands, comm, a, b);
 		if (v)
 		{
 			ft_putstr("\033[1;33m>----------{ ");

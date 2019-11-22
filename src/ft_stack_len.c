@@ -12,20 +12,17 @@
 
 #include "../include/push_swap.h"
 
-int	ft_stack_len(t_stack *stack)
+size_t	ft_stack_len(const t_stack *stack)
 {
-	t_stack	*tmp;
-	int		len;
+	size_t	len;
 
 	len = 0;
-	tmp = stack;
-	while (tmp)
+	while (stack)
 	{
 		if (len > len + 1)
 			return (-1);
-		tmp = tmp->next;
+		stack = stack->next;
 		len++;
 	}
-	tmp = NULL;
 	return (len);
 }

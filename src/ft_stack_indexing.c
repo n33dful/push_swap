@@ -61,7 +61,7 @@ void		ft_stack_indexind(t_stack **stack)
 {
 	t_stack *stack_pointer;
 	int		*array_of_numbers;
-	int		i;
+	size_t	i;
 
 	array_of_numbers = ft_create_an_array_of_numbers((*stack));
 	stack_pointer = (*stack);

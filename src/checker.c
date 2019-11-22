@@ -46,9 +46,9 @@ static int	ft_is_the_stack_sorted(t_stack *a, t_stack *b)
 	return (1);
 }
 
-static void	ft_error_messgage(char **commands)
+static void	ft_error_messgage(char *commands)
 {
-	ft_strdel(commands);
+	ft_strdel(&commands);
 	ft_putendl("Error");
 	exit(-1);
 }
@@ -60,18 +60,17 @@ int ac, char **av)
 	int		flag_v;
 
 	flag_v = 0;
-	commands = program_output();
-	if (ft_strcmp(av[1], "-v") == 0)
+	if (av[1] && ft_strcmp(av[1], "-v") == 0)
 	{
-		if (ac < 3)
-			return (0);
+		ac = ac - 1;
 		av = av + 1;
 		flag_v = 1;
 	}
 	else if (ac < 2)
 		return(0);
+	commands = program_output();
 	if (!((*a) = ft_stack_new(ac, av)))
-		ft_error_messgage(&commands);
+		ft_error_messgage(commands);
 	ft_checker_stack_print(commands, a, b, flag_v);
 	ft_strdel(&commands);
 	return (1);
