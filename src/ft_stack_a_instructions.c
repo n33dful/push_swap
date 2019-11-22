@@ -12,7 +12,7 @@
 
 #include "../include/push_swap.h"
 
-static int	ft_find_maximum_index(t_stack *stack)
+static int	ft_max_i(t_stack *stack)
 {
 	int	ind;
 
@@ -26,7 +26,7 @@ static int	ft_find_maximum_index(t_stack *stack)
 	return (ind);
 }
 
-static int	ft_find_minimum_index(t_stack *stack)
+static int	ft_min_i(t_stack *stack)
 {
 	int	ind;
 
@@ -40,70 +40,75 @@ static int	ft_find_minimum_index(t_stack *stack)
 	return (ind);
 }
 
-static int	ft_find_a_place_to_insert_an_element(t_stack **a, \
-t_stack **b, int tmp, char **commands)
-{
-	int	finish;
-
-	finish = 0;
-	if (((*b)->index < ft_stack_len((*a)) / 4 && \
-(*a)->index > ft_stack_len((*a)) / 4) || \
-(*b)->index - (*a)->index > 0)
-	{
-		ft_stack_rotate(a);
-		(*commands) = ft_combine_instructions((*commands), "ra\n");
-		if ((*a)->index > (*b)->index && (*b)->index > tmp)
-			finish = 1;
-	}
-	else
-	{
-		ft_stack_reverse_rotate(a);
-		if ((*a)->index < (*b)->index && (*b)->index < tmp)
-			finish = 1;
-		else
-			(*commands) = ft_combine_instructions((*commands), "rra\n");
-	}
-	return (finish);
-}
-
-static char	*ft_create_an_instruction_to_insert_an_element(t_stack **a, \
-t_stack **b)
+static char	*ft_rr_rotate(t_stack **a, t_stack **b)
 {
 	char	*commands;
-	int		finish;
+	int		index_start;
 	int		tmp;
 
-	finish = 0;
+	index_start = (*a)->index;
 	commands = ft_strnew(0);
-	while (!finish)
+	while (1)
 	{
 		tmp = (*a)->index;
-		if ((*a)->index == \
-ft_find_minimum_index((*a)) && (*b)->index < (*a)->index)
-			finish = 1;
-		else if ((*a)->index == \
-ft_find_maximum_index((*a)) && (*b)->index > (*a)->index)
+		ft_stack_reverse_rotate(a);
+		if ((*a)->index == ft_min_i((*a)) && (*b)->index < (*a)->index)
 		{
-			ft_stack_rotate(a);
-			commands = ft_combine_instructions(commands, "ra\n");
-			finish = 1;
+			commands = ft_combine_instructions(commands, "rra");
+			break ;
 		}
-		else
-			finish = ft_find_a_place_to_insert_an_element(a, b, tmp, &commands);
+		else if ((*a)->index == ft_max_i((*a)) && (*b)->index > (*a)->index)
+			break ;
+		else if ((*a)->index < (*b)->index && (*b)->index < tmp)
+			break ;
+		commands = ft_combine_instructions(commands, "rra");
 	}
+	while ((*a)->index != index_start)
+		ft_stack_rotate(a);
+	return (commands);
+}
+
+static char	*ft_r_rotate(t_stack **a, t_stack **b)
+{
+	char	*commands;
+	int		index_start;
+	int		tmp;
+
+	index_start = (*a)->index;
+	commands = ft_strnew(0);
+	tmp = (*a)->index;
+	while (1)
+	{
+		if ((*a)->index == ft_min_i((*a)) && (*b)->index < (*a)->index)
+			break ;
+		else if ((*a)->index == ft_max_i((*a)) && (*b)->index > (*a)->index)
+		{
+			commands = ft_combine_instructions(commands, "ra");
+			break ;
+		}
+		else if ((*a)->index > (*b)->index && (*b)->index > tmp)
+			break ;
+		tmp = (*a)->index;
+		ft_stack_rotate(a);
+		commands = ft_combine_instructions(commands, "ra");
+	}
+	while ((*a)->index != index_start)
+		ft_stack_reverse_rotate(a);
 	return (commands);
 }
 
 char		*ft_stack_a_instructions(t_stack **stacka, t_stack **stackb)
 {
-	char	*comm;
-	t_stack	*a;
-	t_stack	*b;
+	char	*comm_r;
+	char	*comm_rr;
 
-	a = ft_stack_dup((*stacka));
-	b = ft_stack_dup((*stackb));
-	comm = ft_create_an_instruction_to_insert_an_element(&a, &b);
-	ft_stack_del(&a);
-	ft_stack_del(&b);
-	return (comm);
+	comm_r = ft_r_rotate(stacka, stackb);
+	comm_rr = ft_rr_rotate(stacka, stackb);
+	if (ft_number_of_operations(comm_r) > ft_number_of_operations(comm_rr))
+	{
+		ft_strdel(&comm_r);
+		return (comm_rr);
+	}
+	ft_strdel(&comm_rr);
+	return (comm_r);
 }

@@ -51,5 +51,6 @@ void				ft_countturns(t_stack **stacka, t_stack **stackb);
 void				ft_instruction_execution(char *commands, \
 					t_stack **a, t_stack **b);
 char				*ft_inctruction_optimization(char *comma, char *commb);
+int					ft_number_of_operations(const char *operations);
 
 #endif

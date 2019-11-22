@@ -96,7 +96,8 @@ ft_combine_instructions.c\
 ft_delete_array.c\
 ft_instruction_execution.c\
 ft_stack_indexing.c\
-ft_inctruction_optimization.c
+ft_inctruction_optimization.c\
+ft_number_of_instructions.c
 CHFILES=checker.c\
 ft_stack_print.c\
 ft_stack_new.c\
