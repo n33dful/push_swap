@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:59:38 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/21 21:21:31 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/23 16:23:09 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char				*ft_combine_instructions(char *first_inctrustion, \
 	char *second_inctrustion);
 void				ft_delete_array(char **arr);
 void				ft_stack_indexind(t_stack **stack);
+void				ft_algo_for_3_elem(t_stack **a);
 
 t_stack				*ft_stack_new(int ac, char **av);
 void				ft_stack_del(t_stack **stack);

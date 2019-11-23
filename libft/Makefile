@@ -6,7 +6,7 @@
 #    By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/12 13:46:51 by cdarci            #+#    #+#              #
-#    Updated: 2019/09/12 13:50:07 by cdarci           ###   ########.fr        #
+#    Updated: 2019/11/23 16:23:29 by cdarci           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ FILES = ft_isprint.c\
 		ft_isint.c
 
 OBJ			= $(patsubst %.c, %.o, $(FILES))
-FLAGS		= -g -Wall -Werror -Wextra
+FLAGS		= -Wall -Werror -Wextra
 HEADER		= ../include/libft.h
 
 all: $(NAME)

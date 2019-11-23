@@ -6,12 +6,12 @@
 #    By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/05 18:11:23 by cdarci            #+#    #+#              #
-#    Updated: 2019/11/21 20:38:51 by cdarci           ###   ########.fr        #
+#    Updated: 2019/11/23 16:28:15 by cdarci           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc 
-CPPFLAGS=-g -Wall -Wextra -Werror -Iincl
+CPPFLAGS=-Wall -Wextra -Werror -Iincl
 PSNAME=push_swap
 CHNAME=checker
 LIBNAME=libft.a
@@ -97,7 +97,8 @@ ft_delete_array.c\
 ft_instruction_execution.c\
 ft_stack_indexing.c\
 ft_inctruction_optimization.c\
-ft_number_of_instructions.c
+ft_number_of_instructions.c\
+ft_algo_for_3_elem.c
 CHFILES=checker.c\
 ft_stack_print.c\
 ft_stack_new.c\

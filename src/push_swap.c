@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:16:20 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/21 22:54:22 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/23 16:26:46 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,18 @@ static char	*ft_findcomm(t_stack *stack)
 	return (res);
 }
 
+static void	ft_base_algorithm(t_stack **a, t_stack **b)
+{
+	ft_stack_divorce(a, b);
+	while ((*b))
+	{
+		ft_countturns(a, b);
+		ft_putstr(ft_findcomm((*b)));
+		ft_instruction_execution(ft_findcomm((*b)), a, b);
+	}
+	ft_final_stack_rotation(a);
+}
+
 int			main(int ac, char **av)
 {
 	t_stack *a;
@@ -70,14 +82,10 @@ int			main(int ac, char **av)
 	}
 	b = NULL;
 	ft_stack_indexind(&a);
-	ft_stack_divorce(&a, &b);
-	while (b)
-	{
-		ft_countturns(&a, &b);
-		ft_putstr(ft_findcomm(b));
-		ft_instruction_execution(ft_findcomm(b), &a, &b);
-	}
-	ft_final_stack_rotation(&a);
+	if (ft_stack_len(a) == 3)
+		ft_algo_for_3_elem(&a);
+	else
+		ft_base_algorithm(&a, &b);
 	ft_stack_del(&a);
 	ft_stack_del(&b);
 	return (0);
