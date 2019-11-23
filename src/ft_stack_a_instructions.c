@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 19:56:42 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/21 19:57:05 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/23 16:32:05 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static size_t	ft_min_i(t_stack *stack)
 	return (ind);
 }
 
-static char	*ft_rr_rotate(t_stack **a, t_stack **b)
+static char		*ft_rr_rotate(t_stack **a, t_stack **b)
 {
 	char	*commands;
 	size_t	index_start;
@@ -68,7 +68,7 @@ static char	*ft_rr_rotate(t_stack **a, t_stack **b)
 	return (commands);
 }
 
-static char	*ft_r_rotate(t_stack **a, t_stack **b)
+static char		*ft_r_rotate(t_stack **a, t_stack **b)
 {
 	char	*commands;
 	size_t	index_start;
@@ -97,7 +97,7 @@ static char	*ft_r_rotate(t_stack **a, t_stack **b)
 	return (commands);
 }
 
-char		*ft_stack_a_instructions(t_stack **stacka, t_stack **stackb)
+char			*ft_stack_a_instructions(t_stack **stacka, t_stack **stackb)
 {
 	char	*comm_r;
 	char	*comm_rr;

@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:26:55 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/21 21:28:48 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/23 16:32:04 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int ac, char **av)
 		flag_v = 1;
 	}
 	else if (ac < 2)
-		return(0);
+		return (0);
 	commands = program_output();
 	if (!((*a) = ft_stack_new(ac, av)))
 		ft_error_messgage(commands);
