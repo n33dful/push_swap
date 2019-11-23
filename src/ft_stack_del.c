@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 19:57:15 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/21 19:57:19 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/23 16:16:03 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	ft_stack_del(t_stack **stack)
 		(*stack) = NULL;
 		(*stack) = tmp;
 	}
+	stack = NULL;
 	tmp = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:38:44 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/21 21:15:43 by cdarci           ###   ########.fr       */
+/*   Updated: 2019/11/23 16:08:33 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,24 +77,21 @@ static int		ft_checkrepeats(t_stack *stack)
 static t_stack	*ft_newstackelem(char **arr)
 {
 	t_stack *new;
-	int		i;
 
-	i = 0;
 	new = NULL;
-	if (!(*arr))
+	if (!arr || !(arr[0]))
 		return (NULL);
 	else if (!(new = (t_stack *)malloc(sizeof(t_stack))))
 		exit(-1);
 	else
 	{
-		new->num = ft_atoi(arr[i]);
+		new->num = ft_atoi((*arr));
 		new->index = 0;
 		new->markup = 0;
 		new->turns = 0;
 		new->str = NULL;
 		new->next = ft_newstackelem(arr + 1);
 	}
-	ft_delete_array(arr);
 	return (new);
 }
 
@@ -108,6 +105,7 @@ t_stack			*ft_stack_new(int ac, char **av)
 	if (!(arr = ft_strsplit(av[i++], ' ')) || !ft_check_numbers_in_arr(arr))
 		return (NULL);
 	stack = ft_newstackelem(arr);
+	ft_delete_array(arr);
 	while (i < ac)
 	{
 		if (!(arr = ft_strsplit(av[i++], ' ')) || !ft_check_numbers_in_arr(arr))
@@ -116,6 +114,7 @@ t_stack			*ft_stack_new(int ac, char **av)
 			return (NULL);
 		}
 		ft_addtoend(&stack, ft_newstackelem(arr));
+		ft_delete_array(arr);
 	}
 	if (!ft_checkrepeats(stack))
 		ft_stack_del(&stack);
