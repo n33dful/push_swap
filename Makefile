@@ -10,76 +10,14 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC=gcc 
-CPPFLAGS=-Wall -Wextra -Werror -Iincl
-PSNAME=push_swap
-CHNAME=checker
-LIBNAME=libft.a
-LIBFILES=ft_isprint.c\
-ft_memccpy.c\
-ft_putnbr.c\
-ft_strequ.c\
-ft_strnequ.c\
-ft_isspace.c\
-ft_memchr.c\
-ft_putnbr_fd.c\
-ft_striter.c\
-ft_strnew.c\
-ft_atoi.c\
-ft_isupper.c\
-ft_memcmp.c\
-ft_putstr.c\
-ft_striteri.c\
-ft_strnstr.c\
-ft_bzero.c\
-ft_itoa.c\
-ft_memcpy.c\
-ft_putstr_fd.c\
-ft_strjoin.c\
-ft_strrchr.c\
-ft_isalnum.c\
-ft_lstadd.c\
-ft_memdel.c\
-ft_strcat.c\
-ft_strlcat.c\
-ft_strsplit.c\
-ft_isalpha.c\
-ft_lstdel.c\
-ft_memmove.c\
-ft_strchr.c\
-ft_strlen.c\
-ft_strstr.c\
-ft_isascii.c\
-ft_lstdelone.c\
-ft_memset.c\
-ft_strclr.c\
-ft_strmap.c\
-ft_strsub.c\
-ft_isblank.c\
-ft_lstiter.c\
-ft_putchar.c\
-ft_strcmp.c\
-ft_strmapi.c\
-ft_strtrim.c\
-ft_iscntrl.c\
-ft_lstmap.c\
-ft_putchar_fd.c\
-ft_strcpy.c\
-ft_strncat.c\
-ft_tolower.c\
-ft_isdigit.c\
-ft_lstnew.c\
-ft_putendl.c\
-ft_strdel.c\
-ft_strncmp.c\
-ft_toupper.c\
-ft_islower.c\
-ft_memalloc.c\
-ft_putendl_fd.c\
-ft_strdup.c\
-ft_strncpy.c\
-ft_isint.c
-PSFILES=push_swap.c\
+C=gcc 
+FLAGS=-Wall -Wextra -Werror
+PUSH_SWAP_NAME=push_swap
+CHECKER_NAME=checker
+DIR_S=src
+DIR_O=temp
+HEADER=include
+PUSH_SWAP_SOURCES=push_swap.c\
 ft_stack_push.c\
 ft_stack_len.c\
 ft_stack_reverse_rotate.c\
@@ -99,7 +37,7 @@ ft_stack_indexing.c\
 ft_inctruction_optimization.c\
 ft_number_of_instructions.c\
 ft_algo_for_3_elem.c
-CHFILES=checker.c\
+CHECKER_SOURCES=checker.c\
 ft_stack_print.c\
 ft_stack_new.c\
 ft_stack_del.c\
@@ -110,37 +48,34 @@ ft_stack_swap.c\
 ft_stack_len.c\
 ft_delete_array.c\
 ft_checker_stack_print.c
-PSOBJECTS=$(PSFILES:.c=.o)
-CHOBJECTS=$(CHFILES:.c=.o)
-LIBOBJECTS=$(LIBFILES:.c=.o)
-PSOBJSDIR=$(addprefix src/, $(PSOBJECTS))
-CHOBJSDIR=$(addprefix src/, $(CHOBJECTS))
-LIBOBJDIR=$(addprefix libft/, $(LIBOBJECTS))
+PUSH_SWAP_SRCS=$(addprefix $(DIR_S)/, $(PUSH_SWAP_SOURCES))
+PUSH_SWAP_OBJS=$(addprefix $(DIR_O)/, $(PUSH_SWAP_SOURCES:.c=.o))
+CHECKER_SRCS=$(addprefix $(DIR_S)/, $(CHECKER_SOURCES))
+CHECKER_OBJS=$(addprefix $(DIR_O)/, $(CHECKER_SOURCES:.c=.o))
 
-all: $(PSNAME) $(CHNAME) libft/$(LIBNAME)
+all: $(PUSH_SWAP_NAME) $(CHECKER_NAME)
 
-$(PSNAME): $(PSOBJSDIR) libft/$(LIBNAME)
-	$(CC) $(CPPFLAGS) $(PSOBJSDIR) -Llibft -lft -o $(PSNAME)
+$(PUSH_SWAP_NAME): $(PUSH_SWAP_OBJS)
+	@make -C libft
+	@$(C) $(FLAGS) $(PUSH_SWAP_OBJS) -Llibft -lft -o $(PUSH_SWAP_NAME)
 
-$(CHNAME): $(CHOBJSDIR) libft/$(LIBNAME)
-	$(CC) $(CPPFLAGS) $(CHOBJSDIR) -Llibft -lft -o $(CHNAME)
+$(CHECKER_NAME): $(CHECKER_OBJS)
+	@make -C libft
+	@$(C) $(FLAGS) $(CHECKER_OBJS) -Llibft -lft -o $(CHECKER_NAME)
 
-$(LIBNAME): libft/$(LIBNAME)
-
-libft/$(LIBNAME): $(LIBOBJDIR)
-	ar rc libft/$(LIBNAME) $(LIBOBJDIR)
-	ranlib libft/$(LIBNAME)
+$(DIR_O)/%.o: $(DIR_S)/%.c
+	@mkdir -p $(DIR_O)
+	@$(C) $(FLAGS) -I$(HEADER) -c $< -o $@
 
 clean:
-	make -C libft/ clean
-	rm -f $(PSOBJSDIR)
-	rm -f $(CHOBJSDIR)
+	@make clean -C libft
+	@rm -rf $(DIR_O)
 
-fclean:clean
-	make -C libft/ fclean
-	rm -f $(PSNAME)
-	rm -f $(CHNAME)
+fclean: clean
+	@make fclean -C libft
+	@rm -f $(PUSH_SWAP_NAME)
+	@rm -f $(CHECKER_NAME)
 
 re: fclean all
 
-.PHONY: clean fclean
+.PHONY: all clean fclean re
