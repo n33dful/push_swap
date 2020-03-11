@@ -54,7 +54,7 @@ int				ft_stack_indexing(t_data *data)
 	if (ft_lstlen(data->stack_a) != ft_lstlen(lst_ofpointers))
 	{
 		ft_lstdel(&lst_ofpointers, del_stack_elem);
-		return (NULL);
+		return (0);
 	}
 	ft_lstsort(&lst_ofpointers, ft_numssort);
 	ft_lstiter(lst_ofpointers, ft_setindex);

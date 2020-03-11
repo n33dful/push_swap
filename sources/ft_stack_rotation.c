@@ -12,16 +12,31 @@
 
 #include "push_swap.h"
 
-static int	ft_stack_push(t_list **stack_from, t_list **stack_to)
+static int	ft_stack_push(int mode, t_data *data)
 {
+	t_list	**from;
+	t_list	**to;
 	t_list	*tmp;
 
-	if ((*stack_from))
+	if (mode == push_to_stack_a)
+		from = &(data->stack_b);
+	else if (mode == swap_stack_b)
+		from = &(data->stack_a);
+	to = (*from) == data->stack_a ? &(data->stack_b) : &(data->stack_a);
+	if ((*from))
 	{
-		tmp = (*stack_from);
-		(*stack_from) = (*stack_from)->next;
-		tmp->next = (*stack_to);
-		(*stack_to) = tmp;
+		tmp = (*from);
+		(*from) = (*from)->next;
+		tmp->next = (*to);
+		(*to) = tmp;
+		if (mode == push_to_stack_a)
+			data->stack_a_len++;
+		else if (mode == push_to_stack_b)
+			data->stack_b_len++;
+		if (mode == push_to_stack_a && data->stack_a_len)
+			data->stack_a_len--;
+		else if (mode == push_to_stack_b && data->stack_b_len)
+			data->stack_b_len--;
 	}
 	return (1);
 }
@@ -81,7 +96,7 @@ static int	ft_stack_reverse_rotate(t_list **stack)
 	return (1);
 }
 
-int			ft_stack_command(int mode, const char *cmd, t_data *data)
+int			ft_stack_rotation(int mode, const char *cmd, t_data *data)
 {
 	int	status;
 
@@ -91,9 +106,9 @@ int			ft_stack_command(int mode, const char *cmd, t_data *data)
 	if (ft_strequ(cmd, "ss") || ft_strequ(cmd, "sb"))
 		status = ft_stack_swap(&(data->stack_b));
 	if (ft_strequ(cmd, "pa"))
-		status = ft_stack_push(&(data->stack_b), &(data->stack_a));
+		status = ft_stack_push(push_to_stack_a, data);
 	if (ft_strequ(cmd, "pb"))
-		status = ft_stack_push(&(data->stack_a), &(data->stack_b));
+		status = ft_stack_push(push_to_stack_b, data);
 	if (ft_strequ(cmd, "rr") || ft_strequ(cmd, "ra"))
 		status = ft_stack_rotate(&(data->stack_a));
 	if (ft_strequ(cmd, "rr") || ft_strequ(cmd, "rb"))

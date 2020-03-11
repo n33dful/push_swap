@@ -12,28 +12,16 @@
 
 #include "push_swap.h"
 
-void		ft_prnt(t_list *elem)
-{
-	t_selem	*stack_elem;
-
-	stack_elem = elem->content;
-	ft_putstr("number is: ");
-	ft_putnbr(stack_elem->number);
-	ft_putstr(" keep in stack a: ");
-	ft_putnbr(stack_elem->keep);
-	ft_putchar('\n');
-}
-
 static int	ft_swap_required(t_data *data)
 {
 	int		saved;
 
 	saved = data->markup->saved;
-	ft_stack_command(without_print, "sa", data);
+	ft_stack_rotation(without_print, "sa", data);
 	ft_stack_markup_head(data);
 	if (saved < data->markup->saved)
 		return (1);
-	ft_stack_command(without_print, "sa", data);
+	ft_stack_rotation(without_print, "sa", data);
 	ft_stack_markup_head(data);
 	return (0);
 }
@@ -56,12 +44,8 @@ void		ft_stack_divorce(t_data *data)
 		if (ft_swap_required(data))
 			ft_putendl("sa");
 		else if (!((t_selem *)data->stack_a->content)->keep)
-			ft_stack_command(with_print, "pb", data);
+			ft_stack_rotation(with_print, "pb", data);
 		else
-			ft_stack_command(with_print, "ra", data);
-		//ft_putstr("max elem is: ");
-		//ft_putnbr(((t_selem *)data->markup->markup_head->content)->number);
-		//ft_putchar('\n');
-		//ft_lstiter(data->stack_a, ft_prnt);
+			ft_stack_rotation(with_print, "ra", data);
 	}
 }

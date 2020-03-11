@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC=gcc 
-CCFLAGS=-g
+CCFLAGS=-Wall -Wextra -Werror
 DFLAGS=-MD
 PUSH_SWAP_NAME=push_swap
 CHECKER_NAME=checker
@@ -28,12 +28,19 @@ ft_stack_divorce.c\
 ft_stack_markup_elem.c\
 ft_stack_markup_head.c\
 ft_stack_markup_amount.c\
-ft_stack_markup.c
+ft_stack_markup.c\
+ft_stack_wedding.c\
+ft_stack_wedding_update.c\
+ft_stack_wedding_elem.c\
+ft_stack_wedding_markup.c\
+ft_stack_wedding_markup_elem.c\
+ft_data.c
 CHECKER_SOURCES=checker.c\
 ft_stack_print.c\
 ft_stack_new.c\
 ft_stack_rotation.c\
-del_stack_elem.c
+del_stack_elem.c\
+ft_data.c
 PUSH_SWAP_SRCS=$(addprefix $(DIR_S)/, $(PUSH_SWAP_SOURCES))
 PUSH_SWAP_OBJS=$(addprefix $(DIR_O)/, $(PUSH_SWAP_SOURCES:.c=.o))
 CHECKER_SRCS=$(addprefix $(DIR_S)/, $(CHECKER_SOURCES))

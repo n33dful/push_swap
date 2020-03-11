@@ -40,7 +40,7 @@ static int	ft_mirror_instructions(int flag_v, t_data *data)
 	line = NULL;
 	while ((gnl_status = get_next_line(0, &line)) > 0)
 	{
-		if (!ft_stack_command(without_print, line, data))
+		if (!ft_stack_rotation(without_print, line, data))
 		{
 			ft_strdel(&line);
 			return (0);
@@ -64,40 +64,6 @@ static int	ft_parse_flags(int *argc, char ***argv)
 		return (1);
 	}
 	return (0);
-}
-
-static int	ft_program_completion(int code, t_list **stack_a, t_list **stack_b)
-{
-	if (stack_a)
-		ft_lstdel(stack_a, del_stack_elem);
-	if (stack_b)
-		ft_lstdel(stack_b, del_stack_elem);
-	if (code == -1)
-		ft_putendl_fd("Error", 2);
-	return (code);
-}
-
-static void	ft_del_data(t_data *data)
-{
-	if (data->stack_a)
-		ft_lstdel(&(data->stack_a), del_stack_elem);
-	if (data->stack_b)
-		ft_lstdel(&(data->stack_b), del_stack_elem);
-	if (data->sorted)
-		ft_lstdel(&(data->sorted), del_stack_elem);
-	if (data->markup)
-		ft_memdel((void *)(&data->markup));
-}
-
-static void	ft_init_data(t_data *data)
-{
-	data->markup = NULL;
-	data->stack_a = NULL;
-	data->stack_b = NULL;
-	data->sorted = NULL;
-	data->stack_a_len = 0;
-	data->stack_b_len = 0;
-	data->exit_code = 0;
 }
 
 int			main(int argc, char **argv)

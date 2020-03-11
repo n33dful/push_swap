@@ -52,7 +52,7 @@ static t_markup	*ft_find_markup_head(int mode, t_data *data)
 	{
 		ft_stack_markup_elem(markup->mode, data->stack_a);
 		ft_update(markup, data->stack_a);
-		ft_stack_command(without_print, "ra", data);
+		ft_stack_rotation(without_print, "ra", data);
 	}
 	return (markup);
 }

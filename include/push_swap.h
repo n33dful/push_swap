@@ -21,13 +21,24 @@ void		ft_stack_divorce(t_data *data);
 int			ft_stack_new(int argc, char **argv, t_data *data);
 int			ft_stack_indexing(t_data *data);
 
-int			ft_stack_command(int mode, const char *cmd, t_data *data);
+int			ft_stack_rotation(int mode, const char *cmd, t_data *data);
 
 int			ft_stack_markup(t_data *data);
 void		ft_stack_markup_elem(int mode, t_list *stack);
 void	    ft_stack_markup_head(t_data *data);
 int			ft_stack_markup_amount(t_list *stack);
 
+void		ft_stack_wedding(t_data *data);
+void		ft_stack_wedding_update(t_data *data);
+void		ft_stack_wedding_elem(t_selem *stack_elem, t_data *data);
+void		ft_stack_wedding_markup(t_data *data);
+void		ft_stack_wedding_markup(t_data *data);
+void		ft_stack_wedding_markup_elem(int best_mode, \
+int turns_compare[4], t_selem *stack_elem);
+
 void    	del_stack_elem(void *content, size_t content_size);
+
+void	    ft_init_data(t_data *data);
+void	    ft_del_data(t_data *data);
 
 #endif
