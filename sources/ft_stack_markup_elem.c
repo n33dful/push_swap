@@ -7,15 +7,17 @@ static int	*markup_func(int mode, t_selem *stack_elem)
 
 	if (stack_elem)
 	{
-		if (mode == by_index_markup_mode && stack_elem->index == last_elem + 1)
+		if (mode == markup_by_index && \
+		stack_elem->index == last_elem + 1)
 		{
 			stack_elem->keep = 1;
 			last_elem = stack_elem->index;
 		}
-		else if (mode == by_number_markup_mode && stack_elem->number > last_elem)
+		else if (mode == markup_by_number && \
+		stack_elem->number > last_elem)
 		{
 			stack_elem->keep = 1;
-			last_elem = stack_elem->index;
+			last_elem = stack_elem->number;
 		}
 		else
 			stack_elem->keep = 0;
@@ -25,9 +27,9 @@ static int	*markup_func(int mode, t_selem *stack_elem)
 
 void		ft_stack_markup_elem(int mode, t_list *stack)
 {
-	if (mode == by_number_markup_mode)
+	if (mode == markup_by_number)
 		*markup_func(0, NULL) = ((t_selem *)stack->content)->number;
-	else if (mode == by_index_markup_mode)
+	else if (mode == markup_by_index)
 		*markup_func(0, NULL) = ((t_selem *)stack->content)->index;
 	((t_selem *)stack->content)->keep = 1;
 	stack = stack->next;

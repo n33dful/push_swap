@@ -37,7 +37,7 @@ static t_markup	*ft_markup_init(void)
 	return (markup);
 }
 
-static t_markup	*ft_find_markup_head(int mode, t_list **stack)
+static t_markup	*ft_find_markup_head(int mode, t_data *data)
 {
 	t_markup	*markup;
 	size_t		stack_len;
@@ -46,25 +46,25 @@ static t_markup	*ft_find_markup_head(int mode, t_list **stack)
 	if (!(markup = ft_markup_init()))
 		return (NULL);
 	i = 0;
-	stack_len = ft_lstlen((*stack));
+	stack_len = ft_lstlen(data->stack_a);
 	markup->mode = mode;
 	while (i++ < stack_len)
 	{
-		ft_stack_markup_elem(markup->mode, (*stack));
-		ft_update(markup, (*stack));
-		ft_stack_rotate(stack);
+		ft_stack_markup_elem(markup->mode, data->stack_a);
+		ft_update(markup, data->stack_a);
+		ft_stack_command(without_print, "ra", data);
 	}
 	return (markup);
 }
 
-static t_markup	*ft_markup_del(t_markup **markup_to_del)
+static int		ft_markup_del(t_markup **markup_to_del)
 {
 	if (markup_to_del && (*markup_to_del))
 		ft_memdel((void *)markup_to_del);
-	return (NULL);
+	return (0);
 }
 
-t_markup		*ft_stack_markup(t_list **stack)
+int				ft_stack_markup(t_data *data)
 {
 	t_markup	*choosen;
 	t_markup	*by_number;
@@ -72,9 +72,9 @@ t_markup		*ft_stack_markup(t_list **stack)
     int         first_index;
     int         second_index;
 
-	if (!(by_index = ft_find_markup_head(by_index_markup_mode, stack)))
-		return (NULL);
-	if (!(by_number = ft_find_markup_head(by_number_markup_mode, stack)))
+	if (!(by_index = ft_find_markup_head(markup_by_index, data)))
+		return (0);
+	if (!(by_number = ft_find_markup_head(markup_by_number, data)))
 		return (ft_markup_del(&by_index));
     first_index = ((t_selem *)by_index->markup_head->content)->index;
     second_index = ((t_selem *)by_number->markup_head->content)->index;
@@ -86,7 +86,8 @@ t_markup		*ft_stack_markup(t_list **stack)
 		choosen = by_index;
 	else
 		choosen = by_number;
+	data->markup = choosen;
 	ft_markup_del(choosen == by_index ? &by_number : &by_index);
-	ft_stack_markup_head(choosen, stack);
-	return (choosen);
+	ft_stack_markup_head(data);
+	return (1);
 }

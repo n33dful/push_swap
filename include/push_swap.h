@@ -16,20 +16,16 @@
 # include "../library/incl/libft.h"
 # include "push_swap_strusts.h"
 
-int			ft_stack_divorce(t_list **stack_a, t_list **stack_b);
+void		ft_stack_divorce(t_data *data);
 
-t_list		*ft_stack_new(int ac, char **av);
-int			ft_stack_indexing(t_list *stack);
+int			ft_stack_new(int argc, char **argv, t_data *data);
+int			ft_stack_indexing(t_data *data);
 
-void		ft_stack_push(t_list **stack_from, t_list **stack_to);
-void		ft_stack_rotate(t_list **stack);
-void		ft_stack_reverse_rotate(t_list **stack);
-void		ft_stack_swap(t_list **stack);
-int			ft_stack_command(int mode, char *cmd, t_list **stack_a, t_list **stack_b);
+int			ft_stack_command(int mode, const char *cmd, t_data *data);
 
-t_markup	*ft_stack_markup(t_list **stack);
-void		ft_stack_markup_head(t_markup *markup, t_list **stack);
+int			ft_stack_markup(t_data *data);
 void		ft_stack_markup_elem(int mode, t_list *stack);
+void	    ft_stack_markup_head(t_data *data);
 int			ft_stack_markup_amount(t_list *stack);
 
 void    	del_stack_elem(void *content, size_t content_size);

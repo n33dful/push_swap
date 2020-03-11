@@ -12,51 +12,56 @@
 
 #include "push_swap.h"
 
-static int	ft_swap_required(t_markup *markup, t_list **stack)
+void		ft_prnt(t_list *elem)
+{
+	t_selem	*stack_elem;
+
+	stack_elem = elem->content;
+	ft_putstr("number is: ");
+	ft_putnbr(stack_elem->number);
+	ft_putstr(" keep in stack a: ");
+	ft_putnbr(stack_elem->keep);
+	ft_putchar('\n');
+}
+
+static int	ft_swap_required(t_data *data)
 {
 	int		saved;
 
-	saved = markup->saved;
-	ft_stack_swap(stack);
-	ft_stack_markup_head(markup, stack);
-	if (saved < markup->saved)
+	saved = data->markup->saved;
+	ft_stack_command(without_print, "sa", data);
+	ft_stack_markup_head(data);
+	if (saved < data->markup->saved)
 		return (1);
-	ft_stack_swap(stack);
-	ft_stack_markup_head(markup, stack);
+	ft_stack_command(without_print, "sa", data);
+	ft_stack_markup_head(data);
 	return (0);
 }
 
-static int	ft_check_notdeivorsed(t_list *stack)
+static int	ft_check_not_deivorsed(t_list *stack)
 {
-	t_selem	*elem;
-
 	while (stack)
 	{
-		elem = stack->content;
-		if (elem->keep == 0)
+		if (!((t_selem *)stack->content)->keep)
 			return (1);
 		stack = stack->next;
 	}
 	return (0);
 }
 
-int			ft_stack_divorce(t_list **stack_a, t_list **stack_b)
+void		ft_stack_divorce(t_data *data)
 {
-	t_markup	*markup;
-	t_selem		*stack_elem;
-
-	if (!(markup = ft_stack_markup(stack_a)))
-		return (0);
-	while (ft_check_notdeivorsed((*stack_a)))
+	while (ft_check_not_deivorsed(data->stack_a))
 	{
-		stack_elem = (*stack_a)->content;
-		if (ft_swap_required(markup, stack_a))
+		if (ft_swap_required(data))
 			ft_putendl("sa");
-		else if (!stack_elem->keep)
-			ft_stack_command(print_mode, "pb", stack_a, stack_b);
+		else if (!((t_selem *)data->stack_a->content)->keep)
+			ft_stack_command(with_print, "pb", data);
 		else
-			ft_stack_command(print_mode, "ra", stack_a, stack_b);
+			ft_stack_command(with_print, "ra", data);
+		//ft_putstr("max elem is: ");
+		//ft_putnbr(((t_selem *)data->markup->markup_head->content)->number);
+		//ft_putchar('\n');
+		//ft_lstiter(data->stack_a, ft_prnt);
 	}
-	ft_memdel((void *)(&markup));
-	return (1);
 }

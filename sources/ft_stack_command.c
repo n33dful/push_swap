@@ -1,12 +1,20 @@
 
 #include "push_swap.h"
 
-int	ft_stack_command(int mode, char *cmd, t_list **stack_a, t_list **stack_b)
+static int	ft_check_rotation_cmd(const char *cmd)
 {
-	char	*available_commands;
+	if (ft_strequ(cmd, "sa") || ft_strequ(cmd, "sb") || \
+ft_strequ(cmd, "ss") || ft_strequ(cmd, "pa") || ft_strequ(cmd, "pb") || \
+ft_strequ(cmd, "ra") || ft_strequ(cmd, "rb") || ft_strequ(cmd, "rr") || \
+ft_strequ(cmd, "rra") || ft_strequ(cmd, "rrb") || ft_strequ(cmd, "rrr"))
+		return (1);
+	return (0);
+}
 
-	available_commands = "sasbssrarbrrpapbrrarrbrrr";
-	if (!ft_strlen(cmd) || !ft_strstr(available_commands, cmd))
+int			ft_stack_command(int mode, char *cmd, \
+t_list **stack_a, t_list **stack_b)
+{
+	if (!ft_check_rotation_cmd(cmd))
 		return (0);
 	if (ft_strequ(cmd, "ss") || ft_strequ(cmd, "sa"))
 		ft_stack_swap(stack_a);
@@ -24,7 +32,7 @@ int	ft_stack_command(int mode, char *cmd, t_list **stack_a, t_list **stack_b)
 		ft_stack_reverse_rotate(stack_a);
 	if (ft_strequ(cmd, "rrr") || ft_strequ(cmd, "rrb"))
 		ft_stack_reverse_rotate(stack_b);
-	if (mode == print_mode)
+	if (mode == with_print)
 		ft_putendl(cmd);
 	return (1);
 }

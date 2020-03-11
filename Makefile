@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC=gcc 
-CCFLAGS=-Wall -Wextra -Werror
+CCFLAGS=-g
 DFLAGS=-MD
 PUSH_SWAP_NAME=push_swap
 CHECKER_NAME=checker
@@ -22,13 +22,9 @@ LIB_DIR=library
 PUSH_SWAP_SOURCES=push_swap.c\
 ft_stack_new.c\
 del_stack_elem.c\
-ft_stack_push.c\
-ft_stack_rotate.c\
-ft_stack_reverse_rotate.c\
-ft_stack_swap.c\
+ft_stack_rotation.c\
 ft_stack_indexing.c\
 ft_stack_divorce.c\
-ft_stack_command.c\
 ft_stack_markup_elem.c\
 ft_stack_markup_head.c\
 ft_stack_markup_amount.c\
@@ -36,11 +32,7 @@ ft_stack_markup.c
 CHECKER_SOURCES=checker.c\
 ft_stack_print.c\
 ft_stack_new.c\
-ft_stack_push.c\
-ft_stack_reverse_rotate.c\
-ft_stack_rotate.c\
-ft_stack_swap.c\
-ft_stack_command.c\
+ft_stack_rotation.c\
 del_stack_elem.c
 PUSH_SWAP_SRCS=$(addprefix $(DIR_S)/, $(PUSH_SWAP_SOURCES))
 PUSH_SWAP_OBJS=$(addprefix $(DIR_O)/, $(PUSH_SWAP_SOURCES:.c=.o))
