@@ -20,7 +20,7 @@ static int	ft_stack_push(int mode, t_data *data)
 
 	if (mode == push_to_stack_a)
 		from = &(data->stack_b);
-	else if (mode == swap_stack_b)
+	else
 		from = &(data->stack_a);
 	to = (*from) == data->stack_a ? &(data->stack_b) : &(data->stack_a);
 	if ((*from))
