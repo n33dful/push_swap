@@ -7,14 +7,12 @@ static int	*markup_func(int mode, t_selem *stack_elem)
 
 	if (stack_elem)
 	{
-		if (mode == markup_by_index && \
-		stack_elem->index == last_elem + 1)
+		if (mode == markup_by_index && stack_elem->index == last_elem + 1)
 		{
 			stack_elem->keep = 1;
 			last_elem = stack_elem->index;
 		}
-		else if (mode == markup_by_number && \
-		stack_elem->number > last_elem)
+		else if (mode == markup_by_number && stack_elem->number > last_elem)
 		{
 			stack_elem->keep = 1;
 			last_elem = stack_elem->number;

@@ -14,13 +14,11 @@
 
 static void	ft_align_stack(t_data *data)
 {
-	size_t	mid_index;
 	size_t	index;
 	char	*cmd;
 
 	index = ((t_selem *)data->stack_a->content)->index;
-	mid_index = ft_lstlen(data->stack_a) / 2;
-	cmd = index <= mid_index ? "rra" : "ra";
+	cmd = index <= data->stack_a_len / 2 ? "rra" : "ra";
 	while (((t_selem *)data->stack_a->content)->index != 0)
 		ft_stack_rotation(with_print, cmd, data);
 }
@@ -29,7 +27,7 @@ int			main(int argc, char **argv)
 {
 	t_data	data;
 
-	ft_init_data(&data);
+	ft_data_struct_init(&data);
 	if (argc > 1)
 	{
 		if (!ft_stack_new(argc, argv, &data))
@@ -45,7 +43,7 @@ int			main(int argc, char **argv)
 			ft_align_stack(&data);
 		}
 	}
-	ft_del_data(&data);
+	ft_data_struct_del(&data);
 	if (data.exit_code == -1)
 		ft_putendl("Error");
 	return (data.exit_code);

@@ -60,7 +60,7 @@ static int	ft_parse_flags(int *argc, char ***argv)
 	if (ft_strequ((*argv)[1], "-v"))
 	{
 		*argc -= 1;
-		*argv +=1;
+		*argv += 1;
 		return (1);
 	}
 	return (0);
@@ -71,19 +71,20 @@ int			main(int argc, char **argv)
 	t_data	data;
 	int		flag_v;
 
-	ft_init_data(&data);
-	if (argc == 1)
-		return (0);
-	flag_v = ft_parse_flags(&argc, &argv);
-	if (!ft_stack_new(argc, argv, &data))
-		data.exit_code = -1;
-	else if (!ft_mirror_instructions(flag_v, &data))
-		data.exit_code = -1;
-	else if (ft_stack_sorted(data.stack_a, data.stack_b))
-		ft_putendl("\033[1;32mOK\033[0m");
-	else
-		ft_putendl("\033[1;31mKO\033[0m");
-	ft_del_data(&data);
+	ft_data_struct_init(&data);
+	if (argc > 1)
+	{
+		flag_v = ft_parse_flags(&argc, &argv);
+		if (!ft_stack_new(argc, argv, &data))
+			data.exit_code = -1;
+		else if (!ft_mirror_instructions(flag_v, &data))
+			data.exit_code = -1;
+		else if (ft_stack_sorted(data.stack_a, data.stack_b))
+			ft_putendl("\033[1;32mOK\033[0m");
+		else
+			ft_putendl("\033[1;31mKO\033[0m");
+	}
+	ft_data_struct_del(&data);
 	if (data.exit_code == -1)
 		ft_putendl("Error");
 	return (data.exit_code);

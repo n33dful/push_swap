@@ -28,24 +28,36 @@ typedef enum			e_rotate_mode
 	rotate_stack_b
 }						t_rotate_mode;
 
-typedef	enum			e_swap_mode
+typedef enum			e_swap_mode
 {
 	swap_stack_a,
 	swap_stack_b
 }						t_swap_mode;
+
+typedef enum			e_reindexing_mode
+{
+	reindex_stack_a,
+	reindex_stack_b
+}						t_reindexing_mode;
+
+typedef enum			e_turns_to_top_markup
+{
+	rotates_to_top,
+	reverse_rotates_to_top
+}						t_turns_to_top_makrup;
 
 typedef enum			e_wedding_mode
 {
 	up_and_up_mode,
 	down_and_down_mode,
 	up_and_down_mode,
-	down_and_up_mode,
-}						t_wmode;
+	down_and_up_mode
+}						t_wedding_mode;
 
 typedef struct			s_stack_elem
 {
-	int					index;
 	int					number;
+	int					index;
 	int					keep;
 	int					rotates_to_top;
 	int					reverse_rotates_to_top;
@@ -64,15 +76,25 @@ typedef struct			s_markup
 	int					mode;
 }						t_markup;
 
+typedef struct			s_wedding_struct
+{
+	int					turns_compare[4];
+	int					best_mode;
+	t_list				*stack;
+	t_selem				*stack_elem;
+}						t_wedding;
+
 typedef struct			s_data
 {
-	t_markup			*markup;
+	int					exit_code;
+	t_markup			*chosen;
+	t_markup			*by_index;
+	t_markup			*by_number;
 	t_list				*stack_a;
 	t_list				*stack_b;
-	t_list				*sorted;
 	size_t				stack_a_len;
 	size_t				stack_b_len;
-	int					exit_code;
+	t_list				*sorted;
 }						t_data;
 
 #endif

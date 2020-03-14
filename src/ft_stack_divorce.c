@@ -16,10 +16,10 @@ static int	ft_swap_required(t_data *data)
 {
 	int		saved;
 
-	saved = data->markup->saved;
+	saved = data->chosen->saved;
 	ft_stack_rotation(without_print, "sa", data);
 	ft_stack_markup_head(data);
-	if (saved < data->markup->saved)
+	if (saved < data->chosen->saved)
 		return (1);
 	ft_stack_rotation(without_print, "sa", data);
 	ft_stack_markup_head(data);

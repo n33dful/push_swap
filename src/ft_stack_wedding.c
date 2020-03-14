@@ -35,40 +35,6 @@ static void		ft_nullify_trash(t_list *stack)
 	stack_elem->wedding_mode = -1;
 }
 
-static void     ft_lstloop_create(t_list *lst)
-{
-	t_list	*pointer;
-
-	if (lst)
-	{
-		pointer = lst;
-		while (lst->next != NULL)
-		{
-			if (lst->next == pointer)
-				return ;
-			lst = lst->next;
-		}
-		lst->next = pointer;
-	}
-}
-
-static void	    ft_lstloop_break(t_list *lst)
-{
-	t_list	*pointer;
-
-	if (lst)
-	{
-		pointer = lst;
-		while (lst->next != pointer)
-		{
-			if (lst->next == NULL)
-				return ;
-			lst = lst->next;
-		}
-		lst->next = NULL;
-	}
-}
-
 void			ft_stack_wedding(t_data *data)
 {
 	ft_lstloop_create(data->sorted);
@@ -80,6 +46,6 @@ void			ft_stack_wedding(t_data *data)
 		ft_stack_rotation(with_print, "pa", data);
 		ft_stack_wedding_update(data);
 	}
-	ft_lstloop_break(data->sorted);
 	ft_lstiter(data->stack_a, ft_nullify_trash);
+	ft_lstloop_break(data->sorted);
 }

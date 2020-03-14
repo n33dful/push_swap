@@ -44,6 +44,8 @@ ft_lstdel.c\
 ft_lstdelone.c\
 ft_lstiter.c\
 ft_lstlen.c\
+ft_lstloop_break.c\
+ft_lstloop_create.c\
 ft_lstmap.c\
 ft_lstmove.c\
 ft_lstnew.c\
@@ -114,23 +116,23 @@ $(NAME): $(ALL_OBJECTS)
 
 $(DIR_O)/%.o: $(DIR_S)/$(DIR_INT)/%.c
 	@mkdir -p $(DIR_O)
-	$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H) -c $< -o $@
+	@$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H) -c $< -o $@
 
 $(DIR_O)/%.o: $(DIR_S)/$(DIR_LST)/%.c
 	@mkdir -p $(DIR_O)
-	$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H) -c $< -o $@
+	@$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H) -c $< -o $@
 
 $(DIR_O)/%.o: $(DIR_S)/$(DIR_MEM)/%.c
 	@mkdir -p $(DIR_O)
-	$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H) -c $< -o $@
+	@$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H) -c $< -o $@
 
 $(DIR_O)/%.o: $(DIR_S)/$(DIR_STR)/%.c
 	@mkdir -p $(DIR_O)
-	$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H) -c $< -o $@
+	@$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H) -c $< -o $@
 
 $(DIR_O)/%.o: $(DIR_S)/$(DIR_GNL)/%.c
 	@mkdir -p $(DIR_O)
-	$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H) -c $< -o $@
+	@$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H) -c $< -o $@
         
 -include $(D_OBJECTS)
 

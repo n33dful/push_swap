@@ -48,16 +48,13 @@ static void		ft_setindex(t_list *list)
 
 int				ft_stack_indexing(t_data *data)
 {
-	t_list	*lst_ofpointers;
-
-	lst_ofpointers = ft_lstmap(data->stack_a, ft_lstpointercpy);
-	if (ft_lstlen(data->stack_a) != ft_lstlen(lst_ofpointers))
+	data->sorted = ft_lstmap(data->stack_a, ft_lstpointercpy);
+	if (data->stack_a_len != ft_lstlen(data->sorted))
 	{
-		ft_lstdel(&lst_ofpointers, del_stack_elem);
+		ft_lstdel(&data->sorted, ft_stack_elem_del);
 		return (0);
 	}
-	ft_lstsort(&lst_ofpointers, ft_numssort);
-	ft_lstiter(lst_ofpointers, ft_setindex);
-	data->sorted = lst_ofpointers;
+	ft_lstsort(&data->sorted, ft_numssort);
+	ft_lstiter(data->sorted, ft_setindex);
 	return (1);
 }

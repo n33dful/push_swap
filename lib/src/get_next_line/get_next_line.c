@@ -66,20 +66,14 @@ int			get_next_line(const int fd, char **line)
 	while (all[fd][i] != '\n' && all[fd][i] != '\0')
 		i++;
 	*line = ft_strsub(all[fd], 0, i);
-	if (ft_strlen(all[fd]) == 0)
+	if (all[fd][i] == '\0')
 	{
-		ft_strdel(&(all[fd]));
+		ft_strdel(&all[fd]);
 		return (0);
 	}
+	else if (i + 1 == ft_strlen(all[fd]))
+		ft_strdel(&all[fd]);
 	else
-	{
-		if (all[fd][i] == '\0')
-		{
-			ft_strdel(&all[fd]);
-			all[fd] = ft_strnew(0);
-		}
-		else
-			all[fd] = ft_strsub_free(all[fd], i + 1, ft_strlen(all[fd] + i));
-	}
+		all[fd] = ft_strsub_free(all[fd], i + 1, ft_strlen(all[fd] + i));
 	return (1);
 }

@@ -15,10 +15,8 @@
 static t_list	*ft_newstackelem(const char *str_num)
 {
 	t_selem	stack_elem;
-	t_list	*lst;
 
-	lst = NULL;
-	if (str_num && !ft_isinteger(str_num))
+	if (!str_num || !ft_isinteger(str_num))
 		return (NULL);
 	stack_elem.number = ft_atoi(str_num);
 	stack_elem.common_turns = 0;
@@ -31,9 +29,7 @@ static t_list	*ft_newstackelem(const char *str_num)
 	stack_elem.rotates_to_top = 0;
 	stack_elem.total_turns = 0;
 	stack_elem.wedding_mode = -1;
-	if (!(lst = ft_lstnew(&stack_elem, sizeof(t_selem))))
-		return (NULL);
-	return (lst);
+	return (ft_lstnew(&stack_elem, sizeof(t_selem)));
 }
 
 static void		ft_arrdel(char ***arr)
@@ -66,7 +62,7 @@ static t_list	*ft_parse_string(const char *str)
 		if (!(new = ft_newstackelem(arr[i++])))
 		{
 			ft_arrdel(&arr);
-			ft_lstdel(&stack, del_stack_elem);
+			ft_lstdel(&stack, ft_stack_elem_del);
 			return (NULL);
 		}
 		ft_lstadd_back(&stack, new);
@@ -113,14 +109,11 @@ int				ft_stack_new(int argc, char **argv, t_data *data)
 	while (i < argc)
 	{
 		if (!(new = ft_parse_string(argv[i++])))
-		{
-			ft_lstdel(&(data->stack_a), del_stack_elem);
 			return (0);
-		}
 		ft_lstadd_back(&(data->stack_a), new);
 	}
-	if (!ft_checkrepeats(data->stack_a))
-		ft_lstdel(&(data->stack_a), del_stack_elem);
 	data->stack_a_len = ft_lstlen(data->stack_a);
+	if (!ft_checkrepeats(data->stack_a))
+		return (0);
 	return (1);
 }
