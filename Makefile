@@ -17,6 +17,7 @@ PUSH_SWAP_NAME=push_swap
 CHECKER_NAME=checker
 DIR_S=src
 DIR_O=tmp
+DIR_H_LIB=lib/incl
 DIR_H=incl
 DIR_LIB=lib
 PUSH_SWAP_SOURCES=push_swap.c\
@@ -35,7 +36,8 @@ ft_stack_wedding_elem.c\
 ft_stack_wedding_markup.c\
 ft_stack_wedding_markup_elem.c\
 ft_data_struct_del.c\
-ft_data_struct_init.c
+ft_data_struct_init.c\
+ft_stack_print.c
 CHECKER_SOURCES=checker.c\
 ft_stack_print.c\
 ft_stack_new.c\
@@ -50,28 +52,28 @@ CHECKER_OBJS=$(addprefix $(DIR_O)/, $(CHECKER_SOURCES:.c=.o))
 D_OBJECTS=$(PUSH_SWAP_OBJS:.o=.d) $(CHECKER_OBJS:.o=.d)
 
 all: $(PUSH_SWAP_NAME) $(CHECKER_NAME)
-	@make -C $(DIR_LIB)
+	@make -C $(DIR_LIB) > /dev/null
 
 $(PUSH_SWAP_NAME): $(PUSH_SWAP_OBJS)
-	@make -C $(DIR_LIB)
+	@make -C $(DIR_LIB) > /dev/null
 	@$(CC) $(PUSH_SWAP_OBJS) -L$(DIR_LIB) -lft -o $(PUSH_SWAP_NAME)
 
 $(CHECKER_NAME): $(CHECKER_OBJS)
-	@make -C $(DIR_LIB)
+	@make -C $(DIR_LIB) > /dev/null
 	@$(CC) $(CHECKER_OBJS) -L$(DIR_LIB) -lft -o $(CHECKER_NAME)
 
 $(DIR_O)/%.o: $(DIR_S)/%.c
 	@mkdir -p $(DIR_O)
-	@$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H) -c $< -o $@
+	@$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H_LIB) -I$(DIR_H) -c $< -o $@
 
 -include $(D_OBJECTS)
 
 clean:
-	@make clean -C $(DIR_LIB)
+	@make clean -C $(DIR_LIB) > /dev/null
 	@rm -rf $(DIR_O)
 
 fclean: clean
-	@make fclean -C $(DIR_LIB)
+	@make fclean -C $(DIR_LIB) > /dev/null
 	@rm -f $(PUSH_SWAP_NAME)
 	@rm -f $(CHECKER_NAME)
 

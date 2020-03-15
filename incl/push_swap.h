@@ -13,7 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "../lib/incl/libft.h"
+# include "libft.h"
 # include "push_swap_strusts.h"
 
 int			ft_stack_new(int argc, char **argv, t_data *data);
