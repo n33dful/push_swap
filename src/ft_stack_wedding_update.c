@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_stack_wedding_update.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/15 23:32:23 by cdarci            #+#    #+#             */
+/*   Updated: 2020/03/15 23:44:40 by cdarci           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int		(*reindex_func(t_selem *stack_elem))[2]
+static int		*reindex_func(t_selem *stack_elem)
 {
 	static int	turns[2];
 
@@ -10,7 +21,7 @@ static int		(*reindex_func(t_selem *stack_elem))[2]
 		stack_elem->rotates_to_top = turns[rotates_to_top]++;
 		stack_elem->reverse_rotates_to_top = turns[reverse_rotates_to_top]--;
 	}
-	return (&turns);
+	return (turns);
 }
 
 static void		ft_reindexing(int mode, t_data *data)
@@ -22,11 +33,11 @@ static void		ft_reindexing(int mode, t_data *data)
 	stack = mode == reindex_stack_a ? data->stack_a : data->stack_b;
 	if (lenght)
 	{
-		(*reindex_func(NULL))[rotates_to_top] = 0;
+		reindex_func(NULL)[rotates_to_top] = 0;
 		if (lenght == 1)
-			(*reindex_func(NULL))[reverse_rotates_to_top] = 0;
+			reindex_func(NULL)[reverse_rotates_to_top] = 0;
 		else
-			(*reindex_func(NULL))[reverse_rotates_to_top] = lenght;
+			reindex_func(NULL)[reverse_rotates_to_top] = lenght;
 		while (stack)
 		{
 			reindex_func(stack->content);

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_stack_wedding_markup_elem.c                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/15 23:32:34 by cdarci            #+#    #+#             */
+/*   Updated: 2020/03/15 23:32:44 by cdarci           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -6,19 +17,19 @@ static int	ft_find_best_mode(int compare[4])
 	if (compare[up_and_up_mode] <= compare[down_and_down_mode] && \
 compare[up_and_up_mode] <= compare[up_and_down_mode] && \
 compare[up_and_up_mode] <= compare[down_and_up_mode])
-		return(up_and_up_mode);
+		return (up_and_up_mode);
 	if (compare[down_and_down_mode] <= compare[up_and_up_mode] && \
 compare[down_and_down_mode] <= compare[up_and_down_mode] && \
 compare[down_and_down_mode] <= compare[down_and_up_mode])
-		return(down_and_down_mode);
+		return (down_and_down_mode);
 	if (compare[up_and_down_mode] <= compare[up_and_up_mode] && \
 compare[up_and_down_mode] <= compare[down_and_down_mode] && \
 compare[up_and_down_mode] <= compare[down_and_up_mode])
-		return(up_and_down_mode);
+		return (up_and_down_mode);
 	if (compare[down_and_up_mode] <= compare[up_and_up_mode] && \
 compare[down_and_up_mode] <= compare[down_and_down_mode] && \
 compare[down_and_up_mode] <= compare[up_and_up_mode])
-		return(down_and_up_mode);
+		return (down_and_up_mode);
 	return (-1);
 }
 

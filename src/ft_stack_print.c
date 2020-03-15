@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 20:18:52 by cdarci            #+#    #+#             */
-/*   Updated: 2019/11/21 20:19:04 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/15 23:33:47 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_numlen(int num)
 static void	ft_putstacknum(t_list *stack)
 {
 	t_selem	*stack_elem;
-	int				i;
+	int		i;
 
 	i = 0;
 	stack_elem = stack->content;
