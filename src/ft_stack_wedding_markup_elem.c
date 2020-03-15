@@ -30,7 +30,8 @@ static void	ft_set_down_and_down_turns(t_selem *stack_elem)
 	rr_current = stack_elem->reverse_rotates_to_top;
 	rr_next = stack_elem->elem_after->reverse_rotates_to_top;
 	if (rr_current && rr_next)
-		stack_elem->common_turns = rr_current - rr_next;
+		stack_elem->common_turns = rr_current < rr_next ? \
+rr_current : rr_next;
 	else
 		stack_elem->common_turns = 0;
 	if (stack_elem->common_turns < 0)
@@ -47,7 +48,8 @@ static void	ft_set_up_and_up_turns(t_selem *stack_elem)
 	r_current = stack_elem->rotates_to_top;
 	r_next = stack_elem->elem_after->rotates_to_top;
 	if (r_current && r_next)
-		stack_elem->common_turns = r_current - r_next;
+		stack_elem->common_turns = r_current < r_next ? \
+r_current : r_next;
 	else
 		stack_elem->common_turns = 0;
 	if (stack_elem->common_turns < 0)
