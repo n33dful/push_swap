@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 21:26:55 by cdarci            #+#    #+#             */
-/*   Updated: 2020/09/05 00:03:59 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/11/15 21:59:07 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int			main(int argc, char **argv)
 	t_data	data;
 	char	flag_v;
 
-	ft_data_struct_init(&data);
+	ft_bzero(&data, sizeof(t_data));
 	if (argc > 1)
 	{
 		flag_v = ft_parse_flags(&argc, &argv);
@@ -81,7 +81,7 @@ int			main(int argc, char **argv)
 		else
 			ft_putendl_colored("KO", RED);
 	}
-	ft_data_struct_del(&data);
+	ft_data_cleaning(&data);
 	if (data.exit_code == 1)
 		ft_putendl_fd("Error", 2);
 	return (data.exit_code);

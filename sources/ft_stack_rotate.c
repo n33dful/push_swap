@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stack_rotate.c                                :+:      :+:    :+:   */
+/*   ft_stack_rotate.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:51:28 by cdarci            #+#    #+#             */
-/*   Updated: 2020/09/04 22:05:49 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/11/15 23:42:00 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 static char	ft_push_to(char const mode, t_data *data)
 {
 	t_list	**from;
+	t_list	*first;
 	t_list	**to;
-	t_list	*tmp;
 
 	from = (mode == A ? &(data->stack_b) : &(data->stack_a));
 	to = (mode == B ? &(data->stack_b) : &(data->stack_a));
 	if ((*from))
 	{
-		tmp = (*from);
+		first = (*from);
 		(*from) = (*from)->next;
-		tmp->next = (*to);
-		(*to) = tmp;
+		first->next = (*to);
+		(*to) = first;
 		data->stack_a_len += (mode == A ? 1 : -1);
 		data->stack_b_len += (mode == B ? 1 : -1);
 	}
@@ -35,15 +35,14 @@ static char	ft_push_to(char const mode, t_data *data)
 static char	ft_swap(char const mode, t_data *data)
 {
 	t_list	**stack;
-	t_list	*tmp;
+	t_list	*first;
 
 	stack = (mode == A ? &(data->stack_a) : &(data->stack_b));
-	if ((*stack) && (*stack)->next)
+	if ((*stack) && (first = (*stack))->next)
 	{
-		tmp = (*stack)->next;
-		(*stack)->next = (*stack)->next->next;
-		tmp->next = (*stack);
-		(*stack) = tmp;
+		(*stack) = (*stack)->next;
+		first->next = (*stack)->next;
+		(*stack)->next = first;
 	}
 	return (1);
 }
@@ -51,21 +50,14 @@ static char	ft_swap(char const mode, t_data *data)
 static char	ft_rotate(char const mode, t_data *data)
 {
 	t_list	**stack;
-	t_list	*tmp;
-	size_t	ptr;
+	t_list	*first;
 
-	tmp = NULL;
 	stack = (mode == A ? &(data->stack_a) : &(data->stack_b));
-	ptr = (size_t)(*stack);
-	if ((*stack))
+	if ((*stack) && (first = (*stack))->next)
 	{
-		while ((*stack)->next)
-			(*stack) = (*stack)->next;
-		(*stack)->next = (t_list *)ptr;
 		(*stack) = (*stack)->next;
-		tmp = (*stack)->next;
-		(*stack)->next = NULL;
-		(*stack) = tmp;
+		first->next = NULL;
+		ft_lstlast((*stack))->next = first;
 	}
 	return (1);
 }
@@ -73,22 +65,20 @@ static char	ft_rotate(char const mode, t_data *data)
 static char	ft_reverse_rotate(char const mode, t_data *data)
 {
 	t_list	**stack;
-	t_list	*tmp;
-	size_t	ptr;
+	t_list	*first;
+	t_list	*prev;
 
+	prev = NULL;
 	stack = (mode == A ? &(data->stack_a) : &(data->stack_b));
-	ptr = (size_t)(*stack);
-	if ((*stack))
+	if ((*stack) && (first = (*stack))->next)
 	{
 		while ((*stack)->next)
+		{
+			prev = (*stack);
 			(*stack) = (*stack)->next;
-		(*stack)->next = (t_list *)ptr;
-		ptr = (size_t)(*stack);
-		while ((*stack)->next != (t_list *)(ptr))
-			(*stack) = (*stack)->next;
-		tmp = (*stack)->next;
-		(*stack)->next = NULL;
-		(*stack) = tmp;
+		}
+		prev->next = NULL;
+		(*stack)->next = first;
 	}
 	return (1);
 }

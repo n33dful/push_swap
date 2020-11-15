@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 11:49:37 by cdarci            #+#    #+#             */
-/*   Updated: 2020/09/08 20:29:52 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/11/15 22:13:07 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@
 ** ********************** Functions For Working With Data **********************
 */
 
-void	ft_data_struct_del(t_data *data);
-void	ft_data_struct_init(t_data *data);
+void	ft_data_cleaning(t_data *data);
 
 /*
 ** ********************* Functions For Working With Stack **********************

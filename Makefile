@@ -6,13 +6,12 @@
 #    By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/05 18:11:23 by cdarci            #+#    #+#              #
-#    Updated: 2020/09/08 21:43:12 by cdarci           ###   ########.fr        #
+#    Updated: 2020/11/15 22:21:28 by cdarci           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC:=gcc
 CFLAGS:=-Wall -Wextra -Werror -MD
-RM=rm -rf
 
 # **************************************************************************** #
 
@@ -40,8 +39,7 @@ ft_stack_print.c
 
 # **************************************************************************** #
 
-BASIC_SRCS:=ft_data_struct_del.c\
-ft_data_struct_init.c\
+BASIC_SRCS:=ft_data_cleaning.c\
 ft_stack_new.c\
 ft_stack_rotate.c
 
@@ -50,22 +48,22 @@ ft_stack_rotate.c
 INCLUDES_FOLDER:=includes
 LIBRARY_FOLDER:=library
 SOURCES_FOLDER:=sources
-TEMPORARYS_FOLDER:=temporary
+TEMPORARY_FOLDER:=temporary
 
 # **************************************************************************** #
 
-INCLUDES_FOLDERS:=$(INCLUDES_FOLDER) $(LIBRARY_FOLDER)/$(INCLUDES_FOLDER)
+INCLUDES_FOLDER:=$(INCLUDES_FOLDER) $(LIBRARY_FOLDER)/$(INCLUDES_FOLDER)
 
 # **************************************************************************** #
 
-INCLUDES:=$(addprefix -I, $(INCLUDES_FOLDERS))
+INCLUDES:=$(addprefix -I, $(shell find $(INCLUDES_FOLDER) -type d))
 
 # **************************************************************************** #
 
-PROGRAM_OBJS:=$(addprefix $(TEMPORARYS_FOLDER)/, $(PUSH_SWAP_SRCS:.c=.o))
-PROGRAM_OBJS+=$(addprefix $(TEMPORARYS_FOLDER)/, $(BASIC_SRCS:.c=.o))
-CHECKER_OBJS:=$(addprefix $(TEMPORARYS_FOLDER)/, $(CHECKER_SRCS:.c=.o))
-CHECKER_OBJS+=$(addprefix $(TEMPORARYS_FOLDER)/, $(BASIC_SRCS:.c=.o))
+PROGRAM_OBJS:=$(addprefix $(TEMPORARY_FOLDER)/, $(PUSH_SWAP_SRCS:.c=.o))
+PROGRAM_OBJS+=$(addprefix $(TEMPORARY_FOLDER)/, $(BASIC_SRCS:.c=.o))
+CHECKER_OBJS:=$(addprefix $(TEMPORARY_FOLDER)/, $(CHECKER_SRCS:.c=.o))
+CHECKER_OBJS+=$(addprefix $(TEMPORARY_FOLDER)/, $(BASIC_SRCS:.c=.o))
 
 # **************************************************************************** #
 
@@ -77,8 +75,8 @@ $(PROGRAM_NAME): library $(PROGRAM_OBJS)
 $(CHECKER_NAME): library $(CHECKER_OBJS)
 	@$(CC) $(CHECKER_OBJS) -L$(LIBRARY_FOLDER) -lft -o $(CHECKER_NAME)
 
-$(TEMPORARYS_FOLDER)/%.o: $(SOURCES_FOLDER)/%.c
-	@mkdir -p $(TEMPORARYS_FOLDER)
+$(TEMPORARY_FOLDER)/%.o: $(SOURCES_FOLDER)/%.c
+	@mkdir -p $(TEMPORARY_FOLDER)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 -include $(PROGRAM_OBJS:.o=.d) $(CHECKER_OBJS:.o=.d)
@@ -88,11 +86,11 @@ library:
 
 clean:
 	@$(MAKE) clean -C $(LIBRARY_FOLDER)
-	@$(RM) $(TEMPORARYS_FOLDER)
+	@rm -rf $(TEMPORARY_FOLDER)
 
 fclean: clean
 	@$(MAKE) fclean -C $(LIBRARY_FOLDER)
-	@$(RM) $(PROGRAM_NAME) $(CHECKER_NAME)
+	@rm -rf $(PROGRAM_NAME) $(CHECKER_NAME)
 
 re: fclean all
 

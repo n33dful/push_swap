@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:16:20 by cdarci            #+#    #+#             */
-/*   Updated: 2020/09/04 22:39:39 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/11/15 22:01:30 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			main(int argc, char **argv)
 {
 	t_data	data;
 
-	ft_data_struct_init(&data);
+	ft_bzero(&data, sizeof(t_data));
 	if (argc > 1)
 	{
 		if (!ft_stack_new(argc, argv, &data))
@@ -44,7 +44,7 @@ int			main(int argc, char **argv)
 		else
 			ft_stack_sort(&data);
 	}
-	ft_data_struct_del(&data);
+	ft_data_cleaning(&data);
 	if (data.exit_code == 1)
 		ft_putendl_fd("Error", 2);
 	return (data.exit_code);
